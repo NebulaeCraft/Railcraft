@@ -288,6 +288,10 @@ MinecraftForge-License.txt
 /logs/
 lib/
 
+# Apple Silicon development natives required by the macOS ARM runClient setup.
+!gradle/macos-arm64-natives/
+!gradle/macos-arm64-natives/*.jar
+
 # Sub Modules
 release/
 private/

@@ -29,6 +29,9 @@ apply from: 'api-railcraft/gradle.properties', to: project.ext
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
+def isMacosArm = org.gradle.internal.os.OperatingSystem.current().isMacOsX() &&
+        ['aarch64', 'arm64'].contains(System.getProperty('os.arch').toLowerCase())
+
 group = "com.headlamp-games" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "railcraft"
 
@@ -99,9 +102,13 @@ def optimizedVmArgs = [
         "-XX:MaxTenuringThreshold=1"
 ]
 def assertionVmArgs = ['-ea:mods.railcraft...', '-ea:net.minecraft...', '-ea:net.minecraftforge...']
+def nativeVmArgs = isMacosArm ? [
+        '-Djava.library.path=' + file("$buildDir/natives").absolutePath,
+        '-Xbootclasspath/p:' + file("$buildDir/patches/apple-silicon-narrator.jar").absolutePath
+] : []
 def log4jVmArgs = ['-Dlog4j.configurationFile=' + new File(actualRunDir, 'log4j2.xml').toString()]
 def railcraftDebugArgs = ['-Drailcraft.log.categories=registry,models']
-def combinedVmArgs = [assertionVmArgs, optimizedVmArgs, log4jVmArgs, railcraftDebugArgs].flatten()
+def combinedVmArgs = [assertionVmArgs, optimizedVmArgs, nativeVmArgs, log4jVmArgs, railcraftDebugArgs].flatten()
 def extraEnvs = new LinkedHashMap() //['LOG4J_CONFIGURATION_FILE': "log4j2.xml"]
 
 minecraft {
@@ -177,10 +184,20 @@ repositories {
 
 configurations {
     api
+    macosArmNatives
     compileOnly.extendsFrom api
 }
 
+if (isMacosArm) {
+    configurations.all {
+        resolutionStrategy.force 'org.lwjgl.lwjgl:lwjgl:2.9.4-nightly-20150209'
+        resolutionStrategy.force 'org.lwjgl.lwjgl:lwjgl_util:2.9.4-nightly-20150209'
+        resolutionStrategy.force 'net.java.dev.jna:jna:5.13.0'
+    }
+}
+
 dependencies {
+    macosArmNatives fileTree(dir: 'gradle/macos-arm64-natives', include: ['*.jar'])
     // forestry
     compileOnly "net.sengir.forestry:forestry_${project.version_minecraft}:${project.version_forestry}:api"
     runtimeOnly "net.sengir.forestry:forestry_${project.version_minecraft}:${project.version_forestry}"
@@ -256,6 +273,58 @@ task copyLog4jConfig(type: Copy) {
     into actualRunDir
 }
 
+task copyMacosArmNatives(type: Copy) {
+    onlyIf {
+        isMacosArm
+    }
+    from {
+        configurations.macosArmNatives.collect { zipTree(it) }
+    }
+    include 'liblwjgl.dylib', 'openal.dylib', 'libjinput-osx.jnilib'
+    into "$buildDir/natives"
+}
+
+task compileAppleSiliconNarrator(type: JavaCompile) {
+    onlyIf {
+        isMacosArm
+    }
+    source = fileTree('src/appleSiliconPatch/java') {
+        include '**/*.java'
+    }
+    classpath = files()
+    destinationDir = file("$buildDir/classes/appleSiliconPatch")
+    sourceCompatibility = targetCompatibility = '1.8'
+    options.encoding = 'UTF-8'
+}
+
+task appleSiliconNarratorJar(dependsOn: compileAppleSiliconNarrator) {
+    onlyIf {
+        isMacosArm
+    }
+    inputs.dir compileAppleSiliconNarrator.destinationDir
+    outputs.file file("$buildDir/patches/apple-silicon-narrator.jar")
+    doLast {
+        def patchJar = file("$buildDir/patches/apple-silicon-narrator.jar")
+        patchJar.parentFile.mkdirs()
+        ant.jar(destfile: patchJar, basedir: compileAppleSiliconNarrator.destinationDir)
+    }
+}
+
+task prepareRunClient(dependsOn: [copyLog4jConfig, copyMacosArmNatives, appleSiliconNarratorJar])
+
+runClient.dependsOn prepareRunClient
+
+if (isMacosArm) {
+    // ForgeGradle 2.3 uses a retired HTTP asset endpoint and retries all 1305
+    // files on every launch. Existing cached assets are sufficient for dev.
+    getAssets.enabled = false
+}
+
+tasks.matching { it.name == 'extractNatives' }.all {
+    finalizedBy copyMacosArmNatives
+    copyMacosArmNatives.mustRunAfter it
+}
+
 tasks.withType(JavaExec) {
     dependsOn copyLog4jConfig
     environment extraEnvs
@@ -326,7 +395,6 @@ tasks.withType(Jar) {
     }
 
     exclude '**/Thumbs.db'
-
     into('mods/railcraft/api') {
         from project.dirApi + "/LICENSE.md"
     }
