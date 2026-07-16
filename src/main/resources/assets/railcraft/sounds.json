@@ -1,0 +1,39 @@
+{
+  "locomotive.steam.whistle": {
+    "subtitle": "subtitles.railcraft.locomotive.steam.whistle",
+    "sounds": [
+      "railcraft:locomotive/steam/whistle1",
+      "railcraft:locomotive/steam/whistle2",
+      "railcraft:locomotive/steam/whistle3"
+    ]
+  },
+  "locomotive.electric.whistle": {
+    "subtitle": "subtitles.railcraft.locomotive.electric.whistle",
+    "sounds": [
+      "railcraft:locomotive/electric/whistle1",
+      "railcraft:locomotive/electric/whistle2",
+      "railcraft:locomotive/electric/whistle3"
+    ]
+  },
+  "machine.steamburst": {
+    "subtitle": "subtitles.railcraft.machine.steamburst",
+    "sounds": [
+      "railcraft:machine/steamburst"
+    ]
+  },
+  "machine.steamhiss": {
+    "subtitle": "subtitles.railcraft.machine.steamhiss",
+    "sounds": [
+      "railcraft:machine/steamhiss"
+    ]
+  },
+  "machine.zap": {
+    "subtitle": "subtitles.railcraft.machine.zap",
+    "sounds": [
+      "railcraft:machine/zap1",
+      "railcraft:machine/zap2",
+      "railcraft:machine/zap3",
+      "railcraft:machine/zap4"
+    ]
+  }
+}

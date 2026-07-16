@@ -299,3 +299,5 @@ README.txt
 .classpath
 .project
 classes/
+.DS_Store
+**/.DS_Store

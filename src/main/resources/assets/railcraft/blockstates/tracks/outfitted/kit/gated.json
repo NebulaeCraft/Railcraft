@@ -34,7 +34,7 @@
         "uvlock": true,
         "submodel": {
           "control": {
-            "model": "rail_flat",
+            "model": "railcraft:outfitted/kit/common",
             "textures": {"rail": "railcraft:blocks/tracks/outfitted/kit/control_0"}
           }
         }
@@ -44,7 +44,7 @@
         "uvlock": true,
         "submodel": {
           "control": {
-            "model": "rail_flat",
+            "model": "railcraft:outfitted/kit/common",
             "textures": {"rail": "railcraft:blocks/tracks/outfitted/kit/control_0"}
           }
         }
@@ -54,7 +54,7 @@
         "uvlock": true,
         "submodel": {
           "control": {
-            "model": "rail_flat",
+            "model": "railcraft:outfitted/kit/common",
             "textures": {"rail": "railcraft:blocks/tracks/outfitted/kit/control_0"}
           }
         }
@@ -64,7 +64,7 @@
         "uvlock": true,
         "submodel": {
           "control": {
-            "model": "rail_flat",
+            "model": "railcraft:outfitted/kit/common",
             "textures": {"rail": "railcraft:blocks/tracks/outfitted/kit/control_0"}
           }
         }

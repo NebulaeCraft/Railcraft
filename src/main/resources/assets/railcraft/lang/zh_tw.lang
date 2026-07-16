@@ -1,0 +1,1624 @@
+# Parent Language: en_US
+# Translated by crafteverywhere,misssalad612
+
+chat.railcraft.api.error=錯誤: 過舊的API，請檢視您的遊戲紀錄檔取得更多訊息。
+
+command.railcraft.aliases=別稱: %s
+command.railcraft.block.notFound=目標座標不是個有效的方塊
+command.railcraft.help=輸入 '%s' 以取得幫助
+command.railcraft.list=可用的子指令:
+command.railcraft.permlevel=權限級別: %s
+command.railcraft.noperms=你沒有權限使用這個指令
+
+command.railcraft.railcraft.help=Railcraft 指令列表
+command.railcraft.railcraft.format=格式: /%s <子指令>
+
+command.railcraft.railcraft.admin.desc=- %s : 管理工具
+command.railcraft.railcraft.admin.help=為管理調控準備的工具
+command.railcraft.railcraft.admin.format=格式: /%s
+
+command.railcraft.railcraft.admin.kill.desc=- %s : 清理任務
+command.railcraft.railcraft.admin.kill.help=用來刪除事物的工具
+command.railcraft.railcraft.admin.kill.format=格式: /%s
+
+command.railcraft.railcraft.admin.kill.animals.desc=- %s : 清理動物
+command.railcraft.railcraft.admin.kill.animals.help=刪除當前世界上的所有生物
+command.railcraft.railcraft.admin.kill.animals.format=格式: /%s
+
+command.railcraft.railcraft.admin.kill.minecarts.desc=- %s : 清理礦車
+command.railcraft.railcraft.admin.kill.minecarts.help=刪除當前世界上的所有礦車
+command.railcraft.railcraft.admin.kill.minecarts.format=格式: /%s
+
+command.railcraft.railcraft.crafting.desc=- %s : 配方測試
+command.railcraft.railcraft.crafting.help=測試配方的輸出與效果
+command.railcraft.railcraft.crafting.format=格式: /%s
+
+command.railcraft.railcraft.crafting.blast.furnace.desc=- %s : 測試鼓風爐配方輸出
+command.railcraft.railcraft.crafting.blast.furnace.help=測試個別鼓風爐配方的輸出。輸入為慣用手正拿著的物品
+command.railcraft.railcraft.crafting.blast.furnace.format=格式: /%s
+command.railcraft.railcraft.crafting.blast.furnace.message=在鼓風爐中，輸入物品 %s 的輸出將會是 %s
+
+command.railcraft.railcraft.crafting.blast.furnace.fuel.desc=- %s : 測試鼓風爐燃料數值
+command.railcraft.railcraft.crafting.blast.furnace.fuel.help=測試個別鼓風爐燃料的數值。燃料為慣用手正拿著的物品
+command.railcraft.railcraft.crafting.blast.furnace.fuel.format=格式: /%s
+command.railcraft.railcraft.crafting.blast.furnace.fuel.message=在鼓風爐中，輸入物品 %s 的燃燒時間將會是 %s
+
+command.railcraft.railcraft.crafting.coke.oven.desc=- %s : 測試焦炭爐配方輸出
+command.railcraft.railcraft.crafting.coke.oven.help=測試個別焦炭爐配方的輸出。輸入為慣用手正拿著的物品
+command.railcraft.railcraft.crafting.coke.oven.format=格式: /%s
+command.railcraft.railcraft.crafting.coke.oven.message=在焦炭爐中，輸入物品 %s 的輸出將會是 %s
+
+command.railcraft.railcraft.debug.desc=- %s : 除錯工具
+command.railcraft.railcraft.debug.help=為棘手問題準備的工具
+command.railcraft.railcraft.debug.format=格式: /%s
+
+command.railcraft.railcraft.debug.tile.desc=- %s : 方塊實體除錯工具
+command.railcraft.railcraft.debug.tile.help=處理方塊實體錯誤的工具
+command.railcraft.railcraft.debug.tile.format=格式: /%s [<x> <y> <z>]
+
+command.railcraft.railcraft.debug.tile.controller.desc=- %s : 控制器除錯工具
+command.railcraft.railcraft.debug.tile.controller.help=處理控制器錯誤的工具
+command.railcraft.railcraft.debug.tile.controller.format=格式: /%s [<x> <y> <z>]
+
+command.railcraft.railcraft.debug.tile.receiver.desc=- %s : 接收器除錯工具
+command.railcraft.railcraft.debug.tile.receiver.help=處理接收器錯誤的工具
+command.railcraft.railcraft.debug.tile.receiver.format=格式: /%s [<x> <y> <z>]
+
+command.railcraft.railcraft.debug.train.desc=- %s : 列車除錯工具
+command.railcraft.railcraft.debug.train.help=處理列車錯誤的工具
+command.railcraft.railcraft.debug.train.format=格式: /%s
+
+command.railcraft.railcraft.debug.train.clear.desc=- %s : 清理列車
+command.railcraft.railcraft.debug.train.clear.help=清理列車的保存資料
+command.railcraft.railcraft.debug.train.clear.format=格式: /%s
+
+command.railcraft.railcraft.track.desc=- %s : 軌道工具
+command.railcraft.railcraft.track.help=為軌道準備的工具
+command.railcraft.railcraft.track.format=格式: /%s
+
+command.railcraft.railcraft.track.message.desc=- %s : 傳訊鐵軌
+command.railcraft.railcraft.track.message.help=設定傳訊鐵軌顯示的標題，詳見原版 '/title' 指令
+command.railcraft.railcraft.track.message.format=格式: /%s [<x> <y> <z>] <json訊息或"字串">
+
+command.railcraft.railcraft.track.message.title.desc=- %s : 傳訊鐵軌主標題
+command.railcraft.railcraft.track.message.title.help=設定傳訊鐵軌顯示的主標題，詳見原版 '/title' 指令
+command.railcraft.railcraft.track.message.title.format=格式: /%s [<x> <y> <z>] <json訊息或"字串">
+
+command.railcraft.railcraft.track.message.subtitle.desc=- %s : 傳訊鐵軌副標題
+command.railcraft.railcraft.track.message.subtitle.help=設定傳訊鐵軌顯示的副標題，詳見原版 '/title' 指令
+command.railcraft.railcraft.track.message.subtitle.format=格式: /%s [<x> <y> <z>] <json訊息或"字串">
+
+command.railcraft.railcraft.track.message.actionbar.desc=- %s : 傳訊鐵軌動作條
+command.railcraft.railcraft.track.message.actionbar.help=設定傳訊鐵軌顯示於快捷欄上方的標題，詳見原版 '/title' 指令
+command.railcraft.railcraft.track.message.actionbar.format=格式: /%s [<x> <y> <z>] <json訊息或"字串">
+
+command.railcraft.railcraft.tile.desc=- %s : 方塊實體工具
+command.railcraft.railcraft.tile.help=為方塊實體準備的工具
+command.railcraft.railcraft.tile.format=格式: /%s
+
+command.railcraft.railcraft.tile.owner.desc=- %s : 方塊擁有者
+command.railcraft.railcraft.tile.owner.help=印出方塊的擁有者
+command.railcraft.railcraft.tile.owner.format=格式: /%s [<x> <y> <z>]
+command.railcraft.railcraft.tile.owner.message=擁有者: %s
+
+command.railcraft.railcraft.tile.owner.clear.desc=- %s : 清空方塊擁有者
+command.railcraft.railcraft.tile.owner.clear.help=設定方塊擁有者為 [railcraft]
+command.railcraft.railcraft.tile.owner.clear.format=格式: /%s [<x> <y> <z>]
+
+death.railcraft.bore.1=%s 擋住前進的道路
+death.railcraft.bore.2=%s 試圖螳臂擋車
+death.railcraft.bore.3=%s 被鑽頭粉碎了
+death.railcraft.bore.4=%s 以為自己比約翰·亨利厲害
+death.railcraft.bore.5=%s 陷入了進退維谷的境地
+death.railcraft.bore.6=%s 在工程中站錯方向
+
+death.railcraft.crusher.1=%s 於重型機械附近失足
+death.railcraft.crusher.2=%s 不是鋼鐵之軀，他和我們一樣被粉碎
+death.railcraft.crusher.3=%s 凝視著深淵，然後滑倒了
+death.railcraft.crusher.4=%s 又要重新整裝出發
+death.railcraft.crusher.5=%s 沒看到"小心步伐!"告示牌
+death.railcraft.crusher.6=現已推出! %s 的鮮血果凍
+death.railcraft.crusher.7=%s 轉變為漿糊型態
+death.railcraft.crusher.8=%s 應該閱讀使用說明書
+
+death.railcraft.electric.1=%s 向尼古拉·特斯拉問聲好
+death.railcraft.electric.2=%s 了解「高壓電」的意涵了
+death.railcraft.electric.3=%s 體悟到電氣化的美好
+death.railcraft.electric.4=%s 早該閱讀警告標語
+death.railcraft.electric.5=%s 成為一個駭人聽聞的啟示
+death.railcraft.electric.6=%s 學到了些關於電力的教訓，會傷人!
+
+death.railcraft.steam.1=%s 被煮熟了，變得美味又多汁
+death.railcraft.steam.2=%s 不能對高溫免疫，儘管他主張可以
+death.railcraft.steam.3=%s 已知道蒸氣能引起多大的痛苦
+death.railcraft.steam.4=%s 發生了工業意外
+death.railcraft.steam.5=%s 或許不該一直站在那裏
+death.railcraft.steam.6=%s 了解蒸氣浴還是在桑拿房較好
+
+death.railcraft.track.electric.1=%s 在導電鐵軌上撒尿
+death.railcraft.track.electric.2=%s 了解「高壓電」的意涵了
+death.railcraft.track.electric.3=%s 體悟到電氣化的美好
+death.railcraft.track.electric.4=%s 絆倒在第三軌上
+death.railcraft.track.electric.5=%s 成為一個駭人聽聞的啟示
+death.railcraft.track.electric.6=%s 學到了些關於電力的教訓，會傷人!
+
+death.railcraft.train.1=%s 被火車撞飛了
+death.railcraft.train.2=%s 在鐵軌上玩耍
+death.railcraft.train.3=%s 和火車單挑;火車贏了
+death.railcraft.train.4=%s 上錯了車
+death.railcraft.train.5=%s 買了一張前往來世的單行票
+death.railcraft.train.6=%s 應該穿上他的工作服
+
+enchantment.railcraft.destruction=破壞
+enchantment.railcraft.implosion=內爆
+enchantment.railcraft.smack=助力
+enchantment.railcraft.wrecking=揮擊
+
+entity.railcraft.bore.name=隧道鑽掘機
+entity.railcraft.cart_worldspike_admin.name=管理用世界釘車
+entity.railcraft.cart_worldspike_standard.name=標準世界釘車
+entity.railcraft.cart_worldspike_personal.name=私人世界釘車
+entity.railcraft.cart_basic.name=礦車
+entity.railcraft.cart_bed.name=床鋪車
+entity.railcraft.cart_cargo.name=貨物礦車
+entity.railcraft.cart_chest.name=運輸礦車
+entity.railcraft.cart_chest_metals.name=金屬箱車
+entity.railcraft.cart_chest_void.name=虛無箱車
+entity.railcraft.cart_command_block.name=指令方塊礦車
+entity.railcraft.cart_furnace.name=動力礦車
+entity.railcraft.cart_gift.name=禮物車
+entity.railcraft.cart_hopper.name=漏斗礦車
+entity.railcraft.cart_ic2_batbox.name=電池車
+entity.railcraft.cart_ic2_cesu.name=CESU儲電車
+entity.railcraft.cart_ic2_mfe.name=MFE儲電車
+entity.railcraft.cart_ic2_mfsu.name=MFSU儲電車
+entity.railcraft.cart_jukebox.name=唱片機車
+entity.railcraft.cart_pumpkin.name=南瓜車
+entity.railcraft.cart_redstone_flux.name=Redstone Flux 儲能車
+entity.railcraft.cart_spawner.name=生怪磚礦車
+entity.railcraft.cart_tank.name=蓄水車
+entity.railcraft.cart_tnt.name=TNT礦車
+entity.railcraft.cart_tnt_wood.name=木製TNT礦車
+entity.railcraft.cart_work.name=工作車
+entity.railcraft.locomotive_creative.name=永動機車
+entity.railcraft.locomotive_electric.name=電力機車
+entity.railcraft.locomotive_steam_solid.name=蒸氣機車
+entity.railcraft.mow_track_layer.name=軌道鋪設車
+entity.railcraft.mow_track_relayer.name=軌道替換車
+entity.railcraft.mow_track_remover.name=軌道拆除車
+entity.railcraft.mow_undercutter.name=地板施工車
+
+entity.Villager.trackman=鐵路工
+entity.Villager.cartman=車輛技師
+entity.Villager.alloyer=合金鍛工
+entity.Villager.steel_forger=鍊鋼匠
+
+fluid.creosote=雜酚油
+fluid.steam=蒸氣
+
+item.minecartChest.name=運輸礦車
+item.minecartFurnace.name=動力礦車
+item.minecartTnt.name=TNT礦車
+item.minecartHopper.name=漏斗礦車
+
+item.railcraft.armor.boots.steel.name=鋼鐵靴子
+item.railcraft.armor.chestplate.steel.name=鋼鐵胸甲
+item.railcraft.armor.goggles.name=鐵路工護目鏡
+item.railcraft.armor.helmet.steel.name=鋼鐵頭盔
+item.railcraft.armor.leggings.steel.name=鋼鐵護腿
+item.railcraft.armor.overalls.name=工程師作業服
+item.railcraft.armor.overalls.tips=針對鐵路作業危險的全面防護
+
+item.railcraft.backpack.apothecary.t1.name=藥劑師背包
+item.railcraft.backpack.apothecary.t2.name=藥劑師編織背包
+item.railcraft.backpack.iceman.t1.name=冰原旅者背包
+item.railcraft.backpack.iceman.t2.name=冰原旅者編織背包
+item.railcraft.backpack.tips=Railcraft公司出品，必屬精品
+item.railcraft.backpack.trackman.t1.name=鐵路工背包
+item.railcraft.backpack.trackman.t2.name=鐵路工編織背包
+
+item.railcraft.bleached.clay.name=漂白黏土
+
+item.railcraft.borehead.bronze.name=青銅鑽頭
+item.railcraft.borehead.diamond.name=鑽石鑽頭
+item.railcraft.borehead.iron.name=鐵製鑽頭
+item.railcraft.borehead.steel.name=鋼製鑽頭
+
+item.railcraft.charge.coil.name=電線圈
+item.railcraft.charge.electrode.iron.name=鐵電極
+item.railcraft.charge.electrode.nickel.name=鎳電極
+item.railcraft.charge.electrode.zinc.name=鋅電極
+item.railcraft.charge.motor.name=電動馬達
+item.railcraft.charge.terminal.name=電極終端
+item.railcraft.charge.spool.large.name=大型電線線軸
+item.railcraft.charge.spool.medium.name=中型電線線軸
+item.railcraft.charge.spool.small.name=小型電線線軸
+
+item.railcraft.circuit.controller.name=控制電路
+item.railcraft.circuit.radio.name=無線電路
+item.railcraft.circuit.receiver.name=接收電路
+item.railcraft.circuit.signal.name=信號電路
+
+item.railcraft.concrete.name=水泥袋
+
+item.railcraft.dust.charcoal.name=木炭粉
+item.railcraft.dust.coal.name=炭粉
+item.railcraft.dust.ender.name=終界粉
+item.railcraft.dust.obsidian.name=黑曜粉
+item.railcraft.dust.saltpeter.name=硝石
+item.railcraft.dust.slag.name=鼓風爐渣粉末
+item.railcraft.dust.sulfur.name=硫磺
+item.railcraft.dust.void.name=虛無粉
+
+item.railcraft.emblem.name=標誌
+
+item.railcraft.entity.bore.desc=設計來挖掘隧道並鋪設軌道的機械。
+item.railcraft.entity.bore.name=隧道鑽掘機
+item.railcraft.entity.cart.worldspike.admin.desc=於讀取世界時載入5x5大小的區塊並確保他們的被載入。無法合成且永遠不需要燃料。
+item.railcraft.entity.cart.worldspike.admin.name=管理用世界釘車
+item.railcraft.entity.cart.worldspike.admin.tips=區塊讀取器\n§o§c- 遇觸發鐵軌關閉 -
+item.railcraft.entity.cart.worldspike.personal.desc=維持5x5大小的區塊被載入，但是讀取世界時並不會載入他們。此外擁有者登出將使其停止作用，儘管如此其他事物仍可能繼續保持區塊活躍。依照配置設定可能需要燃料。
+item.railcraft.entity.cart.worldspike.personal.name=私人世界釘車
+item.railcraft.entity.cart.worldspike.personal.tips=區塊讀取器\n§o§c- 遇觸發鐵軌關閉 -
+item.railcraft.entity.cart.worldspike.standard.desc=於讀取世界時載入5x5大小的區塊並確保他們的被載入。依照配置設定可能需要燃料。
+item.railcraft.entity.cart.worldspike.standard.name=標準世界釘車
+item.railcraft.entity.cart.worldspike.standard.tips=區塊讀取器\n§o§c- 遇觸發鐵軌關閉 -
+item.railcraft.entity.cart.basic.name=礦車
+item.railcraft.entity.cart.bed.name=床鋪車
+item.railcraft.entity.cart.cargo.name=貨物礦車
+item.railcraft.entity.cart.chest.name=運輸礦車
+item.railcraft.entity.cart.chest.metals.name=金屬箱礦車
+item.railcraft.entity.cart.chest.void.name=虛無箱礦車
+item.railcraft.entity.cart.furnace.name=動力礦車
+item.railcraft.entity.cart.gift.name=禮物車
+item.railcraft.entity.cart.gift.tips=聖誕快樂
+item.railcraft.entity.cart.ic2.batbox.name=電池車
+item.railcraft.entity.cart.ic2.cesu.name=CESU儲電車
+item.railcraft.entity.cart.ic2.mfe.name=MFE儲電車
+item.railcraft.entity.cart.ic2.mfsu.name=MFSU儲電車
+item.railcraft.entity.cart.jukebox.name=唱片機車
+item.railcraft.entity.cart.pumpkin.name=南瓜車
+item.railcraft.entity.cart.pumpkin.tips=給糖或搗蛋
+item.railcraft.entity.cart.redstone.flux.name=Redstone Flux 儲能車
+item.railcraft.entity.cart.spawner.name=生怪磚礦車
+item.railcraft.entity.cart.tank.name=蓄水車
+item.railcraft.entity.cart.tnt.name=TNT礦車
+item.railcraft.entity.cart.tnt.wood.name=木製TNT礦車
+item.railcraft.entity.cart.work.name=工作車
+item.railcraft.entity.locomotive.creative.name=永動機車
+item.railcraft.entity.locomotive.creative.tips=§o§9僅限創造模式
+item.railcraft.entity.locomotive.electric.name=電力機車
+item.railcraft.entity.locomotive.steam.solid.name=蒸氣機車
+item.railcraft.entity.mow.track.layer.name=軌道鋪設車
+item.railcraft.entity.mow.track.layer.tips=隨著移動鋪設鐵軌
+item.railcraft.entity.mow.track.relayer.name=軌道替換車
+item.railcraft.entity.mow.track.relayer.tips=將一種鐵軌換成另一種
+item.railcraft.entity.mow.track.remover.name=軌道移除車
+item.railcraft.entity.mow.track.remover.tips=拆除沿線經過的鐵軌
+item.railcraft.entity.mow.undercutter.name=地板施工車
+item.railcraft.entity.mow.undercutter.tips=替換鐵軌下的方塊
+
+item.railcraft.filter.bee.desc=可用在物品裝(卸)載機或物品偵測器上來配對任意蜜蜂。
+item.railcraft.filter.bee.name=蜜蜂篩選器
+item.railcraft.filter.bee.tips=配對任意蜜蜂
+item.railcraft.filter.bee.genome.desc=可用在物品裝(卸)載機或物品偵測器上來配對分析過的蜜蜂。與分析過的蜜蜂合成以完成設置。上方的蜜蜂指定蜜蜂類型，左邊指定活躍性狀，右邊指定非活躍性狀。你不一定要在每個方位上放置蜜蜂，留空的地方將不做過濾。手持使用篩選器可切換染色體。
+item.railcraft.filter.bee.genome.name=蜜蜂基因篩選器
+item.railcraft.filter.bee.genome.tips=與分析過的蜜蜂合成以設定篩選器\n右鍵使用切換染色體
+item.railcraft.filter.bee.genome.tips.type=§a蜜蜂類型: §7%s
+item.railcraft.filter.bee.genome.tips.chromosome=§a染色體: §7%s
+item.railcraft.filter.bee.genome.tips.active=§a活躍性狀: §7%s
+item.railcraft.filter.bee.genome.tips.inactive=§a非活躍性狀: §7%s
+item.railcraft.filter.bee.genome.tips.wildcard=任何
+item.railcraft.filter.blank.desc=空白的篩選器
+item.railcraft.filter.blank.name=空白篩選器
+item.railcraft.filter.ore.dict.desc=可用在物品裝(卸)載機或物品偵測器上，配對任何礦物辭典與樣品一致的物品。與帶有礦物辭典的物品合成以設定樣品。
+item.railcraft.filter.ore.dict.name=礦物辭典篩選器
+item.railcraft.filter.ore.dict.tips=與帶有礦物辭典標籤的\n物品合成以設定樣本
+item.railcraft.filter.ore.dict.tips.tags=§a配對的標籤:
+item.railcraft.filter.type.desc=可用在物品裝(卸)載機或物品偵測器上， 配對任何與樣本相同類別（class）的物品。換句話說，它不管任何數據值與NBT標籤。與任意物品合成以設定樣本。
+item.railcraft.filter.type.name=物品類型篩選器
+item.railcraft.filter.type.tips=與任意物品合成以設定樣本
+item.railcraft.filter.tips.prototype=§a樣本:
+
+item.railcraft.firestone.cracked.name=破裂的火石
+item.railcraft.firestone.cracked.tips.charged=滲出微量熱能\n它還是能夠使用\n只要你夠小心...
+item.railcraft.firestone.cracked.tips.empty=已受損\n若能重新給予能量\n它仍然會是有用的...
+item.railcraft.firestone.cut.name=切割過的火石
+item.railcraft.firestone.cut.tips=能量過於旺盛，無法控制...
+item.railcraft.firestone.raw.name=火石原石
+item.railcraft.firestone.raw.tips=它在你的手中甦醒\n你可以感覺到它的氣息...
+item.railcraft.firestone.refined.name=精煉火石
+item.railcraft.firestone.refined.tips.charged=充滿著能量\n只需要使用你的意志\n讓他放出炙熱...
+item.railcraft.firestone.refined.tips.empty=能量已受控制\n重新補充即可非常實用...
+
+item.railcraft.fluid.bottle.creosote.name=雜酚油瓶
+item.railcraft.fluid.bottle.steam.name=蒸氣瓶
+item.railcraft.fluid.bucket.creosote.name=雜酚油桶
+
+item.railcraft.fluid.creosote.can.name=雜酚油罐
+item.railcraft.fluid.creosote.cell.name=雜酚油單元罐
+item.railcraft.fluid.creosote.refactory.name=雜酚油膠囊
+item.railcraft.fluid.creosote.wax.name=雜酚油膠囊
+
+item.railcraft.fuel.coke.name=焦炭
+
+item.railcraft.gear.brass.name=黃銅齒輪
+item.railcraft.gear.bronze.name=青銅齒輪
+item.railcraft.gear.bushing.name=錫製軸套
+item.railcraft.gear.invar.name=殷鋼齒輪
+item.railcraft.gear.iron.name=鐵齒輪
+item.railcraft.gear.steel.name=鋼齒輪
+
+item.railcraft.ingot.brass.name=黃銅錠
+item.railcraft.ingot.bronze.name=青銅錠
+item.railcraft.ingot.copper.name=銅錠
+item.railcraft.ingot.invar.name=殷鋼錠
+item.railcraft.ingot.lead.name=鉛錠
+item.railcraft.ingot.nickel.name=鎳錠
+item.railcraft.ingot.silver.name=銀錠
+item.railcraft.ingot.steel.name=鋼錠
+item.railcraft.ingot.tin.name=錫錠
+item.railcraft.ingot.zinc.name=鋅錠
+
+item.railcraft.nugget.brass.name=黃銅粒
+item.railcraft.nugget.bronze.name=青銅粒
+item.railcraft.nugget.copper.name=銅粒
+item.railcraft.nugget.invar.name=殷鋼粒
+item.railcraft.nugget.iron.name=鐵粒
+item.railcraft.nugget.lead.name=鉛粒
+item.railcraft.nugget.nickel.name=鎳粒
+item.railcraft.nugget.silver.name=銀粒
+item.railcraft.nugget.steel.name=鋼粒
+item.railcraft.nugget.tin.name=錫粒
+item.railcraft.nugget.zinc.name=鋅粒
+
+item.railcraft.plate.brass.name=黃銅板
+item.railcraft.plate.bronze.name=青銅板
+item.railcraft.plate.copper.name=銅板
+item.railcraft.plate.gold.name=金板
+item.railcraft.plate.invar.name=殷鋼板
+item.railcraft.plate.iron.name=鐵板
+item.railcraft.plate.lead.name=鉛板
+item.railcraft.plate.nickel.name=鎳板
+item.railcraft.plate.silver.name=銀板
+item.railcraft.plate.steel.name=鋼板
+item.railcraft.plate.tin.name=錫板
+item.railcraft.plate.zinc.name=鋅板
+
+item.railcraft.rail.advanced.name=進階軌
+item.railcraft.rail.electric.name=導電軌
+item.railcraft.rail.reinforced.name=強化軌
+item.railcraft.rail.speed.name=高速軌
+item.railcraft.rail.standard.name=標準軌
+item.railcraft.rail.wood.name=木製軌
+
+item.railcraft.railbed.stone.name=石製軌床
+item.railcraft.railbed.wood.name=木製軌床
+
+item.railcraft.rebar.name=鋼筋
+
+item.railcraft.routing.table.name=路由表
+item.railcraft.routing.ticket.gold.name=金色車票
+item.railcraft.routing.ticket.name=車票
+
+item.railcraft.signal.lamp.name=信號燈
+
+item.railcraft.tie.stone.name=石製枕木
+item.railcraft.tie.wood.name=木製枕木
+
+item.railcraft.tool.axe.steel.name=鋼鐵斧
+item.railcraft.tool.charge.meter.name=電錶
+item.railcraft.tool.charge.meter.tips=§o右鍵電力設備可檢視詳細資訊
+item.railcraft.tool.crowbar.iron.name=鐵橇
+item.railcraft.tool.crowbar.magic.name=秘術鐵橇
+item.railcraft.tool.crowbar.seasons.name=節慶鐵橇
+item.railcraft.tool.crowbar.seasons.tips=感受假期的魔力~
+item.railcraft.tool.crowbar.seasons.tips.mode=節慶: %s
+item.railcraft.tool.crowbar.steel.name=強化鐵橇
+item.railcraft.tool.crowbar.tips=§o潛行時右鍵可連結車廂
+item.railcraft.tool.crowbar.void.name=虛無鐵橇
+item.railcraft.tool.hoe.steel.name=鋼鐵鋤
+item.railcraft.tool.magnifying.glass.name=放大鏡
+item.railcraft.tool.notepad.action.copy.fail=無設定可複製。不是個有效的目標
+item.railcraft.tool.notepad.action.copy=複製設定來自 %s
+item.railcraft.tool.notepad.action.empty=無設定可貼上。對一目標 Shift-點擊 來複製
+item.railcraft.tool.notepad.action.paste.fail=無設定可貼上。不是個有效的目標
+item.railcraft.tool.notepad.action.paste=貼上設定到 %s
+item.railcraft.tool.notepad.name=鐵路工記事簿
+item.railcraft.tool.notepad.tips.contents.empty=§4空白
+item.railcraft.tool.notepad.tips.contents.filter.cart=§e車輛過濾欄
+item.railcraft.tool.notepad.tips.contents.filter.fluid=§b液體過濾欄
+item.railcraft.tool.notepad.tips.contents.filter.items=§2物品過濾欄
+item.railcraft.tool.notepad.tips.contents=內含: %s
+item.railcraft.tool.notepad.tips.mode.all=全部
+item.railcraft.tool.notepad.tips.mode.cart.filter=車輛過濾欄
+item.railcraft.tool.notepad.tips.mode.loader.filters=物品/液體過濾欄
+item.railcraft.tool.notepad.tips.mode=貼上模式: %s
+item.railcraft.tool.notepad.tips=§o右鍵點擊以貼上，潛行並右鍵點擊複製\n§o潛行並右鍵點擊空氣以清空
+item.railcraft.tool.pickaxe.steel.name=鋼鐵鎬
+item.railcraft.tool.shears.steel.name=鋼鐵剪刀
+item.railcraft.tool.shovel.steel.name=鋼鐵鏟
+item.railcraft.tool.signal.label.name=號誌標籤
+item.railcraft.tool.signal.label.tips=§9- 在鐵砧中命名 -\n§o潛行時右鍵使用\n§o命名一個號誌或號誌箱
+item.railcraft.tool.signal.surveyor.name=號誌測量器
+item.railcraft.tool.signal.surveyor.tips=將號誌連接在一起
+item.railcraft.tool.signal.tuner.name=信號調頻器
+item.railcraft.tool.signal.tuner.tips=連接控制器與接收器
+item.railcraft.tool.spike.maul.iron.name=鐵製道釘鎚
+item.railcraft.tool.spike.maul.steel.name=鋼製道釘鎚
+item.railcraft.tool.spike.maul.tips=微調軌道製出道岔和交叉
+item.railcraft.tool.stone.carver.name=雕刻工具
+item.railcraft.tool.sword.steel.name=鋼鐵劍
+item.railcraft.tool.whistle.tuner.name=汽笛調音器
+
+item.railcraft.track.parts.name=軌道零件
+item.railcraft.track.parts.tips=用於合成軌道套件
+
+item.railcraft.turbine.blade.name=渦輪葉片
+item.railcraft.turbine.disk.name=渦輪轉盤
+item.railcraft.turbine.rotor.name=渦輪轉子
+
+item.railcraft.upgrade.lapotron=藍波頓容量升級晶片
+
+item.synthetic=人造
+
+itemGroup.railcraft.general=Railcraft
+itemGroup.railcraft.track=Railcraft 套裝軌道
+itemGroup.railcraft.structure=Railcraft 裝飾方塊
+
+railcraft.color.black=黑色
+railcraft.color.blue=藍色
+railcraft.color.brown=棕色
+railcraft.color.cyan=青色
+railcraft.color.gray=灰色
+railcraft.color.green=綠色
+railcraft.color.light_blue=淺藍色
+railcraft.color.light_gray=淺灰色
+railcraft.color.lime=淺綠色
+railcraft.color.magenta=洋紅色
+railcraft.color.orange=橙色
+railcraft.color.pink=粉紅色
+railcraft.color.purple=紫色
+railcraft.color.red=紅色
+railcraft.color.white=白色
+railcraft.color.yellow=黃色
+
+railcraft.gates.action.pause=暫停
+railcraft.gates.action.sendcart=發車
+
+railcraft.gates.trigger.aspect.green=綠色信號
+railcraft.gates.trigger.aspect.off=關閉信號
+railcraft.gates.trigger.aspect.red.blink=閃紅信號
+railcraft.gates.trigger.aspect.red=紅色信號
+railcraft.gates.trigger.aspect.yellow.blink=閃黃信號
+railcraft.gates.trigger.aspect.yellow=黃色信號
+railcraft.gates.trigger.cart=有礦車
+railcraft.gates.trigger.engine.blue=引擎狀態
+railcraft.gates.trigger.engine.green=引擎狀態
+railcraft.gates.trigger.engine.orange=引擎狀態
+railcraft.gates.trigger.engine.red=引擎狀態
+railcraft.gates.trigger.engine.yellow=引擎狀態
+railcraft.gates.trigger.fuel=燃料不足
+railcraft.gates.trigger.maintenance=需要維護
+railcraft.gates.trigger.temp.cold=冷
+railcraft.gates.trigger.temp.hot=燙
+railcraft.gates.trigger.temp.warm=暖
+railcraft.gates.trigger.work=運作中
+
+gui.railcraft.actuator.motor.action=轉轍條件
+gui.railcraft.actuator.motor.redstone=無視紅石
+
+gui.railcraft.worldspike.fuel.remaining=%s小時
+gui.railcraft.worldspike.fuel=世界釘燃料
+gui.railcraft.worldspike.pair.cancel=%s 的配對取消
+gui.railcraft.worldspike.pair.fail.alignment=@1$s 與 @2$s 不在同一條軸線上
+gui.railcraft.worldspike.pair.fail.dimension=%s 與目標處在不同的世界
+gui.railcraft.worldspike.pair.fail.distance=@1$s 和 @2$s 相距過遠，無法配對
+gui.railcraft.worldspike.pair.fail.invalid=這不是一個可與 %s 配對的目標
+gui.railcraft.worldspike.pair.fail.unloaded=嘗試配對 %s 時目標並未被讀取
+gui.railcraft.worldspike.pair.start=%s 開始配對
+gui.railcraft.worldspike.pair.success=%s 已成功配對
+
+gui.railcraft.aspect.blink.red.name=閃紅燈
+gui.railcraft.aspect.blink.yellow.name=閃黃燈
+gui.railcraft.aspect.green.name=綠燈
+gui.railcraft.aspect.off.name=關閉
+gui.railcraft.aspect.red.name=紅燈
+gui.railcraft.aspect.yellow.name=黃燈
+
+gui.railcraft.aura.disable=%s 效果關閉
+gui.railcraft.aura.enable=%s 效果開啟
+
+gui.railcraft.blast.furnace=鼓風爐
+
+gui.railcraft.bore.ballast=鋪路材料
+gui.railcraft.bore.fuel=燃料
+gui.railcraft.bore.head=鑽頭
+gui.railcraft.bore.track=鐵軌
+
+gui.railcraft.box.aspect.action=輸出條件
+gui.railcraft.box.capacitor.duration=輸出 %s 秒紅石訊號
+gui.railcraft.box.capacitor.falling.name=下降緣
+gui.railcraft.box.capacitor.falling.tips=輸入訊號結束才開始計時
+gui.railcraft.box.capacitor.rising.name=上升緣
+gui.railcraft.box.capacitor.rising.tips=收到輸入訊號即開始計時
+gui.railcraft.box.controller.aspect.default=預設信號:
+gui.railcraft.box.controller.aspect.redstone=充能信號:
+
+# Stuff after newline is hidden for hotbar messages
+gui.railcraft.cart.bed.key=按 %1$s 取消乘坐 - 按 %2$s 在晚上入眠
+gui.railcraft.cart.tnt.fuse=導火線
+gui.railcraft.cart.maintenance.pattern=樣式
+gui.railcraft.cart.maintenance.stock=存量
+gui.railcraft.cart.undercutter.pattern=樣式
+gui.railcraft.cart.undercutter.sides=側邊
+gui.railcraft.cart.undercutter.transfer.stock.name=存量
+gui.railcraft.cart.undercutter.under=底下
+
+gui.railcraft.charge.meter.cart=車輛 -> 容量: %s c | 輸出: %s c/t | 耗損: %s c/t
+gui.railcraft.charge.meter.network=電網 -> 大小: %s | 容量: %s c | 輸出: %s c/t | 最大輸出: %s c/t | 耗損: %s c/t | 效益: %s%%
+gui.railcraft.charge.meter.node=結點 -> 輸出: %s c/t | 耗損: %s c/t
+gui.railcraft.charge.meter.producer=供給 -> 容量: %s c | 產出: %s c/t | 最大輸出: %s c/t | 耗損: %s c/t | 效益: %s%%
+gui.railcraft.charge.meter.start=正在紀錄 %s 秒內的數據...
+
+gui.railcraft.charge.network.usage=電網使用率: {percent}
+
+gui.railcraft.coke.oven=焦炭爐
+
+gui.railcraft.detector.item.analog=類比
+gui.railcraft.detector.item.anything=隨意
+gui.railcraft.detector.item.at_least=至少
+gui.railcraft.detector.item.at_most=最多
+gui.railcraft.detector.item.empty=空車
+gui.railcraft.detector.item.exactly=剛好
+gui.railcraft.detector.item.filtered=篩選
+gui.railcraft.detector.item.full=滿載
+gui.railcraft.detector.item.greater_than=多於
+gui.railcraft.detector.item.less_than=少於
+gui.railcraft.detector.item.not_empty=有物品
+gui.railcraft.detector.loco.primary=車身顏色
+gui.railcraft.detector.loco.secondary=底盤顏色
+gui.railcraft.detector.tank.tips.analog=根據水箱車的液體多寡\n輸出類比訊號
+gui.railcraft.detector.tank.tips.empty=偵測空的蓄水車
+gui.railcraft.detector.tank.tips.full=偵測滿載的蓄水車
+gui.railcraft.detector.tank.tips.half=偵測液體多於一半的蓄水車
+gui.railcraft.detector.tank.tips.less.than.full=偵測沒有裝滿的蓄水車
+gui.railcraft.detector.tank.tips.less.than.half=偵測液體低於一半的蓄水車
+gui.railcraft.detector.tank.tips.less.than.most=偵測液體低於3/4的蓄水車
+gui.railcraft.detector.tank.tips.less.than.quarter=偵測液體低於4/1的蓄水車
+gui.railcraft.detector.tank.tips.most=偵測液體多於3/4的蓄水車
+gui.railcraft.detector.tank.tips.not.empty=偵測任何有液體的蓄水車
+gui.railcraft.detector.tank.tips.quarter=偵測液體多於4/1的蓄水車
+gui.railcraft.detector.tank.tips.void=偵測任意容量
+gui.railcraft.detector.train.size=列車長度 = %s
+gui.railcraft.detector.villager.any=任意
+gui.railcraft.detector.villager.equals=相同
+gui.railcraft.detector.villager.none=皆非
+gui.railcraft.detector.villager.not=不同
+
+gui.railcraft.energy.loader.empty=留空車
+gui.railcraft.energy.loader.fill=裝到滿
+gui.railcraft.energy.unloader.wait=抽乾
+
+gui.railcraft.engrave.entercode=輸入解鎖密碼:
+gui.railcraft.engrave.getmore1=拜訪以下連結
+gui.railcraft.engrave.getmore2=找到更多解鎖密碼!
+gui.railcraft.engrave.openunlock=解鎖標誌
+gui.railcraft.engrave.unlock.exists=已存在!
+gui.railcraft.engrave.unlock.fail=失敗!
+gui.railcraft.engrave.unlock.success=成功!
+gui.railcraft.engrave.unlock=解鎖!
+gui.railcraft.engrave=雕刻
+
+gui.railcraft.feed.station.feed=飼料
+
+gui.railcraft.force.track.emitter.info=當前存在 %d 個能量軌道
+
+gui.railcraft.filter=篩選
+gui.railcraft.filters.carts=車輛
+gui.railcraft.filters=篩選
+
+gui.railcraft.goggles.aura.worldspike=世界釘範圍
+gui.railcraft.goggles.aura.none=停用
+gui.railcraft.goggles.aura.shunting=調車
+gui.railcraft.goggles.aura.signalling=信號途徑
+gui.railcraft.goggles.aura.surveying=號誌區間
+gui.railcraft.goggles.aura.tracking=移動路徑
+gui.railcraft.goggles.aura.tuning=號誌調頻
+gui.railcraft.goggles.mode=當前效果: %s
+gui.railcraft.goggles.tips=手持右鍵可改變類型
+
+gui.railcraft.help=幫助
+
+gui.railcraft.ic2.energy.rate=速率: %s EU
+
+gui.railcraft.jei.category.coke=焦炭爐冶煉
+gui.railcraft.jei.category.blast_furnace=鼓風爐冶煉
+gui.railcraft.jei.category.crushing=礦石粉碎
+gui.railcraft.jei.category.rolling=金屬滾製
+gui.railcraft.jei.burntime=煉製時間: %s ticks
+
+gui.railcraft.link.broken=連結解除
+gui.railcraft.link.created=連結成功
+gui.railcraft.link.failed=連結失敗
+gui.railcraft.link.started=開始連結
+
+gui.railcraft.liquid.capacity=容量
+
+gui.railcraft.locomotive.electric.tips.button.mode.running=使火車頭開始移動
+gui.railcraft.locomotive.electric.tips.button.mode.shutdown=使火車頭停下
+gui.railcraft.locomotive.mode.idle=閒置
+gui.railcraft.locomotive.mode.running=運轉
+gui.railcraft.locomotive.mode.shutdown=關閉
+gui.railcraft.locomotive.steam.tips.button.mode.idle=火車頭減少燃料的使用量\n僅維持溫度，如果列車停駐在\n軌道上，它就像被閒置一樣
+gui.railcraft.locomotive.steam.tips.button.mode.running=使火車頭開始移動
+gui.railcraft.locomotive.steam.tips.button.mode.shutdown=關閉火車頭\n停止所有動作，開始進入降溫過程\n可能會需要一段時間
+gui.railcraft.locomotive.tips.button.locked=這輛車已經被 {owner} 上鎖\n只接受擁有者發行的車票或Op控制
+gui.railcraft.locomotive.tips.button.private=這輛車為 {owner} 私人所有\n只有擁有者或Op能夠控制
+gui.railcraft.locomotive.tips.button.unlocked=點擊以上鎖火車頭\n 一旦上鎖，將只能放入擁有者\n發行的車票或Op才能控制
+gui.railcraft.locomotive.tips.item.emblem=§o標誌:§r %s
+gui.railcraft.locomotive.tips.item.model.default=預設模型
+gui.railcraft.locomotive.tips.item.model=§o模型:§r %s
+gui.railcraft.locomotive.tips.item.owner=§o擁有者:§r %s
+gui.railcraft.locomotive.tips.item.primary=§o車身顏色:§r %s
+gui.railcraft.locomotive.tips.item.secondary=§o底盤顏色:§r %s
+gui.railcraft.locomotive.tips.item.whistle=§o汽笛音高:§r %s
+gui.railcraft.locomotive.tips.slot.ticket=放入車票
+
+gui.railcraft.mag.glass.aspect.dual=此號誌上半部燈號為 %1$s ;下半部為 %2$s
+gui.railcraft.mag.glass.aspect=此號誌的燈號是 %s
+gui.railcraft.mag.glass.placedby=由 %2$s 放置的 %1$s
+
+gui.railcraft.manipulator.buffer=緩衝
+gui.railcraft.manipulator.redstone.complete.name=完整
+gui.railcraft.manipulator.redstone.complete.tips=嘗試完整執行要求
+gui.railcraft.manipulator.redstone.immediate.name=即刻
+gui.railcraft.manipulator.redstone.immediate.tips=嘗試執行直到空間或供給不足
+gui.railcraft.manipulator.redstone.manual.name=手動
+gui.railcraft.manipulator.redstone.manual.tips=永不輸出紅石訊號
+gui.railcraft.manipulator.redstone.partial.name=部份
+gui.railcraft.manipulator.redstone.partial.tips=嘗試執行直到空間或供給不足\n保留未處理的礦車
+gui.railcraft.manipulator.transfer.all.name=全部
+gui.railcraft.manipulator.transfer.all.tips=移動所有符合的物品
+gui.railcraft.manipulator.transfer.excess.name=留下
+gui.railcraft.manipulator.transfer.excess.tips=移動篩選欄的物品直到\n只剩下指定的數量
+gui.railcraft.manipulator.transfer.stock.name=達到
+gui.railcraft.manipulator.transfer.stock.tips=移動物品直到目標擁有的\n物品達到指定數量
+gui.railcraft.manipulator.transfer.transfer.name=傳遞
+gui.railcraft.manipulator.transfer.transfer.tips=移動篩選欄中指定\n數量的物品
+
+gui.railcraft.rolling.machine.tips.craft=§e§o-點擊開始合成-
+
+gui.railcraft.routing.logic.blank=空白的路由表
+gui.railcraft.routing.logic.constant.invalid=無效的常數
+gui.railcraft.routing.logic.insufficient.operands=運算元不足
+gui.railcraft.routing.logic.malformed.syntax=語法錯誤
+gui.railcraft.routing.logic.operand.invalid=無效的運算元
+gui.railcraft.routing.logic.regex.invalid=無效的正規表達式
+gui.railcraft.routing.logic.regex.unsupported=不支援的正規表達式
+gui.railcraft.routing.logic.unrecognized.keyword=未知的關鍵字
+
+gui.railcraft.routing.slot.label=路由表
+
+gui.railcraft.routing.table.editor=最後編輯由 %s
+gui.railcraft.routing.table.manual.numPages=12
+gui.railcraft.routing.table.manual.page1=當路由表被放在路由偵測器或路由轉轍器裡面，他將會定義出一組規則，可以用來偵測任何經過的火車頭是否符合那組規定。\n只要使用簡單的邏輯語法就可以制定規則，讓你可以隨你的喜好創造出複雜或簡單的規定。 這個語法遵從前序表示法，運算元跟在運算子後面。每行中只允許出現一個關鍵字。如果沒有指定運算子，就會被視為OR。\n如果要複製路由表，可同時將多個路由表放入合成欄中合成
+gui.railcraft.routing.table.manual.page2=運算子關鍵字:\n   AND - 兩個運算元，兩者皆需為「真」\n   OR - 兩個運算元，只有一個需為「真」\n   NOT - 反轉在其之下的運算元\n   IF - 三個運算元: 條件、指令一、指令二\n         如果條件為「真」, 執行指令一;\n         否則執行指令二
+gui.railcraft.routing.table.manual.page3=狀況關鍵字:\n   Dest=<字串>\n      如果火車頭的目的地以此字串\n      開頭，則該狀況回傳「真」\n      "Dest=null" 將偵測未設定\n      目的地的車輛\n   Owner=<玩家名>\n      如果火車頭屬於該玩家的話\n      該狀況會判定為「真」\n
+gui.railcraft.routing.table.manual.page4=狀況關鍵字:\n   Name=<實體名稱>\n      當實體名稱與礦車的名稱相同\n      此狀況便為「真」\n      "Name=null" 將會偵測沒有\n      自定義名稱的礦車\n   Type=<模組ID:物品名稱>\n      若該名稱與礦車的物品相同\n      就會判定此狀況為「真」
+gui.railcraft.routing.table.manual.page5=狀況關鍵字:\n   Rider=<型別>[:<修飾>]\n      若列車承載著相應的乘客，便回傳「真」\n      簡易型別:\n        any(任意), none(無), mob(怪物),\n        animal(動物), unnamed(未命名)\n      可修飾型別:\n        player(玩家), named(已命名), entity(實體)\n      支援表示式型別:\n        player(玩家), named(已命名)\n\n      範例請見 GitHub Issue #844
+gui.railcraft.routing.table.manual.page6=狀況關鍵字:\n   Color=<車身顏色>,<底盤顏色>\n      如果火車頭的車身、底盤顏色與\n      指定顏色相符，該狀況為「真」\n      可用”Any”指定所有顏色\n      顏色: Black(黑), LightGray(淺灰), Gray(灰), Red(紅),\n      Brown(褐), Blue(藍), Purple(紫), Cyan(青), Green(綠),\n      Pink(粉紅), Lime(淺綠), Yellow(黃), LightBlue(淺藍),\n      Magenta(洋紅), Orange(橙), White(白)\n   NeedsRefuel=<true/false>\n      若火車頭缺水或燃料不足\n      將會使其改道
+gui.railcraft.routing.table.manual.page7=狀況關鍵字:\n   Redstone=<true/false>\n      如果路由方塊正被紅石充能\n      則該狀況為「真」
+gui.railcraft.routing.table.manual.page8=狀況關鍵字:\n   Loco=<字串>\n      若火車頭吻合給予的參數字串，則為「真」\n      接受字串:\n        electric(電力), steam(蒸氣),creative(創造), none(無)\n      參數 none 將只在列車\n      沒有火車頭時傳回「真」
+gui.railcraft.routing.table.manual.page9=舉例腳本:\n   Dest=TheFarLands\n   Color=Black,Red\n   AND\n   NOT\n   Owner=RichardG\n   Dest=SecretHideout/OceanEntrance
+gui.railcraft.routing.table.manual.page10=效果:\n   上一頁的例子中將會偵測一台\n   以"TheFarLands/Milliways"為目的地\n   或是被漆成紅色和黑色，抑或是即將\n   開往"SecretHideout/OceanEntrance"的火車頭\n   但是都會忽略屬於RichardG的火車頭
+gui.railcraft.routing.table.manual.page11=正規表達式:\n   某些狀況支援使用正規表達式\n   要使用正規表達式，需要在'='之前加上一個'?'\n   其語法與Java正規表達式相同\n\n支援的關鍵字:\n   Dest, Name\n範例:\n   Dest?=.*Hill
+gui.railcraft.routing.table.manual.page12=類比輸出:\n   IF 能夠搭配整數常數達成類比輸出\n   然而整數與 IF 只可放置在最上層\n   或其他 IF 的 then、eles 內部\n   TRUE 和 FALSE 則在任何地方皆可用\nExample:\n   IF\n   Dest=Town\n   8\n   IF\n   Dest=City\n   4\n   FALSE
+gui.railcraft.routing.table.manual.title=路由手冊
+gui.railcraft.routing.table.name=命名
+
+gui.railcraft.routing.ticket.line1=這張車票適用於
+gui.railcraft.routing.ticket.line2=以下列出的所有目的地:
+gui.railcraft.routing.ticket.manual.title=關於金色車票
+gui.railcraft.routing.ticket.redstone.manual.name=金色車票是一種可以無限次數使用的車票，帶著它，你可以搭乘任何公共或發行者私有的列車。金色車票亦可以放在合成桌上，和紙張一起合成，複製出一模一樣的一次性車票
+gui.railcraft.routing.ticket.tips.blank=空白的車票
+gui.railcraft.routing.ticket.tips.dest=目的地:
+gui.railcraft.routing.ticket.tips.issuer=發行人:
+gui.railcraft.routing.ticket.title=金色車票
+
+gui.railcraft.routing.tips.slot=放入路由表
+gui.railcraft.routing.track.slot.label=車票
+gui.railcraft.routing.track.tips.slot=放入金色車票
+gui.railcraft.routing.type.private.tips=只檢查屬於\n{owner} 的火車頭
+gui.railcraft.routing.type.private=私有鐵路
+gui.railcraft.routing.type.public.tips=檢查任何通過的火車頭
+gui.railcraft.routing.type.public=公共鐵路
+
+gui.railcraft.season.christmas=聖誕節
+gui.railcraft.season.default=預設
+gui.railcraft.season.halloween=萬聖夜
+gui.railcraft.season.none=無
+
+gui.railcraft.slot.map.valid=有效的物品:
+
+gui.railcraft.steam.boiler=蒸氣鍋爐
+gui.railcraft.steam.oven=蒸氣爐
+
+gui.railcraft.surveyor.abandon=測量終止
+gui.railcraft.surveyor.begin=開始測量
+gui.railcraft.surveyor.invalid=配對無效: 過於遙遠, 無軌道路徑, 或企圖與自身配對
+gui.railcraft.surveyor.lost=第一個號誌不存在，終止測量
+gui.railcraft.surveyor.success=成功配對號誌
+gui.railcraft.surveyor.track=%s 的附近沒有鐵軌
+gui.railcraft.surveyor.unloaded=第一個號誌方塊未被讀取
+gui.railcraft.surveyor.wrong=無效的號誌方塊
+
+gui.railcraft.tank.iron=鐵製蓄水槽
+gui.railcraft.tank.steel=鋼製蓄水槽
+gui.railcraft.tank.water=水塔
+
+gui.railcraft.ticks=ticks
+
+gui.railcraft.tips.button.lock.locked=此設備已經被 {owner} 上鎖\n 只有擁有者或Op能夠操控它
+gui.railcraft.tips.button.lock.notowner=你並不是該設備的所有人\n 它是屬於 {owner} 的財產
+gui.railcraft.tips.button.lock.unlocked=點擊以上鎖這個設備\n 一旦上鎖，僅擁有者或Op能夠存取
+
+gui.railcraft.track.coupler.mode.auto.coupler=自動連結
+gui.railcraft.track.coupler.mode.coupler=連結
+gui.railcraft.track.coupler.mode.decoupler=解除連結
+gui.railcraft.track.embarking.radius=半徑
+gui.railcraft.track.launcher.force=彈跳強度 = %s
+gui.railcraft.track.locking.delay.delay=延時 = %s ticks
+gui.railcraft.track.locking.mode.boarding.train=列車發車
+gui.railcraft.track.locking.mode.boarding=發車
+gui.railcraft.track.locking.mode.holding.train=列車臨停
+gui.railcraft.track.locking.mode.holding=臨停
+gui.railcraft.track.locking.mode.lockdown.train=列車鎖定
+gui.railcraft.track.locking.mode.lockdown=鎖定
+gui.railcraft.track.mode.change=改變成 %s 模式
+gui.railcraft.track.priming.fuse=點燃秒數 = %s ticks
+
+gui.railcraft.track_kit.item.invalid.curve=§c§o無法放置在彎道上
+gui.railcraft.track_kit.item.invalid.slope=§c§o無法放置在斜面上
+gui.railcraft.track_kit.item.invalid.track=§c§o無效的軌道，不屬於基礎鐵軌或已裝上套件
+gui.railcraft.track_kit.item.invalid.track_type=§c§o無效的軌道類型
+gui.railcraft.track_kit.messenger.actionbar.default=§o§7可選的動作條訊息
+gui.railcraft.track_kit.messenger.actionbar.set=已設定軌道的動作條
+gui.railcraft.track_kit.messenger.subtitle.default=§o§7更改請使用"/rc track msg"
+gui.railcraft.track_kit.messenger.subtitle.set=已設定軌道的副標題
+gui.railcraft.track_kit.messenger.subtitle.standard=§o§7軌道訊息
+gui.railcraft.track_kit.messenger.title.default=無設定訊息
+gui.railcraft.track_kit.messenger.title.set=已設定軌道的標題
+
+gui.railcraft.trade.station.dice.tips=隨機的交易
+
+gui.railcraft.tuner.abandon.chunk=控制器未被讀取，終止配對
+gui.railcraft.tuner.abandon.gone=控制器不再存在，終止配對
+gui.railcraft.tuner.abandon.player=控制器配對終止
+gui.railcraft.tuner.start=開始 %s 與接收器的配對
+gui.railcraft.tuner.stop=停止 %s 與接收器的配對
+gui.railcraft.tuner.success=%1$s 與 %2$s 配對成功
+
+gui.railcraft.steam.turbine.output=輸出: %s%%
+gui.railcraft.steam.turbine.rotor=轉子:
+gui.railcraft.steam.turbine=蒸氣渦輪
+
+gui.railcraft.update.message=Railcraft %s 已經發布，來自 <http://railcraft.info>
+
+railcraft.keybind.aura.worldspike=世界釘效果
+railcraft.keybind.aura.surveying=號誌區間效果
+railcraft.keybind.aura.tuning=號誌調諧效果
+
+keybind.railcraft.cart.bed=床舖車睡覺鍵
+keybind.railcraft.loco.faster=機車加速
+keybind.railcraft.loco.mode=機車模式
+keybind.railcraft.loco.reverse=機車反轉
+keybind.railcraft.loco.slower=機車減速
+keybind.railcraft.loco.whistle=機車汽笛
+
+potion.railcraft.creosote=雜酚油
+potion.effect.railcraft.creosote=雜酚油藥水
+splash_potion.effect.railcraft.creosote=飛濺 雜酚油藥水
+lingering_potion.effect.railcraft.creosote=滯留 雜酚油藥水
+tipped_arrow.effect.railcraft.creosote= 雜酚油之箭
+
+railcraft.locomotive.model.electric.default.name=標準電力
+railcraft.locomotive.model.steam.magic.default.name=標準魔力
+railcraft.locomotive.model.steam.solid.default.name=標準固體
+
+railcraft.multiblock.state.invalid.entity=實體佔住位置: %s
+railcraft.multiblock.state.invalid.pattern=不符合格式: %s
+railcraft.multiblock.state.master.true=此為主宰方塊
+railcraft.multiblock.state.master.false=此非主宰方塊
+railcraft.multiblock.state.unknown.unloaded=結構未被完整讀取: %s
+railcraft.multiblock.state.valid=有效的結構
+
+subtitles.railcraft.locomotive.steam.whistle=蒸氣機車汽笛聲
+subtitles.railcraft.locomotive.electric.whistle=電力機車汽笛聲
+subtitles.railcraft.machine.steamburst=蒸氣洩出聲
+subtitles.railcraft.machine.steamhiss=蒸氣嘶嘶聲
+subtitles.railcraft.machine.zap=機器火花
+
+tc.research_category.RAILCRAFT=軌道秘術師
+thaumcraft.research.RC_Crowbar.name=秘術鐵橇
+thaumcraft.research.RC_Crowbar.page.1=藉由秘術取代鋼材、注入其秩序魔力，你終於發現如何創造一個更易於融入魔法的鐵橇
+thaumcraft.research.RC_Crowbar.text=[RC] 我想你掉了東西...
+thaumcraft.research.RC_Crowbar_Void.name=虛無鐵橇
+thaumcraft.research.RC_Crowbar_Void.page.1=再邁進一步，你已熟捻神秘物質並造出極致的鐵橇
+thaumcraft.research.RC_Crowbar_Void.text=[RC] 高登將感到驕傲...
+
+tile.activatorRail.name=觸發鐵軌
+tile.detectorRail.name=壓力鐵軌
+tile.goldenRail.name=動力鐵軌
+tile.rail.name=鐵軌
+
+tile.railcraft.actuator.lever.name=手動轉轍器
+tile.railcraft.actuator.lever.tips=控制緊鄰的轉轍鐵軌\n§o§9手動運作
+tile.railcraft.actuator.motor.name=電動轉轍器
+tile.railcraft.actuator.motor.tips=控制緊鄰的轉轍鐵軌\n§o§9無線聯繫: 1x 接收器\n§o§9紅石聯繫: 傾聽\n§o§c對應工具:\n§o§c- 信號調頻器
+tile.railcraft.actuator.routing.name=路由轉轍器
+tile.railcraft.actuator.routing.tips=控制緊鄰的轉轍鐵軌\n§o§9手撰邏輯運作\n§o§c對應工具:\n§o§c- 路由表
+
+tile.railcraft.anvil.intact.name=鋼鐵砧
+tile.railcraft.anvil.slightlyDamaged.name=輕微損耗的鋼鐵砧
+tile.railcraft.anvil.veryDamaged.name=嚴重損耗的鋼鐵砧
+
+tile.railcraft.battery.nickel.iron.name=鎳-鐵電池
+tile.railcraft.battery.nickel.iron.desc=設計來與Railcraft電力網路同用的電池。適用於一般用途。可被碎石機回收。
+tile.railcraft.battery.nickel.iron.tips=§9Railcraft電網電池
+tile.railcraft.battery.nickel.zinc.name=鎳-鋅電池
+tile.railcraft.battery.nickel.zinc.desc=設計來與Railcraft電力網路同用的電池。適用於微量輸出、長期儲存。可被碎石機回收。
+tile.railcraft.battery.nickel.zinc.tips=§9Railcraft電網電池
+tile.railcraft.battery.zinc.carbon.name=鋅-碳電池
+tile.railcraft.battery.zinc.carbon.desc=設計來與Railcraft電力網路同用的電池。適用於便宜、一次性的儲存。可被碎石機回收。
+tile.railcraft.battery.zinc.carbon.tips=§9Railcraft電網電池
+tile.railcraft.battery.zinc.silver.name=鋅-銀電池
+tile.railcraft.battery.zinc.silver.desc=設計來與Railcraft電力網路同用的電池。適用於大量、一次性的儲存。可被碎石機回收。
+tile.railcraft.battery.zinc.silver.tips=§9Railcraft電網電池
+
+tile.railcraft.battery.tips.capacity=容量: %s c
+tile.railcraft.battery.tips.type=類型: %s
+tile.railcraft.battery.tips.efficiency=效益: %s%%
+tile.railcraft.battery.tips.maxdraw=最大輸出: %s c/t
+tile.railcraft.battery.tips.loss=耗損: %s  c/t
+
+tile.railcraft.abyssal.polished.name=深淵方塊
+tile.railcraft.abyssal.paver.name=深淵磚
+tile.railcraft.abyssal.cobble.name=深淵鵝卵石
+tile.railcraft.abyssal.etched.name=蝕刻深淵磚
+tile.railcraft.abyssal.brick.name=深淵石磚
+tile.railcraft.abyssal.chiseled.name=浮雕深淵磚
+
+tile.railcraft.bleachedbone.polished.name=白骨方塊
+tile.railcraft.bleachedbone.paver.name=白骨磚
+tile.railcraft.bleachedbone.cobble.name=白骨鵝卵石
+tile.railcraft.bleachedbone.etched.name=蝕刻白骨磚
+tile.railcraft.bleachedbone.brick.name=白骨石磚
+tile.railcraft.bleachedbone.chiseled.name=浮雕白骨磚
+
+tile.railcraft.bloodstained.polished.name=染血方塊
+tile.railcraft.bloodstained.paver.name=染血磚
+tile.railcraft.bloodstained.cobble.name=染血鵝卵石
+tile.railcraft.bloodstained.etched.name=蝕刻染血磚
+tile.railcraft.bloodstained.brick.name=染血石磚
+tile.railcraft.bloodstained.chiseled.name=浮雕染血磚
+
+tile.railcraft.frostbound.polished.name=冰霜方塊
+tile.railcraft.frostbound.paver.name=冰霜磚
+tile.railcraft.frostbound.cobble.name=冰霜鵝卵石
+tile.railcraft.frostbound.etched.name=蝕刻冰霜磚
+tile.railcraft.frostbound.brick.name=冰霜石磚
+tile.railcraft.frostbound.chiseled.name=浮雕冰霜磚
+
+tile.railcraft.infernal.polished.name=煉獄方塊
+tile.railcraft.infernal.paver.name=煉獄磚
+tile.railcraft.infernal.cobble.name=煉獄鵝卵石
+tile.railcraft.infernal.etched.name=蝕刻煉獄磚
+tile.railcraft.infernal.brick.name=煉獄石磚
+tile.railcraft.infernal.chiseled.name=浮雕煉獄磚
+
+tile.railcraft.nether.polished.name=地獄方塊
+tile.railcraft.nether.cobble.name=地獄鵝卵石
+tile.railcraft.nether.etched.name=蝕刻地獄磚
+tile.railcraft.nether.brick.name=地獄石磚
+tile.railcraft.nether.chiseled.name=浮雕地獄磚
+
+tile.railcraft.red.nether.polished.name=紅地獄方塊
+tile.railcraft.red.nether.cobble.name=紅地獄鵝卵石
+tile.railcraft.red.nether.etched.name=蝕刻紅地獄磚
+tile.railcraft.red.nether.brick.name=紅地獄石磚
+tile.railcraft.red.nether.chiseled.name=浮雕紅地獄磚
+
+tile.railcraft.quarried.polished.name=石料方塊
+tile.railcraft.quarried.paver.name=石料磚
+tile.railcraft.quarried.cobble.name=石料鵝卵石
+tile.railcraft.quarried.etched.name=蝕刻石料磚
+tile.railcraft.quarried.brick.name=石料石磚
+tile.railcraft.quarried.chiseled.name=浮雕石料磚
+
+tile.railcraft.granite.paver.name=花崗岩磚
+tile.railcraft.granite.cobble.name=花崗岩鵝卵石
+tile.railcraft.granite.etched.name=蝕刻花崗岩
+tile.railcraft.granite.brick.name=花崗岩石磚
+tile.railcraft.granite.chiseled.name=浮雕花崗岩
+
+tile.railcraft.diorite.paver.name=閃長岩磚
+tile.railcraft.diorite.cobble.name=閃長岩鵝卵石
+tile.railcraft.diorite.etched.name=蝕刻閃長岩
+tile.railcraft.diorite.brick.name=閃長岩石磚
+tile.railcraft.diorite.chiseled.name=浮雕閃長岩
+
+tile.railcraft.andesite.paver.name=安山岩磚
+tile.railcraft.andesite.cobble.name=安山岩鵝卵石
+tile.railcraft.andesite.etched.name=蝕刻安山岩
+tile.railcraft.andesite.brick.name=安山岩石磚
+tile.railcraft.andesite.chiseled.name=浮雕安山岩
+
+tile.railcraft.sandy.polished.name=砂磚
+tile.railcraft.sandy.paver.name=砂石方塊
+tile.railcraft.sandy.cobble.name=砂石鵝卵石
+tile.railcraft.sandy.etched.name=蝕刻砂石磚
+tile.railcraft.sandy.brick.name=砂石磚
+tile.railcraft.sandy.chiseled.name=浮雕砂石磚
+
+tile.railcraft.brick.red.sandy.polished.name=紅沙方塊
+tile.railcraft.brick.red.sandy.paver.name=紅沙磚
+tile.railcraft.brick.red.sandy.cobble.name=紅沙鵝卵石
+tile.railcraft.brick.red.sandy.etched.name=蝕刻紅沙磚
+tile.railcraft.brick.red.sandy.brick.name=紅沙石磚
+tile.railcraft.brick.red.sandy.chiseled.name=浮雕紅沙磚
+
+tile.railcraft.pearlized.polished.name=終界方塊
+tile.railcraft.pearlized.paver.name=終界磚
+tile.railcraft.pearlized.cobble.name=終界鵝卵石
+tile.railcraft.pearlized.etched.name=蝕刻終界磚
+tile.railcraft.pearlized.brick.name=終界石磚
+tile.railcraft.pearlized.chiseled.name=浮雕終界磚
+
+tile.railcraft.charge.feeder.admin.name=管理用電力供給單位
+tile.railcraft.charge.feeder.admin.tips=產出無限量的Railcraft電力\n§o§c- 需要紅石輸入 -
+tile.railcraft.charge.feeder.ic2.name=IC2電力供給單位
+tile.railcraft.charge.feeder.ic2.tips=轉換IC2電能為Railcraft電力\n§o§c- 需要紅石輸入 -
+
+tile.railcraft.charge.trap.name=電力陷阱
+
+tile.railcraft.detector.advanced.name=車輛偵測器 - 進階
+tile.railcraft.detector.age.name=車輛偵測器 - 年齡
+tile.railcraft.detector.animal.name=車輛偵測器 - 動物
+tile.railcraft.detector.any.name=車輛偵測器 - 任何
+tile.railcraft.detector.cart.name=車輛偵測器 - 礦車
+tile.railcraft.detector.empty.name=車輛偵測器 - 空車
+tile.railcraft.detector.energy.name=車輛偵測器 - 能量
+tile.railcraft.detector.explosive.name=車輛偵測器 - 爆裂物
+tile.railcraft.detector.item.name=車輛偵測器 - 物品
+tile.railcraft.detector.locomotive.name=車輛偵測器 - 火車頭
+tile.railcraft.detector.mob.name=車輛偵測器 - 怪物
+tile.railcraft.detector.player.name=車輛偵測器 - 玩家
+tile.railcraft.detector.powered.name=車輛偵測器 - 動力
+tile.railcraft.detector.routing.name=車輛偵測器 - 路由
+tile.railcraft.detector.sheep.name=車輛偵測器 - 綿羊
+tile.railcraft.detector.tank.name=車輛偵測器 - 蓄水
+tile.railcraft.detector.train.name=車輛偵測器 - 列車
+tile.railcraft.detector.villager.name=車輛偵測器 - 村民
+
+tile.railcraft.firestone.recharge.name=蓄能中的火石
+
+tile.railcraft.fluid.creosote.name=雜酚油
+tile.railcraft.fluid.steam.name=蒸氣
+
+tile.railcraft.frame.name=導線支撐框架
+tile.railcraft.frame.tips=用來將軌道放在分流導線上
+
+tile.railcraft.coke.block.name=焦炭磚
+tile.railcraft.coke.block.tips=32,000個燃料單位
+tile.railcraft.creosote.block.name=雜酚油木塊
+tile.railcraft.generic_crushed_obsidian.name=碎裂黑曜石
+tile.railcraft.generic_crushed_obsidian.tips=防止怪物生成
+tile.railcraft.generic_stone_abyssal.name=深淵石
+tile.railcraft.generic_stone_quarried.name=石料
+
+tile.railcraft.glass.black.name=黑色強化玻璃
+tile.railcraft.glass.red.name=紅色強化玻璃
+tile.railcraft.glass.green.name=綠色強化玻璃
+tile.railcraft.glass.brown.name=棕色強化玻璃
+tile.railcraft.glass.blue.name=藍色強化玻璃
+tile.railcraft.glass.purple.name=紫色強化玻璃
+tile.railcraft.glass.cyan.name=青色強化玻璃
+tile.railcraft.glass.light.gray.name=淺灰色強化玻璃
+tile.railcraft.glass.gray.name=灰色強化玻璃
+tile.railcraft.glass.pink.name=粉紅色強化玻璃
+tile.railcraft.glass.lime.name=淺綠色強化玻璃
+tile.railcraft.glass.yellow.name=黃色強化玻璃
+tile.railcraft.glass.light.blue.name=淺藍色強化玻璃
+tile.railcraft.glass.magenta.name=洋紅色強化玻璃
+tile.railcraft.glass.orange.name=橙色強化玻璃
+tile.railcraft.glass.white.name=強化玻璃
+
+tile.railcraft.reinforced.concrete.black.name=黑色鋼筋混凝土
+tile.railcraft.reinforced.concrete.red.name=紅色鋼筋混凝土
+tile.railcraft.reinforced.concrete.green.name=綠色鋼筋混凝土
+tile.railcraft.reinforced.concrete.brown.name=棕色鋼筋混凝土
+tile.railcraft.reinforced.concrete.blue.name=藍色鋼筋混凝土
+tile.railcraft.reinforced.concrete.purple.name=紫色鋼筋混凝土
+tile.railcraft.reinforced.concrete.cyan.name=青色鋼筋混凝土
+tile.railcraft.reinforced.concrete.light.gray.name=鋼筋混凝土
+tile.railcraft.reinforced.concrete.gray.name=灰色鋼筋混凝土
+tile.railcraft.reinforced.concrete.pink.name=粉紅色鋼筋混凝土
+tile.railcraft.reinforced.concrete.lime.name=淺綠色鋼筋混凝土
+tile.railcraft.reinforced.concrete.yellow.name=黃色鋼筋混凝土
+tile.railcraft.reinforced.concrete.light.blue.name=淺藍色鋼筋混凝土
+tile.railcraft.reinforced.concrete.magenta.name=洋紅色鋼筋混凝土
+tile.railcraft.reinforced.concrete.orange.name=橙色鋼筋混凝土
+tile.railcraft.reinforced.concrete.white.name=白色鋼筋混凝土
+
+tile.railcraft.lantern.metal.copper.name=銅製燈
+tile.railcraft.lantern.metal.gold.name=黃金製燈
+tile.railcraft.lantern.metal.iron.name=鐵製燈
+tile.railcraft.lantern.metal.lead.name=鉛製燈
+tile.railcraft.lantern.metal.steel.name=鋼製燈
+tile.railcraft.lantern.metal.tin.name=錫製燈
+
+tile.railcraft.lantern.stone.abyssal.name=深淵石燈
+tile.railcraft.lantern.stone.bleachedbone.name=白骨石燈
+tile.railcraft.lantern.stone.bloodstained.name=染血石燈
+tile.railcraft.lantern.stone.frostbound.name=冰霜石燈
+tile.railcraft.lantern.stone.infernal.name=煉獄石燈
+tile.railcraft.lantern.stone.nether.name=地獄石燈
+tile.railcraft.lantern.stone.quarried.name=石料製燈
+tile.railcraft.lantern.stone.sandstone.name=砂岩石燈
+tile.railcraft.lantern.stone.sandy.name=砂石製燈
+tile.railcraft.lantern.stone.stone.name=石燈
+
+tile.railcraft.logbook.name=拜訪日誌
+tile.railcraft.logbook.desc=拜訪日誌紀錄著任何通過周圍半徑16格內的玩家，以及他們路過的日期。它僅能夠被擁有者破壞。
+tile.railcraft.logbook.tips=紀錄拜訪者
+
+tile.railcraft.metal_brass.name=黃銅磚
+tile.railcraft.metal_bronze.name=青銅磚
+tile.railcraft.metal_tin.name=錫磚
+tile.railcraft.metal_zinc.name=鋅磚
+tile.railcraft.metal_invar.name=殷鋼磚
+tile.railcraft.metal_lead.name=鉛磚
+tile.railcraft.metal_nickel.name=鎳磚
+tile.railcraft.metal_silver.name=銀磚
+tile.railcraft.metal_steel.name=鋼鐵磚
+tile.railcraft.metal_copper.name=銅磚
+
+tile.railcraft.blast.furnace.name=鼓風爐磚
+tile.railcraft.blast.furnace.tips=多重方塊: 3x4x3 (中空)
+tile.railcraft.coke.oven.name=焦炭爐磚
+tile.railcraft.coke.oven.tips=多重方塊: 3x3x3 (中空)
+tile.railcraft.rock.crusher.name=碎石機
+tile.railcraft.rock.crusher.tips=多重方塊: 3x2x2
+tile.railcraft.steam.oven.name=蒸氣爐
+tile.railcraft.steam.oven.tips=多重方塊: 2x2x2
+tile.railcraft.steam.trap.auto.name=自動蒸氣陷阱
+tile.railcraft.steam.trap.name=手動蒸氣陷阱
+tile.railcraft.tank.water.name=水塔牆板
+tile.railcraft.tank.water.tips=多重方塊: 3x3x3 (中空)
+tile.railcraft.trade.station.name=交易站
+tile.railcraft.steam.turbine.name=蒸氣渦輪機殼
+tile.railcraft.steam.turbine.tips=多重方塊: 3x2x2\n 利用蒸氣產生電力\n會在底部產出水分\n 需要一個渦輪轉子
+
+tile.railcraft.boiler.firebox.fluid.name=流體燃燒室
+tile.railcraft.boiler.firebox.fluid.tips=多重方塊: 大小可變, 位居底部\n 尺寸: 1x1, 2x2, 3x3
+tile.railcraft.boiler.firebox.solid.name=固體燃燒室
+tile.railcraft.boiler.firebox.solid.tips=多重方塊: 大小可變, 位居底部\n 尺寸: 1x1, 2x2, 3x3
+tile.railcraft.boiler.tank.pressure.high.name=高壓鍋爐
+tile.railcraft.boiler.tank.pressure.high.tips=多重方塊: 大小可變, 燃燒室上\n 尺寸: 1x1x1, 2x2x2, 2x3x2,\n 3x2x3, 3x3x3, 3x4x3\n 每tick產出20 mB蒸氣
+tile.railcraft.boiler.tank.pressure.low.name=低壓鍋爐
+tile.railcraft.boiler.tank.pressure.low.tips=多重方塊: 大小可變, 燃燒室上\n 尺寸: 1x1x1, 2x2x2, 2x3x2,\n 3x2x3, 3x3x3, 3x4x3\n 每tick產出10 mB蒸氣
+tile.railcraft.chest.metals.name=金屬箱
+tile.railcraft.chest.metals.tips=將金屬壓縮成磚塊
+tile.railcraft.chest.void.name=虛無箱
+tile.railcraft.chest.void.tips=清除物品
+tile.railcraft.engine.steam.high.name=工業用蒸氣引擎
+tile.railcraft.engine.steam.high.tips=輸出 8 MJ/t\n每tick使用40 mB蒸氣
+tile.railcraft.engine.steam.hobby.name=業餘蒸氣引擎
+tile.railcraft.engine.steam.hobby.tips=輸出 2 MJ/t\n每tick使用10 mB蒸氣
+tile.railcraft.engine.steam.low.name=商業用蒸氣引擎
+tile.railcraft.engine.steam.low.tips=輸出 4 MJ/t\n每tick使用20 mB蒸氣
+tile.railcraft.tank.iron.gauge.name=鐵製蓄水槽量表
+tile.railcraft.tank.iron.gauge.tips=多重方塊: 大小可變, 中空\n 高度: 4, 5, 6, 7, 8\n 直徑: 3, 5, 7, 9
+tile.railcraft.tank.iron.valve.name=鐵製蓄水槽閥門
+tile.railcraft.tank.iron.valve.tips=多重方塊: 僅能在底部兩層\n 方塊輸出液體
+tile.railcraft.tank.iron.wall.name=鐵製蓄水槽牆壁
+tile.railcraft.tank.iron.wall.tips=多重方塊: 大小可變, 中空\n 高度: 4, 5, 6, 7, 8\n 直徑: 3, 5, 7, 9
+tile.railcraft.tank.steel.gauge.name=鋼製蓄水槽量表
+tile.railcraft.tank.steel.gauge.tips=多重方塊: 大小可變, 中空\n 高度: 4, 5, 6, 7, 8\n 直徑: 3, 5, 7, 9
+tile.railcraft.tank.steel.valve.name=鋼製蓄水槽閥門
+tile.railcraft.tank.steel.valve.tips=多重方塊: 僅能在底部兩層\n 方塊輸出液體
+tile.railcraft.tank.steel.wall.name=鋼製蓄水槽牆壁
+tile.railcraft.tank.steel.wall.tips=多重方塊: 大小可變, 中空\n 高度: 4, 5, 6, 7, 8\n 直徑: 3, 5, 7, 9
+
+tile.railcraft.admin.steam.producer.name=管理用蒸氣產生器
+tile.railcraft.admin.steam.producer.tips=產出無限量的蒸氣
+tile.railcraft.engraving.bench.name=雕刻工作臺
+tile.railcraft.flux.transformer.name=Redstone Flux 轉換機
+tile.railcraft.flux.transformer.tips=多重方塊: 2x2x2\n 將RF能量轉換成Railcraft電力\n 80%的效益
+tile.railcraft.force.track.emitter.name=能量鐵軌發射裝置
+tile.railcraft.force.track.emitter.tips=投射出以能量構成的軌道
+
+tile.railcraft.equipment.feed.station.name=自動餵食機
+tile.railcraft.equipment.feed.station.desc=幫助你自動地餵食附近的動物。可使用紅石關閉。若附近的動物數量過多，將會停止餵食以避免過度繁殖。
+tile.railcraft.equipment.feed.station.tips=餵食動物\n§o§c- 紅石充能關閉 -
+tile.railcraft.equipment.rolling.manual.name=手動滾壓機
+tile.railcraft.equipment.rolling.manual.desc=滾製多樣金屬製品的機械。若欄位中僅有合成所需的一輪物品量，你可以點擊顯示的輸出物強制合成。
+tile.railcraft.equipment.rolling.manual.tips=各式金屬物品的合成臺
+tile.railcraft.equipment.rolling.powered.name=自動滾壓機
+tile.railcraft.equipment.rolling.powered.desc=滾製多樣金屬製品的機械。簡單地輸入物品與輸出產物即可達成自動化。若欄位中僅有合成所需的一輪物品量，你可以點擊顯示的輸出物強制合成。
+tile.railcraft.equipment.rolling.powered.tips=各式金屬物品的合成臺
+tile.railcraft.equipment.smoker.name=發煙器
+tile.railcraft.equipment.smoker.tips=發出煙霧顆粒\n§o§c- 紅石充能關閉 -
+tile.railcraft.equipment.smoker.desc=發出煙霧顆粒。可使用紅石關閉。
+
+
+tile.railcraft.manipulator.dispenser.cart.name=礦車發車器
+tile.railcraft.manipulator.dispenser.cart.tips=將礦車放置於鐵軌上\n§o§9- 與控制鐵軌搭配使用 -\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 以紅石充能放置礦車 -
+tile.railcraft.manipulator.dispenser.train.name=列車發車器
+tile.railcraft.manipulator.dispenser.train.tips=將已連結的列車放置於鐵軌上\n§o§9- 與控制鐵軌搭配使用 -\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 以紅石充能放置列車 -
+tile.railcraft.manipulator.loader.ic2.name=Ic2 EU 裝載機
+tile.railcraft.manipulator.loader.ic2.tips=裝載EU進入Ic2電力礦車\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 僅接受Ic2電力
+tile.railcraft.manipulator.loader.rf.name=Redstone Flux 裝載機
+tile.railcraft.manipulator.loader.rf.tips=裝載RF進入RF礦車\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 僅接受RF能量
+tile.railcraft.manipulator.loader.item.advanced.name=進階物品裝載機
+tile.railcraft.manipulator.loader.item.advanced.tips=裝載物品進入礦車\n§o§9- 以鐵橇點擊改變方向 -
+tile.railcraft.manipulator.loader.item.name=物品裝載機
+tile.railcraft.manipulator.loader.item.tips=裝載物品進入礦車\n§o§c- 放置於鐵軌上方 -
+tile.railcraft.manipulator.loader.fluid.name=液體裝載機
+tile.railcraft.manipulator.loader.fluid.tips=裝載液體進入礦車\n§o§c- 放置於鐵軌上方1-2格 -
+tile.railcraft.manipulator.unloader.ic2.name=Ic2 EU 卸載機
+tile.railcraft.manipulator.unloader.ic2.tips=運出Ic2電力礦車中的EU\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 僅輸出Ic2電力
+tile.railcraft.manipulator.unloader.rf.name=Redstone Flux 卸載機
+tile.railcraft.manipulator.unloader.rf.tips=運出RF礦車中的RF\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 僅輸出RF能量
+tile.railcraft.manipulator.unloader.item.advanced.name=進階物品卸載機
+tile.railcraft.manipulator.unloader.item.advanced.tips=卸載物品運出礦車\n§o§9- 以鐵橇點擊改變方向 -
+tile.railcraft.manipulator.unloader.item.name=物品卸載機
+tile.railcraft.manipulator.unloader.item.tips=卸載物品運出礦車\n§o§c- 放置於鐵軌下方 -
+tile.railcraft.manipulator.unloader.fluid.name=液體卸載機
+tile.railcraft.manipulator.unloader.fluid.tips=卸載液體運出礦車\n§o§c- 放置於鐵軌下方 -
+
+tile.railcraft.ore.dark.diamond.name=深色鑽石礦
+tile.railcraft.ore.dark.emerald.name=深色綠寶石礦
+tile.railcraft.ore.dark.lapis.name=深色青金石礦
+tile.railcraft.ore.saltpeter.name=硝石礦
+tile.railcraft.ore.sulfur.name=硫磺礦
+
+tile.railcraft.ore.magic.firestone.name=火石礦
+tile.railcraft.ore.magic.firestone.tips.name=燒毀生物以外的一切事物\n帶著他，感受附近方塊產生的變化...
+
+tile.railcraft.ore.metal.copper.name=銅礦
+tile.railcraft.ore.metal.lead.name=鉛礦
+tile.railcraft.ore.metal.nickel.name=鎳礦
+tile.railcraft.ore.metal.silver.name=銀礦
+tile.railcraft.ore.metal.tin.name=錫礦
+tile.railcraft.ore.metal.zinc.name=鋅礦
+
+tile.railcraft.ore.metal.poor.copper.name=貧銅礦
+tile.railcraft.ore.metal.poor.gold.name=貧金礦
+tile.railcraft.ore.metal.poor.iron.name=貧鐵礦
+tile.railcraft.ore.metal.poor.lead.name=貧鉛礦
+tile.railcraft.ore.metal.poor.nickel.name=貧鎳礦
+tile.railcraft.ore.metal.poor.silver.name=貧銀礦
+tile.railcraft.ore.metal.poor.tin.name=貧錫礦
+tile.railcraft.ore.metal.poor.zinc.name=貧鋅礦
+
+tile.railcraft.post.emblem.name=標誌支柱
+tile.railcraft.post.metal.black.name=黑色金屬支柱
+tile.railcraft.post.metal.blue.name=藍色金屬支柱
+tile.railcraft.post.metal.brown.name=棕色金屬支柱
+tile.railcraft.post.metal.cyan.name=青色金屬支柱
+tile.railcraft.post.metal.gray.name=灰色金屬支柱
+tile.railcraft.post.metal.green.name=綠色金屬支柱
+tile.railcraft.post.metal.light.blue.name=淺藍金屬支柱
+tile.railcraft.post.metal.light.gray.name=淺灰金屬支柱
+tile.railcraft.post.metal.lime.name=淺綠金屬支柱
+tile.railcraft.post.metal.magenta.name=洋紅金屬支柱
+tile.railcraft.post.metal.unpainted.name=金屬支柱
+tile.railcraft.post.metal.orange.name=橘色金屬支柱
+tile.railcraft.post.metal.pink.name=粉紅金屬支柱
+tile.railcraft.post.metal.platform.black.name=黑色金屬平台
+tile.railcraft.post.metal.platform.blue.name=藍色金屬平台
+tile.railcraft.post.metal.platform.brown.name=棕色金屬平台
+tile.railcraft.post.metal.platform.cyan.name=青色金屬平台
+tile.railcraft.post.metal.platform.gray.name=灰色金屬平台
+tile.railcraft.post.metal.platform.green.name=綠色金屬平台
+tile.railcraft.post.metal.platform.light.blue.name=淺藍金屬平台
+tile.railcraft.post.metal.platform.light.gray.name=淺灰金屬平台
+tile.railcraft.post.metal.platform.lime.name=淺綠金屬平台
+tile.railcraft.post.metal.platform.magenta.name=洋紅金屬平台
+tile.railcraft.post.metal.platform.unpainted.name=金屬平台
+tile.railcraft.post.metal.platform.orange.name=橘色金屬平台
+tile.railcraft.post.metal.platform.pink.name=粉紅金屬平台
+tile.railcraft.post.metal.platform.purple.name=紫色金屬平台
+tile.railcraft.post.metal.platform.red.name=紅色金屬平台
+tile.railcraft.post.metal.platform.white.name=白色金屬平台
+tile.railcraft.post.metal.platform.yellow.name=黃色金屬平台
+tile.railcraft.post.metal.purple.name=紫色金屬支柱
+tile.railcraft.post.metal.red.name=紅色金屬支柱
+tile.railcraft.post.metal.white.name=白色金屬支柱
+tile.railcraft.post.metal.yellow.name=黃色金屬支柱
+tile.railcraft.post.stone.name=混凝土支柱
+tile.railcraft.post.stone.platform.name=混凝土平台
+tile.railcraft.post.wood.name=木頭支柱
+tile.railcraft.post.wood.platform.name=木頭平台
+
+tile.railcraft.signal.block.name=閉塞號誌燈
+tile.railcraft.signal.block.tips=偵測閉塞區間內的車輛\n§o§9無線聯繫:\n§o§9- 1x 閉塞區間\n§o§9- 1x 控制器\n§o§c對應工具:\n§o§c- 號誌測量器
+tile.railcraft.signal.block.desc=這是最基礎的號誌燈，作為車輛偵測之用。它與另外一個鄰近的閉塞號誌燈成對配對，能夠偵測任何位於兩者之間的車輛，並傳送其結果燈號到配對的接收器。
+tile.railcraft.signal.distant.name=遠程號誌燈
+tile.railcraft.signal.distant.tips=顯示連接的控制器狀態\n§o§9無線聯繫: 1x 接收器\n§o§c對應工具:\n§o§c- 信號調頻器
+tile.railcraft.signal.distant.desc=此類型的號誌燈主要預期能夠給予裝飾性的使用。它完全不與車輛互動，僅僅簡單地顯示出配對控制器的燈號。
+tile.railcraft.signal.token.name=路牌號誌燈
+tile.railcraft.signal.token.tips=偵測進入/離開標記區域的車輛\n§o§9無線聯繫:\n§o§9- 1x 標記區域\n§o§9- 1x 控制器\n§o§c對應工具:\n§o§c- 號誌測量器
+tile.railcraft.signal.token.desc=這個號誌燈可以用來定義一個區域並監控進出此區域的車輛。它由配對組成一個號誌網路，無特別的數量限制多少個號誌燈可定義此區域。推薦用在會合處與斜列鐵路。它能傳送其結果燈號到配對的接收器。
+
+tile.railcraft.signal.dual.block.name=雙頭閉塞號誌燈
+tile.railcraft.signal.dual.block.tips=偵測閉塞區間內的車輛\n顯示連接的控制器狀態\n§o§9無線聯繫:\n§o§9- 1x 閉塞區間\n§o§9- 1x 控制器\n§o§9- 1x 接收器\n§o§c對應工具:\n§o§c- 信號調頻器\n§o§c- 號誌測量器
+tile.railcraft.signal.dual.block.desc=這個號誌燈包含一顆標準閉塞號誌燈於上半部、一顆遠程號誌燈於下半部。它是個控制器也同時是個接收器。
+tile.railcraft.signal.dual.distant.name=雙頭遠程號誌燈
+tile.railcraft.signal.dual.distant.tips=顯示多個連接的控制器狀態\n§o§9無線聯繫: 2x 接收器\n§o§c對應工具:\n§o§c- 信號調頻器
+tile.railcraft.signal.dual.distant.desc=這個號誌燈包含兩顆遠程號誌燈。他們可以分別與不同的兩個控制器配對。
+tile.railcraft.signal.dual.token.name=雙頭路牌號誌燈
+tile.railcraft.signal.dual.token.tips=偵測進入/離開標記區域的車輛\n§o§9無線聯繫:\n§o§9- 1x 標記區域\n§o§9- 1x 控制器\n§o§9- 1x 接收器\n§o§c對應工具:\n§o§c- 信號調頻器\n§o§c- 號誌測量器
+tile.railcraft.signal.dual.token.desc=這個號誌燈包含一顆路牌號誌燈於上半部、一顆遠程號誌燈於下半部。它是個控制器也同時是個接收器。
+
+
+tile.railcraft.signal.box.analog.name=類比號誌控制箱
+tile.railcraft.signal.box.analog.tips=傳送信號至接收器\n§o§9無線聯繫: 1x 控制器\n§o§9相鄰聯繫: 無\n§o§9紅石聯繫: 傾聽\n§o§c對應工具:\n§o§c- 信號調頻器
+tile.railcraft.signal.box.relay.name=號誌中繼箱
+tile.railcraft.signal.box.relay.tips=建立多個號誌區間的連結\n§o§9無線聯繫: 2x 號誌方塊\n§o§9相鄰聯繫: 輸出\n§o§9紅石聯繫: 輸出\n§o§c對應工具:\n§o§c- 號誌測量器
+tile.railcraft.signal.box.capacitor.name=號誌電容箱
+tile.railcraft.signal.box.capacitor.tips=傳送信號至接收器\n§o§9無線聯繫: 無\n§o§9相鄰聯繫: 傾聽, 輸出\n§o§9紅石聯繫: 傾聽中繼器, 輸出
+tile.railcraft.signal.box.controller.name=號誌控制箱
+tile.railcraft.signal.box.controller.tips=傳送信號至接收器\n§o§9無線聯繫: 1x 控制器\n§o§9相鄰聯繫: 傾聽\n§o§9紅石聯繫: 傾聽\n§o§c對應工具:\n§o§c- 信號調頻器
+tile.railcraft.signal.box.interlock.name=號誌連鎖箱
+tile.railcraft.signal.box.interlock.tips=允許一個來源信號通過\n§o§9無線聯繫:\n§o§9- 1x 控制器\n§o§9- 1x 接收器\n§o§9相鄰聯繫:\n§o§9- 連鎖箱\n§o§9- 傾聽 (用以限制輸出)\n§o§c對應工具:\n§o§c- 信號調頻器
+tile.railcraft.signal.box.receiver.name=號誌接收箱
+tile.railcraft.signal.box.receiver.tips=傾聽來自控制器的信號\n§o§9無線聯繫: 1x 接收器\n§o§9相鄰聯繫: 輸出\n§o§9紅石聯繫: 輸出\n§o§c對應工具:\n§o§c- 信號調頻器
+tile.railcraft.signal.box.sequencer.name=號誌定序箱
+tile.railcraft.signal.box.sequencer.tips=循環對緊鄰方塊輸出\n§o§9相鄰聯繫:\n§o§9- 定序箱\n§o§9- 傾聽 (脈衝)\n§o§9- 輸出\n§o§9紅石聯繫:\n§o§9- 傾聽中繼器 (脈衝)\n§o§9- 輸出
+
+tile.railcraft.abyssal.slab.block.name=深淵半磚
+tile.railcraft.abyssal.slab.brick.name=深淵磚板
+tile.railcraft.abyssal.slab.cobble.name=深淵碎石板
+tile.railcraft.abyssal.slab.fitted.name=深淵石磚板
+tile.railcraft.bleachedbone.slab.block.name=白骨半磚
+tile.railcraft.bleachedbone.slab.brick.name=白骨磚板
+tile.railcraft.bleachedbone.slab.cobble.name=白骨碎石板
+tile.railcraft.bleachedbone.slab.fitted.name=白骨石磚板
+tile.railcraft.bloodstained.slab.block.name=染血半磚
+tile.railcraft.bloodstained.slab.brick.name=染血磚板
+tile.railcraft.bloodstained.slab.cobble.name=染血碎石板
+tile.railcraft.bloodstained.slab.fitted.name=染血石磚板
+tile.railcraft.concrete.slab.name=混凝土半磚
+tile.railcraft.copper.slab.name=銅半磚
+tile.railcraft.creosote.slab.name=雜酚油木板
+tile.railcraft.diamond.slab.name=鑽石半磚
+tile.railcraft.frostbound.slab.block.name=冰霜半磚
+tile.railcraft.frostbound.slab.brick.name=冰霜磚板
+tile.railcraft.frostbound.slab.cobble.name=冰霜碎石板
+tile.railcraft.frostbound.slab.fitted.name=冰霜石磚板
+tile.railcraft.gold.slab.name=黃金半磚
+tile.railcraft.ice.slab.name=冰塊半磚
+tile.railcraft.infernal.slab.block.name=煉獄半磚
+tile.railcraft.infernal.slab.brick.name=煉獄磚板
+tile.railcraft.infernal.slab.cobble.name=煉獄碎石板
+tile.railcraft.infernal.slab.fitted.name=煉獄石磚板
+tile.railcraft.iron.slab.name=鐵半磚
+tile.railcraft.lead.slab.name=鉛半磚
+tile.railcraft.nether.slab.block.name=地獄半磚
+tile.railcraft.nether.slab.cobble.name=地獄碎石板
+tile.railcraft.nether.slab.fitted.name=地獄石磚板
+tile.railcraft.obsidian.slab.name=黑曜石板
+tile.railcraft.packed.ice.slab.name=冰磚半板
+tile.railcraft.quarried.slab.block.name=石料半磚
+tile.railcraft.quarried.slab.brick.name=石料磚板
+tile.railcraft.quarried.slab.cobble.name=石料碎石板
+tile.railcraft.quarried.slab.fitted.name=石料石磚板
+tile.railcraft.sandy.slab.block.name=砂石板
+tile.railcraft.sandy.slab.brick.name=砂磚板
+tile.railcraft.sandy.slab.cobble.name=砂石碎石板
+tile.railcraft.sandy.slab.fitted.name=砂石磚板
+tile.railcraft.snow.slab.name=雪半磚
+tile.railcraft.steel.slab.name=鋼鐵半磚
+tile.railcraft.tin.slab.name=錫半磚
+
+tile.railcraft.abyssal.block.stairs.name=深淵階梯
+tile.railcraft.abyssal.brick.stairs.name=深淵磚階梯
+tile.railcraft.abyssal.cobble.stairs.name=深淵碎石階梯
+tile.railcraft.abyssal.fitted.stairs.name=深淵石磚階梯
+tile.railcraft.bleachedbone.block.stairs.name=白骨階梯
+tile.railcraft.bleachedbone.brick.stairs.name=白骨磚階梯
+tile.railcraft.bleachedbone.cobble.stairs.name=白骨碎石階梯
+tile.railcraft.bleachedbone.fitted.stairs.name=白骨石磚階梯
+tile.railcraft.bloodstained.block.stairs.name=染血階梯
+tile.railcraft.bloodstained.brick.stairs.name=染血磚階梯
+tile.railcraft.bloodstained.cobble.stairs.name=染血碎石階梯
+tile.railcraft.bloodstained.fitted.stairs.name=染血石磚階梯
+tile.railcraft.concrete.stairs.name=混凝土階梯
+tile.railcraft.copper.stairs.name=銅階梯
+tile.railcraft.creosote.stairs.name=雜酚油木階梯
+tile.railcraft.diamond.stairs.name=鑽石階梯
+tile.railcraft.frostbound.block.stairs.name=冰霜階梯
+tile.railcraft.frostbound.brick.stairs.name=冰霜磚階梯
+tile.railcraft.frostbound.cobble.stairs.name=冰霜碎石階梯
+tile.railcraft.frostbound.fitted.stairs.name=冰霜石磚階梯
+tile.railcraft.gold.stairs.name=黃金階梯
+tile.railcraft.ice.stairs.name=冰塊階梯
+tile.railcraft.infernal.block.stairs.name=煉獄階梯
+tile.railcraft.infernal.brick.stairs.name=煉獄磚階梯
+tile.railcraft.infernal.cobble.stairs.name=煉獄碎石階梯
+tile.railcraft.infernal.fitted.stairs.name=煉獄石磚階梯
+tile.railcraft.iron.stairs.name=鐵階梯
+tile.railcraft.lead.stairs.name=鉛階梯
+tile.railcraft.nether.block.stairs.name=地獄階梯
+tile.railcraft.nether.cobble.stairs.name=地獄碎石階梯
+tile.railcraft.nether.fitted.stairs.name=地獄石磚階梯
+tile.railcraft.obsidian.stairs.name=黑曜石階梯
+tile.railcraft.packed.ice.stairs.name=冰磚階梯
+tile.railcraft.quarried.block.stairs.name=石料階梯
+tile.railcraft.quarried.brick.stairs.name=石料磚階梯
+tile.railcraft.quarried.cobble.stairs.name=石料碎石階梯
+tile.railcraft.quarried.fitted.stairs.name=石料石磚階梯
+tile.railcraft.sandy.block.stairs.name=砂石階梯
+tile.railcraft.sandy.brick.stairs.name=砂磚階梯
+tile.railcraft.sandy.cobble.stairs.name=砂石碎石階梯
+tile.railcraft.sandy.fitted.stairs.name=砂石磚階梯
+tile.railcraft.snow.stairs.name=雪階梯
+tile.railcraft.steel.stairs.name=鋼鐵階梯
+tile.railcraft.tin.stairs.name=錫階梯
+
+tile.railcraft.wire.name=電力分流導線
+tile.railcraft.wire.tips=近距離的電力輸送\n 放置於使用支撐框架的軌道下\n 高損耗
+
+#Old Tracks (to be deleted)
+tile.railcraft.track.buffer.stop.name=止衝鐵軌
+tile.railcraft.track.buffer.stop.tips=鐵路的終點\n§o§9- 以鐵橇點擊改變方向 -
+tile.railcraft.track.control.name=控制鐵軌
+tile.railcraft.track.control.tips=給予微小但全方位的加速\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 以紅石充能改變方向 -
+tile.railcraft.track.coupler.name=連結鐵軌
+tile.railcraft.track.coupler.tips=連結/解除連結經過的礦車\n§o§9- 以鐵橇點擊改變模式 -\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.detector.direction.name=方向感應軌
+tile.railcraft.track.detector.direction.tips=當礦車經指定方向通過\n便輸出紅石訊號\n§o§9- 以鐵橇點擊改變方向 -
+tile.railcraft.track.disembarking.name=下車鐵軌
+tile.railcraft.track.disembarking.tips=使礦車上的實體往箭頭方向下車\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.disposal.name=遺棄鐵軌
+tile.railcraft.track.disposal.tips=漂浮的鐵軌\n將礦車上的實體拋下車
+tile.railcraft.track.electric.junction.name=電氣十字軌
+tile.railcraft.track.electric.junction.tips=§9危險: 高電壓\n §r搭載著電流\n 與電力機車搭配使用\n 使用電力供給單位提供能量\n 使用分流導線跨越軌道間距
+tile.railcraft.track.electric.switch.name=電氣轉轍軌
+tile.railcraft.track.electric.switch.tips=§9危險: 高電壓\n §r搭載著電流\n 與電力機車搭配使用\n 使用電力供給單位提供能量\n 使用分流導線跨越軌道間距\n§o§c- 以轉轍器控制方向 -
+tile.railcraft.track.electric.wye.name=電氣Ｙ型軌
+tile.railcraft.track.electric.wye.tips=§9危險: 高電壓\n §r搭載著電流\n 與電力機車搭配使用\n 使用電力供給單位提供能量\n 使用分流導線跨越軌道間距\n§o§c- 以轉轍器控制方向 -
+tile.railcraft.track.elevator.name=電梯鐵軌
+tile.railcraft.track.elevator.tips=可使礦車垂直移動\n§o§c- 以紅石充能頂端上升 -
+tile.railcraft.track.embarking.name=上車鐵軌
+tile.railcraft.track.embarking.tips=讓附近的實體坐上礦車\n§o§9- 以鐵橇點擊改變範圍 -\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.force.name=能量鐵軌
+tile.railcraft.track.gated.name=閘門鐵軌
+tile.railcraft.track.gated.oneway.name=單向閘門鐵軌
+tile.railcraft.track.gated.oneway.tips=這是單一方向的閘門\n§o§c- 以紅石充能開啟 -
+tile.railcraft.track.gated.tips=就是個閘門\n§o§c- 以紅石充能開啟 -
+tile.railcraft.track.holding.name=臨停鐵軌
+tile.railcraft.track.holding.tips=已被鎖定鐵軌取代
+tile.railcraft.track.holding.train.name=列車臨停軌
+tile.railcraft.track.holding.train.tips=已被鎖定鐵軌取代
+tile.railcraft.track.junction.name=十字鐵軌
+tile.railcraft.track.launcher.name=彈跳鐵軌
+tile.railcraft.track.launcher.tips=使礦車在空中飛翔\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.throttle.name=限制鐵軌
+tile.railcraft.track.throttle.tips=調節經過火車頭的速度\n§o§9- 以鐵橇點擊改變模式 -\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.locking.name=鎖定鐵軌
+tile.railcraft.track.locking.tips=停止並扣留礦車\n§o§9- 以鐵橇點擊改變模式 -\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.locomotive.name=車頭鐵軌
+tile.railcraft.track.locomotive.tips=啟動/停止火車頭\n§o§9- 以鐵橇點擊改變模式 -\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.oneway.name=單向鐵軌
+tile.railcraft.track.oneway.tips=只允許礦車依箭頭方向通過\n§o§9- 以鐵橇點擊改變方向 -
+tile.railcraft.track.priming.name=引爆鐵軌
+tile.railcraft.track.priming.tips=點燃 TNT 礦車\n可調節點燃秒數\n§o§9- 以鐵橇點擊改變燃燒秒數 -\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.reinforced.boost.name=強化加速軌
+tile.railcraft.track.reinforced.boost.tips=標準鐵軌速度的125%\n 抵抗爆炸\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.reinforced.junction.name=強化十字軌
+tile.railcraft.track.reinforced.junction.tips=標準鐵軌速度的125%\n 抵抗爆炸
+tile.railcraft.track.reinforced.switch.name=強化轉轍軌
+tile.railcraft.track.reinforced.switch.tips=標準鐵軌速度的125%\n 抵抗爆炸\n§o§c- 以轉轍器控制方向 -
+tile.railcraft.track.reinforced.wye.name=強化Ｙ型軌
+tile.railcraft.track.reinforced.wye.tips=標準鐵軌速度的125%\n 抵抗爆炸\n§o§c- 以轉轍器控制方向 -
+tile.railcraft.track.routing.name=路由鐵軌
+tile.railcraft.track.routing.tips=設定經過火車頭的車票\n§o§9- 以鐵橇點擊設定車票 -
+tile.railcraft.track.slow.boost.name=木製加速軌
+tile.railcraft.track.slow.junction.name=木製十字軌
+tile.railcraft.track.slow.junction.tips=標準鐵軌速度的30%
+tile.railcraft.track.slow.switch.name=木製轉轍軌
+tile.railcraft.track.slow.switch.tips=標準鐵軌速度的30%\n §o§c- 以轉轍器控制方向 -
+tile.railcraft.track.slow.wye.name=木製Ｙ型軌
+tile.railcraft.track.slow.wye.tips=標準鐵軌速度的30%\n §o§c- 以轉轍器控制方向 -
+tile.railcraft.track.speed.boost.name=高速加速軌
+tile.railcraft.track.speed.boost.tips=§9危險\n §r比標準鐵軌的兩倍速度還快\n 可用來維持高速狀態\n§o§c- 以紅石充能加速 -
+tile.railcraft.track.speed.switch.name=高速轉轍軌
+tile.railcraft.track.speed.switch.tips=§9危險\n 切勿嘗試在高速狀態下轉彎\n §o§c- 以轉轍器控制方向 -
+tile.railcraft.track.speed.transition.name=高速轉換軌
+tile.railcraft.track.speed.transition.tips=§9危險\n §r比標準鐵軌的兩倍速度還快\n 可在高速狀態與一般速度間轉換\n§o§c- 以紅石充能加速 -
+tile.railcraft.track.speed.wye.name=高速Ｙ型軌
+tile.railcraft.track.speed.wye.tips=§9危險\n 切勿嘗試在高速狀態下通過\n §o§c- 以轉轍器控制方向 -
+tile.railcraft.track.suspended.name=懸浮鐵軌
+tile.railcraft.track.suspended.tips=底部不需要方塊支撐\n 可用於穿越峽谷
+tile.railcraft.track.switch.name=轉轍鐵軌
+tile.railcraft.track.switch.tips=§o§c- 以轉轍器控制方向 -
+tile.railcraft.track.whistle.name=汽笛鐵軌
+tile.railcraft.track.whistle.tips=使經過的火車頭發出汽笛聲\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.wye.name=Ｙ型鐵軌
+tile.railcraft.track.wye.tips=§o§c- 以轉轍器控制方向 -
+tile.railcraft.track.autolococoupler.name=自動車頭連結鐵軌
+tile.railcraft.track.autolococoupler.tips=設定經過的火車頭連結第一個\n之後碰撞的車輛，並自動\n切換到調車速度\n§o§c- 以紅石充能啟動 -
+#end old tracks
+
+tile.railcraft.wall.abyssal.brick.name=深淵磚牆
+tile.railcraft.wall.bleachedbone.brick.name=白骨磚牆
+tile.railcraft.wall.bloodstained.brick.name=染血磚牆
+tile.railcraft.wall.brick.name=紅磚牆
+tile.railcraft.wall.concrete.name=混凝土牆
+tile.railcraft.wall.diamond.name=鑽石牆
+tile.railcraft.wall.frost.bound.brick.name=冰霜磚牆
+tile.railcraft.wall.gold.name=黃金牆
+tile.railcraft.wall.ice.name=冰塊牆
+tile.railcraft.wall.infernal.brick.name=煉獄磚牆
+tile.railcraft.wall.iron.name=鐵牆
+tile.railcraft.wall.nether.brick.name=地獄磚牆
+tile.railcraft.wall.obsidian.name=黑曜石牆
+tile.railcraft.wall.quarried.brick.name=石料磚牆
+tile.railcraft.wall.quartz.chiseled.name=浮雕石英牆
+tile.railcraft.wall.quartz.name=石英牆
+tile.railcraft.wall.sandstone.chiseled.name=浮雕砂岩牆
+tile.railcraft.wall.sandstone.name=砂岩牆
+tile.railcraft.wall.sandstone.smooth.name=平滑砂岩牆
+tile.railcraft.wall.sandy.brick.name=砂磚牆
+tile.railcraft.wall.snow.name=雪牆
+tile.railcraft.wall.stone.brick.chiseled.name=浮雕石磚牆
+tile.railcraft.wall.stone.brick.cracked.name=裂石磚牆
+tile.railcraft.wall.stone.brick.mossy.name=青苔石磚牆
+tile.railcraft.wall.stone.brick.name=石磚牆
+
+tile.railcraft.worldlogic.name=硝石礦生塊磚
+
+tile.railcraft.worldspike.admin.desc=於讀取世界時載入5x5大小的區塊並確保他們的被載入。無法合成且永遠不需要燃料。
+tile.railcraft.worldspike.admin.name=管理用世界釘
+tile.railcraft.worldspike.admin.tips=區塊讀取器\n§o§c- 紅石充能關閉 -
+tile.railcraft.worldspike.passive.desc=維持3x3大小的區塊被載入，但是讀取世界時並不會載入他們。依照配置設定可能需要燃料。
+tile.railcraft.worldspike.passive.name=被動世界釘
+tile.railcraft.worldspike.passive.tips=區塊讀取器\n§o§c- 紅石充能關閉 -
+tile.railcraft.worldspike.personal.desc=維持3x3大小的區塊被載入，但是讀取世界時並不會載入他們。此外擁有者登出將使其停止作用，儘管如此其他事物仍可能繼續保持區塊活躍。依照配置設定可能需要燃料。
+tile.railcraft.worldspike.personal.name=私人世界釘
+tile.railcraft.worldspike.personal.tips=區塊讀取器\n§o§c- 紅石充能關閉 -
+tile.railcraft.worldspike.standard.desc=於讀取世界時載入5x5大小的區塊並確保他們的被載入。依照配置設定可能需要燃料。
+tile.railcraft.worldspike.standard.name=標準世界釘
+tile.railcraft.worldspike.standard.tips=區塊讀取器\n§o§c- 紅石充能關閉 -
+tile.railcraft.worldspike.point.desc=世界釘標記可以與世界釘配對來載入單一長距離的直線區塊。
+tile.railcraft.worldspike.point.name=世界釘標記
+tile.railcraft.worldspike.point.tips=延伸世界釘的區塊讀取區域\n§o§9- 使用鐵橇與世界釘配對 -
+
+tooltip.wawla.tooltype.crowbar=鐵橇
+
+
+######################################################################################
+#   Flex Tracks
+######################################################################################
+
+tile.railcraft.track.flex.abandoned.name=廢棄鐵軌
+tile.railcraft.track.flex.abandoned.tips=§9危險: 潛在出軌可能\n可懸掛於鴻溝之上
+
+tile.railcraft.track.flex.electric.name=導電鐵軌
+tile.railcraft.track.flex.electric.tips=§9危險: 高電壓\n §r搭載著電流\n 與電力機車搭配使用\n 使用電力供給單位提供能量\n 使用分流導線跨越軌道間距
+
+tile.railcraft.track.flex.high.speed.name=高速鐵軌
+tile.railcraft.track.flex.high.speed.tips=§9危險: 高速\n §r非常快速\n 需動力/過渡套件才能達到如此急速\n 在高速狀態下不能轉彎
+
+tile.railcraft.track.flex.hs.electric.name=高速導電鐵軌
+tile.railcraft.track.flex.hs.electric.tips=§9危險: 高電壓/速度\n §r非常快速\n§r搭載著電流\n與電力機車搭配使用\n 需動力/過渡套件才能達到如此急速\n 在高速狀態下不能轉彎
+
+tile.railcraft.track.flex.reinforced.name=強化鐵軌
+tile.railcraft.track.flex.reinforced.tips=標準軌道的125%速度\n 抵抗爆炸
+
+tile.railcraft.track.flex.strap.iron.name=鍍鐵鐵軌
+tile.railcraft.track.flex.strap.iron.tips=鐵製軌道的30%速度
+
+
+######################################################################################
+#   Track Kits & Outfitted Tracks
+# --------------------------------------------
+#
+# If you wish finer control of the translation, you can use override tags as seen below.
+#
+# Override Tags:
+# item.railcraft.track_kit.railcraft_activator.name=Activator Track Kit
+# tile.railcraft.track_outfitted.railcraft_strap_iron.railcraft_activator.name=Strap Iron Activator Track
+#
+######################################################################################
+
+item.railcraft.track_kit.name={track_kit}軌道套件
+tile.railcraft.track_outfitted.name={track_type}{track_kit}鐵軌
+
+track_kit.railcraft.railcraft_activator.name=觸發
+track_kit.railcraft.railcraft_activator.tips=觸發通過的礦車\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_booster.name=動力
+track_kit.railcraft.railcraft_booster.tips=施予一道加速力量給礦車\n未充能則減速\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_buffer.name=止衝
+track_kit.railcraft.railcraft_buffer.tips=鐵路的終點\n§o§9- 以鐵橇點擊改變方向 -
+
+track_kit.railcraft.railcraft_control.name=控制
+track_kit.railcraft.railcraft_control.tips=施予一道微小力量給礦車\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 以紅石充能改變方向 -
+
+track_kit.railcraft.railcraft_coupler.name=連結
+track_kit.railcraft.railcraft_coupler.tips=連結/解除連結通過的礦車\n§o§9- 以鐵橇點擊改變模式 -\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_delayed.name=延時鎖定
+track_kit.railcraft.railcraft_delayed.tips=鎖住列車數個 tick 後放行\n§o§9- 以鐵橇點擊改變時長 -\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_detector.name=感測
+track_kit.railcraft.railcraft_detector.tips=當礦車經指定方向通過\n便輸出紅石訊號\n§o§9- 以鐵橇點擊改變偵測方向 -\n§o§c- 可取得礦車的比較器輸出 -
+
+track_kit.railcraft.railcraft_disembarking.name=下車
+track_kit.railcraft.railcraft_disembarking.tips=使礦車上的實體往箭頭方向下車\n§o§9- 以鐵橇點擊改變方向 -\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_dumping.name=傾倒
+track_kit.railcraft.railcraft_dumping.tips=軌道應懸空\n 傾倒出礦車中的實體或物品\n§o§c- 以紅石充能關閉 -
+
+track_kit.railcraft.railcraft_embarking.name=上車
+track_kit.railcraft.railcraft_embarking.tips=讓附近的實體坐上礦車\n§o§9- 以鐵橇點擊改變範圍 -\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_gated.name=閘門
+track_kit.railcraft.railcraft_gated.tips=內建閘門的軌道\n§o§c- 以紅石充能開啟 -
+
+track_kit.railcraft.railcraft_junction.name=交叉
+
+track_kit.railcraft.railcraft_launcher.name=彈跳
+track_kit.railcraft.railcraft_launcher.tips=使礦車在空中飛翔!\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_throttle.name=調節
+track_kit.railcraft.railcraft_throttle.tips=調節通過火車頭的速度\n§o§9- 以鐵橇點擊改變模式 -\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_locking.name=鎖定
+track_kit.railcraft.railcraft_locking.tips=停止並留住礦車\n§o§9- 以鐵橇點擊改變模式 -\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_locomotive.name=車頭
+track_kit.railcraft.railcraft_locomotive.tips=啟動/停止火車頭\n§o§9- 以鐵橇點擊改變模式 -\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_missing.name=失效的
+track_kit.railcraft.railcraft_missing.tips=占位符
+
+track_kit.railcraft.railcraft_messenger.name=傳訊
+track_kit.railcraft.railcraft_messenger.tips=發送訊息給通過礦車上的乘坐者\n§o§9- 詳見指令"/rc track msg help"了解使用方法 -\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_one_way.name=單向
+track_kit.railcraft.railcraft_one_way.tips=允許礦車依箭頭方向通過\n§o§9- 以鐵橇點擊改變方向 -
+
+track_kit.railcraft.railcraft_priming.name=引爆
+track_kit.railcraft.railcraft_priming.tips=點燃 TNT 礦車\n可調節點燃秒數\n§o§9- 以鐵橇點擊改變燃燒秒數 -\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_routing.name=路由
+track_kit.railcraft.railcraft_routing.tips=設定通過火車頭的車票\n§o§9- 以鐵橇點擊設定車票 -
+
+track_kit.railcraft.railcraft_transition.name=過渡
+track_kit.railcraft.railcraft_transition.tips=用於高速與普通速度間的過渡段\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_turnout.name=分支
+
+track_kit.railcraft.railcraft_whistle.name=汽笛
+track_kit.railcraft.railcraft_whistle.tips=使通過的火車頭發出汽笛聲\n§o§c- 以紅石充能啟動 -
+
+track_kit.railcraft.railcraft_wye.name=Ｙ型
+
+track_type.railcraft.railcraft_iron.name=鐵製
+track_type.railcraft.railcraft_strap_iron.name=鍍鐵
+track_type.railcraft.railcraft_abandoned.name=廢棄
+track_type.railcraft.railcraft_reinforced.name=強化
+track_type.railcraft.railcraft_high_speed.name=高速
+track_type.railcraft.railcraft_high_speed_electric.name=高速導電
+track_type.railcraft.railcraft_electric.name=導電
+
+# remove these at some future point
+forestry.allele.true=Yes
+forestry.allele.false=No
