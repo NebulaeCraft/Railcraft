@@ -13,8 +13,6 @@ import com.google.common.collect.MapMaker;
 import mods.railcraft.api.carts.ILinkableCart;
 import mods.railcraft.api.carts.ILinkageManager;
 import mods.railcraft.api.tracks.TrackToolsAPI;
-import mods.railcraft.common.blocks.tracks.TrackShapeHelper;
-import mods.railcraft.common.blocks.tracks.TrackTools;
 import mods.railcraft.common.blocks.tracks.behaivor.HighSpeedTools;
 import mods.railcraft.common.modules.ModuleLocomotives;
 import mods.railcraft.common.modules.RailcraftModuleManager;
@@ -27,6 +25,7 @@ import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -45,7 +44,7 @@ public final class LinkageHandler {
     private static final float FORCE_LIMITER = 6F;
     //    private static final int TICK_HISTORY = 200;
     private static LinkageHandler instance;
-    private final Map<World, Map<EntityMinecart, Boolean>> pendingCarts = new MapMaker().weakKeys().makeMap();
+    private final Map<World, Set<EntityMinecart>> pendingCarts = new MapMaker().weakKeys().makeMap();
 //    private static Map<EntityMinecart, CircularVec3Queue> history = new MapMaker().weakKeys().makeMap();
 
     private LinkageHandler() {
@@ -94,7 +93,7 @@ public final class LinkageHandler {
      * @param cart1 EntityMinecart
      * @param cart2 EntityMinecart
      */
-    protected void adjustVelocity(EntityMinecart cart1, EntityMinecart cart2, LinkageManager.LinkType linkType, boolean onTurn) {
+    protected void adjustVelocity(EntityMinecart cart1, EntityMinecart cart2, LinkageManager.LinkType linkType) {
         String timer = LINK_A_TIMER;
         if (linkType == LinkageManager.LinkType.LINK_B)
             timer = LINK_B_TIMER;
@@ -148,7 +147,7 @@ public final class LinkageHandler {
         float optDist = getOptimalDistance(cart1, cart2);
         Vec2D cart1Vel = new Vec2D(cart1.motionX, cart1.motionZ);
         Vec2D cart2Vel = new Vec2D(cart2.motionX, cart2.motionZ);
-        boolean curvedLink = onTurn || LinkagePhysics.directionsDiffer(cart1Vel, cart2Vel);
+        boolean curvedLink = LinkagePhysics.directionsDiffer(cart1Vel, cart2Vel);
 
         double stretch = LinkagePhysics.springStretch(dist, optDist, curvedLink);
 //        stretch = Math.max(0.0, stretch);
@@ -211,15 +210,15 @@ public final class LinkageHandler {
      *
      * @param cart EntityMinecart
      */
-    private void adjustCart(EntityMinecart cart, Map<EntityMinecart, Boolean> carts, Set<Long> adjustedLinks) {
+    private void adjustCart(EntityMinecart cart, Set<Long> adjustedLinks) {
         if (isLaunched(cart))
             return;
 
         if (isOnElevator(cart))
             return;
 
-        boolean linkedA = adjustLinkedCart(cart, LinkageManager.LinkType.LINK_A, carts, adjustedLinks);
-        boolean linkedB = adjustLinkedCart(cart, LinkageManager.LinkType.LINK_B, carts, adjustedLinks);
+        boolean linkedA = adjustLinkedCart(cart, LinkageManager.LinkType.LINK_A, adjustedLinks);
+        boolean linkedB = adjustLinkedCart(cart, LinkageManager.LinkType.LINK_B, adjustedLinks);
         boolean linked = linkedA || linkedB;
 
         // Centroid
@@ -259,8 +258,7 @@ public final class LinkageHandler {
 
     }
 
-    private boolean adjustLinkedCart(EntityMinecart cart, LinkageManager.LinkType linkType,
-                                     Map<EntityMinecart, Boolean> carts, Set<Long> adjustedLinks) {
+    private boolean adjustLinkedCart(EntityMinecart cart, LinkageManager.LinkType linkType, Set<Long> adjustedLinks) {
         boolean linked = false;
         LinkageManager lm = LinkageManager.INSTANCE;
         EntityMinecart link = lm.getLinkedCart(cart, linkType);
@@ -273,8 +271,7 @@ public final class LinkageHandler {
             if (!isLaunched(link) && !isOnElevator(link)) {
                 linked = true;
                 if (adjustedLinks.add(linkKey(cart, link))) {
-                    boolean onTurn = carts.getOrDefault(cart, false) || carts.getOrDefault(link, false);
-                    adjustVelocity(cart, link, linkType, onTurn);
+                    adjustVelocity(cart, link, linkType);
                 }
 //                adjustCartFromHistory(cart, link);
             }
@@ -350,7 +347,7 @@ public final class LinkageHandler {
 
     /**
      * Records carts as they update so linked pairs can be adjusted together at
-     * the end of the world tick.  Doing the adjustment immediately caused the
+     * the end of the world tick. Doing the adjustment immediately caused the
      * same bidirectional link to be processed once from each endpoint.
      *
      * @param event MinecartUpdateEvent
@@ -358,10 +355,8 @@ public final class LinkageHandler {
     @SubscribeEvent
     public void onMinecartUpdate(MinecartUpdateEvent event) {
         EntityMinecart cart = event.getMinecart();
-        boolean onTurn = TrackTools.isRailBlockAt(cart.world, event.getPos())
-                && TrackShapeHelper.isTurn(TrackTools.getTrackDirection(cart.world, event.getPos(), cart));
-        pendingCarts.computeIfAbsent(cart.world, world -> new IdentityHashMap<>())
-                .merge(cart, onTurn, (wasOnTurn, isOnTurn) -> wasOnTurn || isOnTurn);
+        pendingCarts.computeIfAbsent(cart.world,
+                world -> Collections.newSetFromMap(new IdentityHashMap<>())).add(cart);
 
 //        savePosition(cart);
     }
@@ -376,14 +371,14 @@ public final class LinkageHandler {
         if (event.phase != TickEvent.Phase.END)
             return;
 
-        Map<EntityMinecart, Boolean> carts = pendingCarts.remove(event.world);
+        Set<EntityMinecart> carts = pendingCarts.remove(event.world);
         if (carts == null || carts.isEmpty())
             return;
 
         Set<Long> adjustedLinks = new HashSet<>();
-        carts.keySet().stream()
+        carts.stream()
                 .filter(cart -> !cart.isDead)
-                .forEach(cart -> adjustCart(cart, carts, adjustedLinks));
+                .forEach(cart -> adjustCart(cart, adjustedLinks));
     }
 
     private long linkKey(EntityMinecart first, EntityMinecart second) {

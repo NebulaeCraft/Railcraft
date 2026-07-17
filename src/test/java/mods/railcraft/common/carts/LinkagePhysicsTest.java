@@ -35,6 +35,11 @@ class LinkagePhysicsTest {
     }
 
     @Test
+    void parallelDiagonalMotionIsNotMistakenForACurve() {
+        assertFalse(LinkagePhysics.directionsDiffer(new Vec2D(0.2, 0.2), new Vec2D(0.4, 0.4)));
+    }
+
+    @Test
     void straightTrackKeepsOriginalChordDamping() {
         Vec2D slower = new Vec2D(0.2, 0.0);
         Vec2D faster = new Vec2D(0.4, 0.0);
