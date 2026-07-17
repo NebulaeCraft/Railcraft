@@ -46,8 +46,12 @@ public final class NBTPlugin {
         if (data.hasKey("name"))
             ownerName = data.getString("name");
         UUID ownerUUID = null;
-        if (data.hasKey("id"))
-            ownerUUID = UUID.fromString(data.getString("id"));
+        if (data.hasKey("id")) {
+            try {
+                ownerUUID = UUID.fromString(data.getString("id"));
+            } catch (IllegalArgumentException ignored) {
+            }
+        }
         return new GameProfile(ownerUUID, ownerName);
     }
 
@@ -58,8 +62,9 @@ public final class NBTPlugin {
 
     public static <T extends Enum<T>> T readEnumOrdinal(NBTTagCompound data, String tag, T[] enumConstants, T defaultValue) {
         if (data.hasKey(tag)) {
-            byte ordinal = data.getByte(tag);
-            return enumConstants[ordinal];
+            int ordinal = data.getByte(tag);
+            if (ordinal >= 0 && ordinal < enumConstants.length)
+                return enumConstants[ordinal];
         }
         return defaultValue;
     }
@@ -77,7 +82,10 @@ public final class NBTPlugin {
     public static <T extends Enum<T>> T readEnumName(NBTTagCompound data, String tag, T defaultValue) {
         if (data.hasKey(tag)) {
             String name = data.getString(tag);
-            return Enum.valueOf(defaultValue.getClass().asSubclass(Enum.class), name);
+            try {
+                return Enum.valueOf(defaultValue.getClass().asSubclass(Enum.class), name);
+            } catch (IllegalArgumentException ignored) {
+            }
         }
         return defaultValue;
     }
@@ -109,8 +117,10 @@ public final class NBTPlugin {
         if (data.hasKey(tag)) {
             if (data.hasKey(tag, NBT.TAG_INT_ARRAY)) {
                 int[] c = data.getIntArray(tag);
+                if (c.length < 3)
+                    return null;
                 return new BlockPos(c[0], c[1], c[2]);
-            } else {
+            } else if (data.hasKey(tag, NBT.TAG_COMPOUND)) {
                 return NBTUtil.getPosFromTag(data.getCompoundTag(tag));
             }
         }

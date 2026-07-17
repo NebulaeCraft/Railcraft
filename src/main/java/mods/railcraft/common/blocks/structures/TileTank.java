@@ -29,7 +29,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
@@ -55,9 +54,12 @@ public abstract class TileTank extends TileLogic {
     }
 
     public static void placeTank(World world, BlockPos pos, int patternIndex, IBlockState wallState, FluidStack fluid) {
+        if (patternIndex < 0 || patternIndex >= patterns.size())
+            return;
         StructurePattern pattern = TileTank.patterns.get(patternIndex);
         Char2ObjectMap<IBlockState> blockMapping = new Char2ObjectOpenHashMap<>();
         blockMapping.put('B', wallState);
+        blockMapping.put('M', wallState);
         blockMapping.put('W', RailcraftBlocks.GLASS.getDefaultState());
         Optional<TileLogic> tile = pattern.placeStructure(world, pos, blockMapping);
         tile.flatMap(t -> t.getLogic(StructureLogic.class)).ifPresent(structure -> {
@@ -67,7 +69,6 @@ public abstract class TileTank extends TileLogic {
 
     private static List<StructurePattern> buildPatterns() {
         List<StructurePattern> pats = new ArrayList<>();
-        boolean client = FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT;
 
         // 3x3
         int xOffset = 2;
@@ -113,7 +114,7 @@ public abstract class TileTank extends TileLogic {
         }
 
         // 5x5
-        if (client || RailcraftConfig.getMaxTankSize() >= 5) {
+        {
             xOffset = zOffset = 3;
 
             bottom = new char[][]{
@@ -164,7 +165,7 @@ public abstract class TileTank extends TileLogic {
         }
 
         // 7x7
-        if (client || RailcraftConfig.getMaxTankSize() >= 7) {
+        {
             xOffset = zOffset = 4;
 
             bottom = new char[][]{
@@ -223,7 +224,7 @@ public abstract class TileTank extends TileLogic {
         }
 
         // 9x9
-        if (client || RailcraftConfig.getMaxTankSize() >= 9) {
+        {
             xOffset = zOffset = 5;
 
             bottom = new char[][]{
@@ -294,7 +295,7 @@ public abstract class TileTank extends TileLogic {
 
     private static StructurePattern buildPattern(char[][][] map, int xOffset, int yOffset, int zOffset, AxisAlignedBB entityCheck) {
         if (!RailcraftConfig.allowTankStacking()) {
-            entityCheck.offset(0, 1, 0);
+            entityCheck = entityCheck.offset(0, 1, 0);
             yOffset = 1;
         }
         int tankSize = (map[0].length - 2) * (map[0][0].length - 2) * (map.length - (RailcraftConfig.allowTankStacking() ? 0 : 2));

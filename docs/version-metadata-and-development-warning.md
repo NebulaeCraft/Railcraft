@@ -40,6 +40,8 @@ src/main/resources/mcmod.info
 
 该文件中的版本字段仍使用 `${version}`，构建时由 `build.gradle` 使用项目版本号替换。
 
+IDEA 的 Application 运行配置不能使用 `Make` 产生的原始资源和类文件，否则 `${version}` 与 Java 源码中的 `@VERSION@` 不会被替换。当前 `prepareRunClient`/`prepareRunServer` 会通过 `prepareIdeaRunOutput` 先执行 Gradle 的 `classes`，再把处理后的类与资源合并到 `build/ideaRuns/main`。运行 classpath 使用这一合并目录，因此开发客户端中的版本同样显示为 `12.1.1`，Forge 也会把资源正确归入 Railcraft 的资源包。
+
 ## 删除开发版提示
 
 提示文本定义在：

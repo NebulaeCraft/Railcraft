@@ -11,12 +11,12 @@ package mods.railcraft.common.blocks.structures;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
-import mods.railcraft.client.util.effects.ClientEffects;
 import mods.railcraft.common.blocks.RailcraftBlocks;
 import mods.railcraft.common.blocks.TileLogic;
 import mods.railcraft.common.blocks.TileWorker;
 import mods.railcraft.common.blocks.logic.*;
 import mods.railcraft.common.gui.EnumGui;
+import mods.railcraft.common.core.Railcraft;
 import mods.railcraft.common.plugins.forge.WorldPlugin;
 import mods.railcraft.common.util.entity.EntitySearcher;
 import mods.railcraft.common.util.entity.RCEntitySelectors;
@@ -147,7 +147,7 @@ public final class TileRockCrusher extends TileWorker {
                             ItemStack crushed = getLogic(RockCrusherLogic.class).map(RockCrusherLogic::getCrushed).orElseGet(() -> new ItemStack(Blocks.COBBLESTONE));
                             IBlockState crushedState = InvTools.getBlockStateFromStack(crushed);
                             for (int i = 0; i < 8; i++)
-                                ClientEffects.INSTANCE.blockParticle(
+                                Railcraft.getProxy().blockParticle(
                                         theWorldAsserted(),
                                         this,
                                         new Vec3d(getPos()).add(0.5 + MiscTools.RANDOM.nextGaussian() * 0.5, 1.0, 0.5 + MiscTools.RANDOM.nextGaussian() * 0.5),
@@ -161,6 +161,8 @@ public final class TileRockCrusher extends TileWorker {
     }
 
     public static void placeRockCrusher(World world, BlockPos pos, int patternIndex, @Nullable List<ItemStack> input, @Nullable List<ItemStack> output) {
+        if (patternIndex < 0 || patternIndex >= patterns.size())
+            return;
         StructurePattern pattern = TileRockCrusher.patterns.get(patternIndex);
         Char2ObjectMap<IBlockState> blockMapping = new Char2ObjectOpenHashMap<>();
         IBlockState state = RailcraftBlocks.ROCK_CRUSHER.getState(null);
@@ -172,6 +174,7 @@ public final class TileRockCrusher extends TileWorker {
         blockMapping.put('d', state);
         blockMapping.put('e', state);
         blockMapping.put('f', state);
+        blockMapping.put('g', state);
         blockMapping.put('h', state);
         Optional<TileLogic> tile = pattern.placeStructure(world, pos, blockMapping);
         tile.flatMap(t -> t.getLogic(StructureLogic.class)).ifPresent(structure -> {

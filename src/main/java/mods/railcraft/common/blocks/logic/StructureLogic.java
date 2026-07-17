@@ -40,7 +40,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
 import org.jetbrains.annotations.Nullable;
 
@@ -189,6 +188,10 @@ public class StructureLogic extends Logic {
     }
 
     private void setPatternState(@Nullable StructurePattern pattern, @Nullable BlockPos posInPattern) {
+        if (pattern == null || posInPattern == null || !pattern.contains(posInPattern)) {
+            pattern = null;
+            posInPattern = null;
+        }
         this.currentPattern = pattern;
         if (!Objects.equals(this.posInPattern, posInPattern)) {
             this.posInPattern = posInPattern == null ? null : posInPattern.toImmutable();
@@ -366,26 +369,33 @@ public class StructureLogic extends Logic {
 
     public void onBlockChange() {
         Optional<StructureLogic> masterLogic = getMaster();
-        spreadChange(new HashSet<>(maxSize), getPos(), maxSize);
+        spreadChange(getPos(), maxSize);
         masterLogic.ifPresent(master -> master.getComponents()
                 .stream()
                 .flatMap(toLogicStream())
                 .forEach(s -> s.state = StructureState.UNTESTED));
     }
 
-    private void spreadChange(final Set<BlockPos> visited, final BlockPos pos, final int max) {
-        if (visited.size() > max || visited.contains(pos))
-            return;
-        visited.add(pos);
-        if (visited.size() == 1 || fromWorld().getBlock(pos).map(this::isPart).orElse(false)) {
-            getLogic(pos)
+    private void spreadChange(final BlockPos origin, final int max) {
+        Set<BlockPos> visited = new HashSet<>(max);
+        Deque<BlockPos> pending = new ArrayDeque<>();
+        pending.add(origin);
+        while (!pending.isEmpty() && visited.size() < max) {
+            BlockPos pos = pending.removeFirst();
+            if (!visited.add(pos))
+                continue;
+            if (pos.equals(origin) || fromWorld().getBlock(pos).map(this::isPart).orElse(false)) {
+                getLogic(pos)
                     .filter(l -> l.state != StructureState.UNTESTED)
                     .ifPresent(l -> {
                         l.state = StructureState.UNTESTED;
-                        l.getMaster().ifPresent(master -> spreadChange(visited, master.getPos(), max));
+                        l.getMaster().map(StructureLogic::getPos).filter(p -> !visited.contains(p)).ifPresent(pending::addLast);
                     });
-            for (EnumFacing side : EnumFacing.VALUES) {
-                spreadChange(visited, pos.offset(side), max);
+                for (EnumFacing side : EnumFacing.VALUES) {
+                    BlockPos neighbor = pos.offset(side);
+                    if (!visited.contains(neighbor))
+                        pending.addLast(neighbor);
+                }
             }
         }
     }
@@ -447,17 +457,16 @@ public class StructureLogic extends Logic {
         super.readFromNBT(data);
         kernel.readFromNBT(data);
         isMaster = data.getBoolean("master");
-        if (data.hasKey("marker"))
-            marker = data.getString("marker").charAt(0);
+        String savedMarker = data.getString("marker");
+        if (!savedMarker.isEmpty())
+            marker = savedMarker.charAt(0);
         StructurePattern pat = null;
-        try {
-            byte index = data.getByte("pattern");
-            pat = index < 0 ? null : patterns.get(index);
-        } catch (Exception ex) {
-            //NOOP
-        }
+        int index = data.getByte("pattern");
+        if (index >= 0 && index < patterns.size())
+            pat = patterns.get(index);
         BlockPos pos = NBTPlugin.readBlockPos(data, "posInPattern");
         setPatternState(pat, pos);
+        isMaster = isMaster && currentPattern != null && currentPattern.isMasterPosition(this.posInPattern);
     }
 
     @Override
@@ -477,20 +486,23 @@ public class StructureLogic extends Logic {
     @OverridingMethodsMustInvokeSuper
     public void readPacketData(RailcraftInputStream data) throws IOException {
         requestPacket = false;
-        state = data.readEnum(StructureState.VALUES);
-        marker = data.readChar();
-        if (state == StructureState.VALID) {
-            int patternIndex = data.readByte();
-            patternIndex = MathHelper.clamp(patternIndex, 0, patterns.size() - 1);
-            StructurePattern pat = patterns.get(patternIndex);
+        StructureState remoteState = data.readEnum(StructureState.VALUES);
+        data.readChar(); // Marker is derived from the validated pattern position below.
+        if (remoteState == StructureState.VALID) {
+            int patternIndex = data.readUnsignedByte();
+            BlockPos remotePos = data.readBlockPos();
+            StructurePattern pat = patternIndex < patterns.size() ? patterns.get(patternIndex) : null;
 
-            BlockPos posInPattern = data.readBlockPos();
-            changePattern(pat, posInPattern);
-
-            isMaster = pat.isMasterPosition(posInPattern);
+            if (pat != null && pat.contains(remotePos)) {
+                changePattern(pat, remotePos);
+                isMaster = pat.isMasterPosition(remotePos);
+            } else {
+                isMaster = false;
+                changePattern(null, null);
+            }
 
             // TODO is this still necessary?
-            if (!getMaster().isPresent())
+            if (currentPattern != null && !getMaster().isPresent())
                 requestPacket = true;
         } else {
             isMaster = false;

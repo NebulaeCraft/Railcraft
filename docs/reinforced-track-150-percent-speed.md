@@ -172,6 +172,34 @@ src/main/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedSlopeSpeedH
 
 速度修正在联挂物理之后执行，因此弹簧、阻尼、`LINK_DRAG` 和列车软速度帽不会继续把最终坡道速度推离目标值。完全静止且没有行驶方向的矿车不会被强制启动；一旦其获得明确运动方向，固定速度逻辑才会生效。矿车类型自身声明的硬性最高速度仍作为安全上限保留。
 
+## 三次调整：45° 斜线按合速度固定
+
+强化轨道上限 `0.6` 最初直接交给 Minecraft 的矿车移动逻辑。该上限实际分别限制 X、Z 两个水平分量，而不是限制水平速度向量的长度。因此，车辆在 45° 斜线上受到持续牵引时，两个分量都可能接近 `0.6`，水平合速度最高可达到：
+
+```text
+sqrt(0.6² + 0.6²) ≈ 0.849 格/tick
+```
+
+这并不符合“沿斜线实际行驶速度为 `0.6 格/tick`”的目标。为此新增：
+
+```text
+src/main/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedDiagonalSpeedHandler.java
+```
+
+该处理器识别强化轨道的四种水平转角形状，并在常规移动、机车推力、阻力和联挂物理完成后，将 X/Z 速度向量归一化到 `0.6`。在标准 45° 方向上，两个分量分别为：
+
+```text
+X = ±0.6 / sqrt(2) ≈ ±0.424264
+Z = ±0.6 / sqrt(2) ≈ ±0.424264
+sqrt(X² + Z²) = 0.6 格/tick
+```
+
+Minecraft 1.12.2 的单个转角轨道内部使用 45° 对角路径；由交替转角轨道组成的长斜线也始终使用这四种轨道形状。因此，单个斜线段和连续长斜线都会应用相同的合速度修正，不会再随牵引时间逐渐升到约 `0.849`。
+
+长斜线既有的联挂修复保持不变：相邻车辆的速度切线平行时仍使用完整的直线弹簧和阻尼；只有真正跨越方向变化时才使用弯道联挂修正。新的速度处理只修正向量长度，不改变行驶方向或该联挂判定。
+
+原版载人矿车的 `0.75` 移动倍率同样得到预补偿；完全静止的矿车不会被强制启动；矿车类型声明的硬性最高速度仍作为安全上限。
+
 ## 本地化资源
 
 强化轨道及相关强化轨道组件的提示文字已从 125% 更新为 150%，包括：
@@ -202,7 +230,7 @@ src/main/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedSlopeSpeedH
 
 ```bash
 JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home \
-./gradlew test processResources
+./gradlew build
 ```
 
 结果：
@@ -211,7 +239,7 @@ JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home \
 BUILD SUCCESSFUL
 ```
 
-测试包含连续弯道联挂物理和强化坡道固定速度回归测试，验证了：
+测试包含连续弯道联挂物理、强化坡道固定速度和强化斜线合速度回归测试，验证了：
 
 - 不同切线上的同速车辆不会产生错误阻尼。
 - 弯道弦长不会产生伪压缩弹簧力。
@@ -222,6 +250,8 @@ BUILD SUCCESSFUL
 - 南北方向坡道的上坡和下坡实际推进速度均为 `0.6`。
 - 原版载人矿车的 `0.75` 移动倍率得到预补偿。
 - 没有行驶方向的静止矿车不会被强制启动。
+- 45° 斜线上的 X/Z 分量均为约 `0.424264`，水平合速度为 `0.6`。
+- 四种转角轨道形状均被识别，因此连续长斜线使用相同修正。
 
 资源构建结果中，英文和简体中文强化轨道提示均已确认为 150%。同时执行了主项目及 `lang` 子模块的 `git diff --check`，未发现补丁格式错误。
 
@@ -230,7 +260,7 @@ BUILD SUCCESSFUL
 建议在相同车辆编组、机车、载荷和燃料条件下进行以下对比：
 
 1. 在足够长的强化直轨上记录稳定速度。
-2. 通过单个弯道和连续弯道，确认出弯后没有明显速度跳变或累积减速。
+2. 通过单个 45° 斜线段和连续长斜线，确认水平合速度稳定为 `0.6`，且没有累积加速或减速。
 3. 分别测试四种朝向的强化上坡和强化下坡，确认水平推进速度稳定为 `0.6`。
 4. 分别测试单辆矿车、短编组和长编组。
 5. 测试机车牵引与推行两种方向。
@@ -239,9 +269,11 @@ BUILD SUCCESSFUL
 ## 本次涉及的项目文件
 
 - `src/main/java/mods/railcraft/common/blocks/tracks/behaivor/SpeedController.java`
+- `src/main/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedDiagonalSpeedHandler.java`
 - `src/main/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedSlopeSpeedHandler.java`
 - `src/main/java/mods/railcraft/common/modules/ModuleCore.java`
 - `src/test/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedSlopeSpeedHandlerTest.java`
+- `src/test/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedDiagonalSpeedHandlerTest.java`
 - `src/main/resources/assets/railcraft/lang/*.lang`
 - `lang/src/main/resources/assets/railcraft/lang/*.lang`
 - `docs/reinforced-track-150-percent-speed.md`

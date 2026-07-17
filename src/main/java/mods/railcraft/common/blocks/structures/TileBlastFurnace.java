@@ -88,6 +88,7 @@ public final class TileBlastFurnace extends TileFurnace {
         StructurePattern pattern = TileBlastFurnace.patterns.get(0);
         Char2ObjectMap<IBlockState> blockMapping = new Char2ObjectOpenHashMap<>();
         blockMapping.put('B', RailcraftBlocks.BLAST_FURNACE.getDefaultState());
+        blockMapping.put('C', RailcraftBlocks.BLAST_FURNACE.getDefaultState());
         blockMapping.put('W', RailcraftBlocks.BLAST_FURNACE.getDefaultState());
         Optional<TileLogic> tile = pattern.placeStructure(world, pos, blockMapping);
 //        if (tile instanceof TileBlastFurnace) {

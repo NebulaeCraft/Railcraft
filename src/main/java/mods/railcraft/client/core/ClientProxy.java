@@ -37,6 +37,7 @@ import mods.railcraft.common.items.firestone.TileRitual;
 import mods.railcraft.common.util.misc.Game;
 import mods.railcraft.common.util.sounds.SoundRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.resources.IReloadableResourceManager;
@@ -48,6 +49,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -93,6 +95,16 @@ public class ClientProxy extends CommonProxy implements ISelectiveResourceReload
     @Override
     public void openRoutingTableGui(EntityPlayer player, @Nullable TileEntity tile, ItemStack stack) {
         Minecraft.getMinecraft().displayGuiScreen(new GuiBookRoutingTable(player, tile, stack));
+    }
+
+    @Override
+    public void steamEffect(World world, Object source, double yOffset) {
+        ClientEffects.INSTANCE.steamEffect(world, source, yOffset);
+    }
+
+    @Override
+    public void blockParticle(World world, Object source, Vec3d pos, Vec3d velocity, IBlockState state, boolean blockDust, String location) {
+        ClientEffects.INSTANCE.blockParticle(world, source, pos, velocity, state, blockDust, location);
     }
 
     @Override

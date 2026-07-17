@@ -104,7 +104,7 @@ public final class TileSteamTurbine extends TileLogic implements INeedsMaintenan
     public double guageReadout;
 
     public TileSteamTurbine() {
-        setRootLogic(new StructureLogic("flux", this, patterns, new SteamTurbineLogic(Logic.Adapter.of(this))
+        setRootLogic(new StructureLogic("steam_turbine", this, patterns, new SteamTurbineLogic(Logic.Adapter.of(this))
                         .addLogic(new ChargeSourceLogic(Logic.Adapter.of(this), Charge.distribution))
                 ) {
                     @Override

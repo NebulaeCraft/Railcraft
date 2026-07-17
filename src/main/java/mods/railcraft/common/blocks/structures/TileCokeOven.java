@@ -345,6 +345,7 @@ public final class TileCokeOven extends TileFurnace {
         StructurePattern pattern = TileCokeOven.patterns.get(0);
         Char2ObjectMap<IBlockState> blockMapping = new Char2ObjectOpenHashMap<>();
         blockMapping.put('B', RailcraftBlocks.COKE_OVEN.getDefaultState());
+        blockMapping.put('C', RailcraftBlocks.COKE_OVEN.getDefaultState());
         blockMapping.put('W', RailcraftBlocks.COKE_OVEN.getDefaultState());
         Optional<TileLogic> tile = pattern.placeStructure(world, pos, blockMapping);
         tile.flatMap(t -> t.getLogic(StructureLogic.class)).ifPresent(structure -> {

@@ -94,11 +94,26 @@ public final class StructurePattern {
     }
 
     public char getPatternMarker(int x, int y, int z) {
+        if (!contains(x, y, z))
+            return EMPTY_MARKER;
         return pattern[y][x][z];
     }
 
     public char getPatternMarker(Vec3i vec) {
-        return pattern[vec.getY()][vec.getX()][vec.getZ()];
+        return getPatternMarker(vec.getX(), vec.getY(), vec.getZ());
+    }
+
+    /**
+     * Returns whether a relative position can safely be read from this pattern.
+     */
+    public boolean contains(Vec3i vec) {
+        return contains(vec.getX(), vec.getY(), vec.getZ());
+    }
+
+    private boolean contains(int x, int y, int z) {
+        return y >= 0 && y < pattern.length
+                && x >= 0 && x < pattern[y].length
+                && z >= 0 && z < pattern[y][x].length;
     }
 
     public BlockPos getMasterOffset() {
@@ -153,21 +168,24 @@ public final class StructurePattern {
         BlockPos offset = logic.getPos().subtract(getMasterOffset());
 
         BlockPos.PooledMutableBlockPos now = BlockPos.PooledMutableBlockPos.retain();
-        for (int patX = 0; patX < xWidth; patX++) {
-            for (int patY = 0; patY < height; patY++) {
-                for (int patZ = 0; patZ < zWidth; patZ++) {
-                    int x = patX + offset.getX();
-                    int y = patY + offset.getY();
-                    int z = patZ + offset.getZ();
-                    now.setPos(x, y, z);
-                    if (!logic.theWorldAsserted().isBlockLoaded(now))
-                        return State.NOT_LOADED;
-                    if (!logic.isMapPositionValid(now, getPatternMarker(patX, patY, patZ)))
-                        return State.PATTERN_DOES_NOT_MATCH;
+        try {
+            for (int patX = 0; patX < xWidth; patX++) {
+                for (int patY = 0; patY < height; patY++) {
+                    for (int patZ = 0; patZ < zWidth; patZ++) {
+                        int x = patX + offset.getX();
+                        int y = patY + offset.getY();
+                        int z = patZ + offset.getZ();
+                        now.setPos(x, y, z);
+                        if (!logic.theWorldAsserted().isBlockLoaded(now))
+                            return State.NOT_LOADED;
+                        if (!logic.isMapPositionValid(now, getPatternMarker(patX, patY, patZ)))
+                            return State.PATTERN_DOES_NOT_MATCH;
+                    }
                 }
             }
+        } finally {
+            now.release();
         }
-        now.release();
 
         AxisAlignedBB entityCheckBounds = getEntityCheckBounds(logic.getPos());
 //                if(entityCheckBounds != null) {

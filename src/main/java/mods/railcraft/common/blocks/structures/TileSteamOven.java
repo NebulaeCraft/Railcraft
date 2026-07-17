@@ -12,13 +12,13 @@ package mods.railcraft.common.blocks.structures;
 import com.google.common.base.Preconditions;
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
-import mods.railcraft.client.util.effects.ClientEffects;
 import mods.railcraft.common.blocks.RailcraftBlocks;
 import mods.railcraft.common.blocks.TileLogic;
 import mods.railcraft.common.blocks.TileWorker;
 import mods.railcraft.common.blocks.interfaces.ITileRotate;
 import mods.railcraft.common.blocks.logic.*;
 import mods.railcraft.common.gui.EnumGui;
+import mods.railcraft.common.core.Railcraft;
 import mods.railcraft.common.util.steam.ISteamUser;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -77,7 +77,7 @@ public final class TileSteamOven extends TileWorker implements ISteamUser, ITile
                 )
                         .addLogic(new CrafterParticleEffectLogic(Logic.Adapter.of(this), () -> {
                             for (int i = 0; i < 16; i++)
-                                ClientEffects.INSTANCE.steamEffect(theWorldAsserted(), this, +0.25);
+                                Railcraft.getProxy().steamEffect(theWorldAsserted(), this, +0.25);
                         }))
         );
     }

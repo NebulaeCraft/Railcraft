@@ -310,9 +310,19 @@ task appleSiliconNarratorJar(dependsOn: compileAppleSiliconNarrator) {
     }
 }
 
-task prepareRunClient(dependsOn: [copyLog4jConfig, copyMacosArmNatives, appleSiliconNarratorJar])
+task prepareIdeaRunOutput(type: Sync, dependsOn: classes) {
+    // Forge 1.12 treats the directory containing the @Mod class as that
+    // mod's resource pack. Gradle keeps classes and processed resources in
+    // separate directories, so merge them for IDEA Application launches.
+    from sourceSets.main.output
+    into "$buildDir/ideaRuns/main"
+}
+
+task prepareRunClient(dependsOn: [prepareIdeaRunOutput, copyLog4jConfig, copyMacosArmNatives, appleSiliconNarratorJar])
+task prepareRunServer(dependsOn: [prepareIdeaRunOutput, copyLog4jConfig])
 
 runClient.dependsOn prepareRunClient
+runServer.dependsOn prepareRunServer
 
 if (isMacosArm) {
     // ForgeGradle 2.3 uses a retired HTTP asset endpoint and retries all 1305
@@ -332,15 +342,14 @@ tasks.withType(JavaExec) {
     workingDir actualRunDir
 }
 
-genIntellijRuns {
-    dependsOn copyLog4jConfig
+task writeIdeaRunConfigurations {
     doLast {
-        def runConfigurationsDir = new File(".idea/runConfigurations")
+        def runConfigurationsDir = file('.idea/runConfigurations')
         runConfigurationsDir.mkdirs()
 
-        tasks.withType(JavaExec).each { task ->
+        [runClient, runServer].each { task ->
             def taskName = task.name
-            def mainClass = task.main
+            def mainClass = taskName == 'runClient' ? 'mods.railcraft.dev.RunClient' : 'mods.railcraft.dev.RunServer'
             def props = combinedVmArgs.join(' ') // task.jvmArgs.join(' ') has too much trash
             def args = task.args.join(' ')
 
@@ -358,16 +367,43 @@ genIntellijRuns {
                             env(name: envVar.key, value: envVar.value)
                         }
                     }
-                    module(name: 'railcraft_main')
-                    // copy log4j config before running
+                    module(name: 'railcraft.main')
+                    classpathModifications {
+                        // IDEA compiles raw @VERSION@/${version} placeholders into its own
+                        // module output. Forge also requires a mod's classes and resources
+                        // to share one root, so use Gradle's merged, processed run output.
+                        entry(path: '$PROJECT_DIR$/build/classes/production/railcraft.main', exclude: 'true')
+                        entry(path: '$PROJECT_DIR$/build/ideaRuns/main')
+                        // ForgeGradle generates these launchers outside IDEA's indexed model.
+                        entry(path: "\$USER_HOME\$/.gradle/caches/minecraft/net/minecraftforge/forge/${project.version_minecraft}-${project.version_forge}/start")
+                    }
                     method(v: '2') {
-                        option(name: 'Make', enabled: 'true')
-                        option(name: 'Gradle.BeforeRunTask', enabled: 'true', tasks: 'copyLog4jConfig', externalProjectPath: '$PROJECT_DIR$')
+                        option(name: 'Gradle.BeforeRunTask', enabled: 'true', tasks: taskName == 'runClient' ? 'prepareRunClient' : 'prepareRunServer', externalProjectPath: '$PROJECT_DIR$')
                     }
                 }
             }
         }
+
+        // ForgeGradle 2.3 also writes legacy "Minecraft Client/Server"
+        // configurations into workspace.xml. The project-level runClient and
+        // runServer configurations above replace them, so remove the duplicates.
+        def workspaceFile = file('.idea/workspace.xml')
+        if (workspaceFile.exists()) {
+            def workspaceXml = workspaceFile.getText('UTF-8')
+            def cleanedWorkspaceXml = workspaceXml
+                    .replaceAll(/(?s)\s*<configuration\b(?=[^>]*\bname="Minecraft (?:Client|Server)")[^>]*>.*?<\/configuration>/, '')
+                    .replaceAll(/(?m)^\s*<item\s+itemvalue="[^"]*\.Minecraft (?:Client|Server)"\s*\/>\s*\r?\n?/, '')
+
+            if (cleanedWorkspaceXml != workspaceXml) {
+                workspaceFile.setText(cleanedWorkspaceXml, 'UTF-8')
+            }
+        }
     }
+}
+
+tasks.getByName('genIntellijRuns') {
+    dependsOn copyLog4jConfig
+    finalizedBy writeIdeaRunConfigurations
 }
 
 compileJava {
@@ -395,6 +431,8 @@ tasks.withType(Jar) {
     }
 
     exclude '**/Thumbs.db'
+    // IDEA-only bridges for ForgeGradle's generated launchers.
+    exclude 'mods/railcraft/dev/**'
     into('mods/railcraft/api') {
         from project.dirApi + "/LICENSE.md"
     }

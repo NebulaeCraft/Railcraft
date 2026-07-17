@@ -57,14 +57,17 @@ public class RailcraftInputStream extends DataInputStream {
     }
 
     public BitSet readBitSet() throws IOException {
-        int length = readByte();
+        int length = readUnsignedByte();
         byte[] bytes = new byte[length];
         readFully(bytes);
         return BitSet.valueOf(bytes);
     }
 
     public <T extends Enum<T>> T readEnum(T[] enumConstants) throws IOException {
-        return enumConstants[readByte()];
+        int ordinal = readUnsignedByte();
+        if (ordinal >= enumConstants.length)
+            throw new IOException("Invalid enum ordinal " + ordinal + " for " + enumConstants.getClass().getComponentType().getName());
+        return enumConstants[ordinal];
     }
 
     public @Nullable NBTTagCompound readNBT() throws IOException {

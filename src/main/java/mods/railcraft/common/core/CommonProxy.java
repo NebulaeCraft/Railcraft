@@ -10,9 +10,11 @@
 package mods.railcraft.common.core;
 
 import mods.railcraft.common.util.inventory.InvTools;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,6 +59,12 @@ public class CommonProxy {
     }
 
     public void openRoutingTableGui(EntityPlayer player, @Nullable TileEntity tile, ItemStack stack) {
+    }
+
+    public void steamEffect(World world, Object source, double yOffset) {
+    }
+
+    public void blockParticle(World world, Object source, Vec3d pos, Vec3d velocity, IBlockState state, boolean blockDust, String location) {
     }
 
 }

@@ -52,8 +52,12 @@ public final class PlayerPlugin {
         if (nbt.hasKey("owner"))
             ownerName = nbt.getString("owner");
         UUID ownerUUID = null;
-        if (nbt.hasKey("ownerId"))
-            ownerUUID = UUID.fromString(nbt.getString("ownerId"));
+        if (nbt.hasKey("ownerId")) {
+            try {
+                ownerUUID = UUID.fromString(nbt.getString("ownerId"));
+            } catch (IllegalArgumentException ignored) {
+            }
+        }
         return new GameProfile(ownerUUID, ownerName);
     }
 
