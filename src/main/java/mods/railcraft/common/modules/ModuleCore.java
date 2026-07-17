@@ -22,6 +22,7 @@ import mods.railcraft.common.advancements.criterion.RailcraftAdvancementTriggers
 import mods.railcraft.common.blocks.machine.MachineTileRegistry;
 import mods.railcraft.common.blocks.structures.MultiBlockHelper;
 import mods.railcraft.common.blocks.tracks.TrackConstants;
+import mods.railcraft.common.blocks.tracks.behaivor.ReinforcedSlopeSpeedHandler;
 import mods.railcraft.common.carts.*;
 import mods.railcraft.common.commands.*;
 import mods.railcraft.common.core.InterModMessageRegistry;
@@ -167,6 +168,7 @@ public class ModuleCore extends RailcraftModulePayload {
                 MinecraftForge.EVENT_BUS.register(CrowbarHandler.instance());
                 MinecraftForge.EVENT_BUS.register(MinecartHooks.INSTANCE);
                 MinecraftForge.EVENT_BUS.register(LinkageHandler.getInstance());
+                MinecraftForge.EVENT_BUS.register(ReinforcedSlopeSpeedHandler.INSTANCE);
                 MinecraftForge.EVENT_BUS.register(new SoundLimiterTicker());
                 MinecraftForge.EVENT_BUS.register(new MinecartRiderAIDisabler());
                 MinecraftForge.EVENT_BUS.register(new ShuntingAuraTickHandler());

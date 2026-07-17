@@ -83,11 +83,9 @@ public enum SpeedController {
         }
     },
     REINFORCED {
-        public static final float MAX_SPEED = 0.6f;
-
         @Override
         public float getMaxSpeed(World world, @Nullable EntityMinecart cart, BlockPos pos) {
-            return MAX_SPEED;
+            return REINFORCED_MAX_SPEED;
         }
     },
     STRAP_IRON {
@@ -96,6 +94,8 @@ public enum SpeedController {
             return ModuleTracksStrapIron.config.maxSpeed;
         }
     };
+
+    public static final float REINFORCED_MAX_SPEED = 0.6f;
 
     public void onMinecartPass(World world, EntityMinecart cart, BlockPos pos, @Nullable TrackKit trackKit) {
     }

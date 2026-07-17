@@ -117,12 +117,12 @@ docs/continuous-corner-linkage-speed-fix.md
 最终实现为：
 
 ```java
-REINFORCED {
-    public static final float MAX_SPEED = 0.6f;
+public static final float REINFORCED_MAX_SPEED = 0.6f;
 
+REINFORCED {
     @Override
     public float getMaxSpeed(World world, @Nullable EntityMinecart cart, BlockPos pos) {
-        return MAX_SPEED;
+        return REINFORCED_MAX_SPEED;
     }
 }
 ```
@@ -137,7 +137,40 @@ REINFORCED {
 
 弯道不再发生由 `0.4` 分量限制造成的短暂速度下降，坡道也不再被强化轨道自身额外限制为原版速度。
 
-上坡仍会受到 Minecraft 原生坡道物理影响。这属于所有轨道共有的自然运动变化，并非强化轨道额外限速。
+## 二次调整：上下坡固定速度
+
+游戏内复测发现，仅把坡道上限提高到 `0.6` 仍不足以获得稳定速度。矿车通过坡道时还会依次受到以下影响：
+
+- 原版 `slopeAdjustment`：上坡减速、下坡加速。
+- 矿车或机车自身的阻力与机车推力。
+- 联挂弹簧和阻尼。
+- 联挂车辆的 `LINK_DRAG`。
+- 列车计算得到的当前矿车软速度帽。
+- 原版载人矿车的 `0.75` 移动倍率。
+
+为取消这些因素在强化坡道上的累积结果，新增：
+
+```text
+src/main/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedSlopeSpeedHandler.java
+```
+
+处理流程如下：
+
+1. `MinecartUpdateEvent` 记录当前位于强化坡道上的矿车及坡道方向。
+2. 在 `WorldTickEvent` 的 `END` 阶段以 `LOWEST` 优先级执行，使常规矿车更新、机车推力、阻力和联挂物理先完成。
+3. 清除与坡道轴线垂直的运动分量，并覆盖之前叠加得到的速度。
+4. 根据坡道朝向和行驶方向，预先抵消下一 tick 原版将要施加的 `slopeAdjustment`。
+5. 在坡道移动期间临时把矿车当前速度帽提高到 `0.6`，移动结束后立即恢复原值。
+6. 对使用原版载人矿车移动逻辑的车辆，同时预补偿 `0.75` 载人倍率。
+
+以上处理使矿车下一 tick 在强化坡道上的实际水平推进速度固定为 `0.6`，无论正在上坡还是下坡：
+
+```text
+上坡：预置速度 + 原版减速量 = 0.6
+下坡：预置速度 - 原版加速量 = 0.6
+```
+
+速度修正在联挂物理之后执行，因此弹簧、阻尼、`LINK_DRAG` 和列车软速度帽不会继续把最终坡道速度推离目标值。完全静止且没有行驶方向的矿车不会被强制启动；一旦其获得明确运动方向，固定速度逻辑才会生效。矿车类型自身声明的硬性最高速度仍作为安全上限保留。
 
 ## 本地化资源
 
@@ -178,13 +211,17 @@ JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home \
 BUILD SUCCESSFUL
 ```
 
-测试包含连续弯道联挂物理回归测试，验证了：
+测试包含连续弯道联挂物理和强化坡道固定速度回归测试，验证了：
 
 - 不同切线上的同速车辆不会产生错误阻尼。
 - 弯道弦长不会产生伪压缩弹簧力。
 - 弯道速度差只沿各车辆自身切线修正。
 - 直轨仍保留原有阻尼行为。
 - 弯道上的静止车辆仍可由相邻车辆带动。
+- 东西方向坡道的上坡和下坡实际推进速度均为 `0.6`。
+- 南北方向坡道的上坡和下坡实际推进速度均为 `0.6`。
+- 原版载人矿车的 `0.75` 移动倍率得到预补偿。
+- 没有行驶方向的静止矿车不会被强制启动。
 
 资源构建结果中，英文和简体中文强化轨道提示均已确认为 150%。同时执行了主项目及 `lang` 子模块的 `git diff --check`，未发现补丁格式错误。
 
@@ -194,7 +231,7 @@ BUILD SUCCESSFUL
 
 1. 在足够长的强化直轨上记录稳定速度。
 2. 通过单个弯道和连续弯道，确认出弯后没有明显速度跳变或累积减速。
-3. 分别测试强化上坡和强化下坡，确认不再受到 `0.4` 的额外轨道限速。
+3. 分别测试四种朝向的强化上坡和强化下坡，确认水平推进速度稳定为 `0.6`。
 4. 分别测试单辆矿车、短编组和长编组。
 5. 测试机车牵引与推行两种方向。
 6. 观察高速弯道和坡道上的车钩间距、车辆重叠、振荡及脱轨情况。
@@ -202,6 +239,9 @@ BUILD SUCCESSFUL
 ## 本次涉及的项目文件
 
 - `src/main/java/mods/railcraft/common/blocks/tracks/behaivor/SpeedController.java`
+- `src/main/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedSlopeSpeedHandler.java`
+- `src/main/java/mods/railcraft/common/modules/ModuleCore.java`
+- `src/test/java/mods/railcraft/common/blocks/tracks/behaivor/ReinforcedSlopeSpeedHandlerTest.java`
 - `src/main/resources/assets/railcraft/lang/*.lang`
 - `lang/src/main/resources/assets/railcraft/lang/*.lang`
 - `docs/reinforced-track-150-percent-speed.md`
