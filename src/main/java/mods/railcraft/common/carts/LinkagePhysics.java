@@ -17,6 +17,12 @@ import mods.railcraft.common.util.misc.Vec2D;
 final class LinkagePhysics {
     private static final double MIN_SPEED_SQ = 1.0E-10;
     private static final double PARALLEL_DOT = 0.999;
+    /**
+     * Linked carts do not collide with each other, so curved-link spring
+     * handling must retain a small hard-compression zone. This matches the
+     * normal cart collision rest distance used by {@link MinecartHooks}.
+     */
+    static final double MINIMUM_CURVED_LINK_DISTANCE = 1.28;
 
     private LinkagePhysics() {
     }
@@ -28,7 +34,15 @@ final class LinkagePhysics {
      */
     static double springStretch(double distance, double optimalDistance, boolean curvedLink) {
         double stretch = distance - optimalDistance;
-        return curvedLink ? Math.max(0.0, stretch) : stretch;
+        if (!curvedLink || stretch >= 0.0)
+            return stretch;
+
+        // Ignore only the harmless loss of chord length through a bend. Once
+        // the carts are closer than their collision rest distance, restore a
+        // compression spring so directly linked carts cannot pass through one
+        // another while their normal collision response is disabled.
+        double minimumDistance = Math.min(optimalDistance, MINIMUM_CURVED_LINK_DISTANCE);
+        return Math.min(0.0, distance - minimumDistance);
     }
 
     /**

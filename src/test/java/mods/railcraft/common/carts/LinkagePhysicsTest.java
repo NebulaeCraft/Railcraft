@@ -18,6 +18,19 @@ class LinkagePhysicsTest {
     }
 
     @Test
+    void unsafeCurveCompressionStillCreatesSeparationForce() {
+        assertEquals(0.0, LinkagePhysics.springStretch(
+                LinkagePhysics.MINIMUM_CURVED_LINK_DISTANCE, 1.68, true), DELTA);
+        assertEquals(-0.28, LinkagePhysics.springStretch(1.0, 1.68, true), DELTA);
+        assertEquals(-1.28, LinkagePhysics.springStretch(0.0, 1.68, true), DELTA);
+    }
+
+    @Test
+    void safetyDistanceNeverExceedsShorterOptimalDistance() {
+        assertEquals(-0.1, LinkagePhysics.springStretch(0.9, 1.0, true), DELTA);
+    }
+
+    @Test
     void equalSpeedsOnDifferentTangentsAreNotDamped() {
         Vec2D east = new Vec2D(0.4, 0.0);
         Vec2D south = new Vec2D(0.0, 0.4);
