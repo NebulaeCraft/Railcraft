@@ -210,7 +210,26 @@ Minecraft 1.12.2 的单个转角轨道内部使用 45° 对角路径；由交替
 - 强化转辙轨道。
 - 强化 Y 型轨道。
 
-修改同步应用到主资源目录和实际参与资源构建的 `lang` 子模块，避免打包时旧的 125% 提示覆盖新文本。
+修改应用到 Railcraft 主仓库的 `src/main/resources/assets/railcraft/lang` 目录。
+
+### `lang` 子模块说明
+
+项目根目录的 `lang` 是 Git submodule，指向独立的
+[`Railcraft-Localization`](https://github.com/Railcraft/Railcraft-Localization) 仓库，
+不属于 Railcraft 主仓库的普通目录。本次曾在该子模块工作区中同步修改提示文字，
+但这些修改没有提交到本地化仓库，也没有更新 Railcraft 主仓库记录的子模块提交指针，
+因此已全部撤销。子模块保持在 Railcraft 主仓库原先锁定的提交上。
+
+`build.gradle` 当前仍把 `lang/src/main/resources` 加入主资源集，因此其中与主仓库
+`src/main/resources` 同路径的语言文件会共同参与资源处理。撤销子模块工作区改动后，
+使用 Java 8 执行 `./gradlew processResources --rerun-tasks` 验证，生成目录中的英语和
+简体中文强化轨道提示均为子模块提供的旧值 125%，说明当前处理顺序会由子模块资源
+覆盖主仓库中的同路径文件。
+
+若将来需要让发布包稳定包含 150% 的提示文字，应单独在 `Railcraft-Localization`
+仓库完成修改并提交，然后在 Railcraft 主仓库更新 `lang` 子模块指针；在此之前，
+不应把对子模块工作区的未提交修改当作 Railcraft 主仓库改动的一部分。当前代码中的
+强化轨道速度仍为 150%，但按现有子模块提交构建出的提示文字仍显示 125%。
 
 涉及的语言包括：
 
