@@ -1412,13 +1412,13 @@ tile.railcraft.track.oneway.tips=Schienenfahrzeuge können nur\n in Pfeilrichtun
 tile.railcraft.track.priming.name=Zündgleis
 tile.railcraft.track.priming.tips=Entzündet TNT-Waggons\n Verstellbare Zünddauer\n§o§9- Verändere die Zünddauer mit einem Brecheisen -\n§o§c- Aktiviere mit einem Redstone-Signal -
 tile.railcraft.track.reinforced.boost.name=Verstärktes Antriebsgleis
-tile.railcraft.track.reinforced.boost.tips=125% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent\n§o§c- Aktiviere mit einem Redstone-Signal -
+tile.railcraft.track.reinforced.boost.tips=150% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent\n§o§c- Aktiviere mit einem Redstone-Signal -
 tile.railcraft.track.reinforced.junction.name=Verstärktes Schienenkreuz
-tile.railcraft.track.reinforced.junction.tips=125% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent
+tile.railcraft.track.reinforced.junction.tips=150% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent
 tile.railcraft.track.reinforced.switch.name=Verstärkte Weiche
-tile.railcraft.track.reinforced.switch.tips=125% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent\n§o§c- Benötigt Motorisierten/Manuellen Stellantrieb zum Schalten -
+tile.railcraft.track.reinforced.switch.tips=150% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent\n§o§c- Benötigt Motorisierten/Manuellen Stellantrieb zum Schalten -
 tile.railcraft.track.reinforced.wye.name=Verstärktes Gleisdreieck
-tile.railcraft.track.reinforced.wye.tips=125% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent\n§o§c- Benötigt Motorisierten/Manuellen Stellantrieb zum Schalten -
+tile.railcraft.track.reinforced.wye.tips=150% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent\n§o§c- Benötigt Motorisierten/Manuellen Stellantrieb zum Schalten -
 tile.railcraft.track.routing.name=Routengleis
 tile.railcraft.track.routing.tips=Überschreibt das Ticket einer passierenden Lokomotive\n§o§9- Wechsle das zu übernehmende Ticket mit einem Brecheisen -
 tile.railcraft.track.slow.boost.name=Hölzernes Antriebsgleis
@@ -1512,7 +1512,7 @@ tile.railcraft.track.flex.hs.electric.name=Elektrisches Hochgeschwindigkeitsglei
 tile.railcraft.track.flex.hs.electric.tips=§9Vorsicht: Hochspannung/-geschwindigkeit!\n §rSehr schnell\n §rWird mit Strom betrieben\n Für Nutzung mit Elektrischer Lokomotive\n Erfordert Antriebs-/Übergangsgleis, um Geschwindigkeit zu erreichen\n Auf Hochgeschwindigkeit sind Kurven unmöglich
 
 tile.railcraft.track.flex.reinforced.name=Verstärktes Gleis
-tile.railcraft.track.flex.reinforced.tips=125% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent
+tile.railcraft.track.flex.reinforced.tips=150% der Geschwindigkeit eines normalen Gleises\n Explosionsresistent
 
 tile.railcraft.track.flex.strap.iron.name=Flacheisengleis
 tile.railcraft.track.flex.strap.iron.tips=30% der Geschwindigkeit eines Eisengleises

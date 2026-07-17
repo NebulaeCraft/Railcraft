@@ -1464,13 +1464,13 @@ tile.railcraft.track.oneway.tips=Вагонетки могут ехать тол
 tile.railcraft.track.priming.name=Воспламеняющий путь
 tile.railcraft.track.priming.tips=Воспламеняет вагонетки с динамитом\n Регулируемый запал\n§o§9- Ударьте монтировкой, чтобы изменить запал -\n§o§c- Подайте редстоун-сигнал, чтобы активировать -
 tile.railcraft.track.reinforced.boost.name=Укреплённый ускоряющий путь
-tile.railcraft.track.reinforced.boost.tips=125% скорости обычного пути\n Взрывоустойчив\n§o§c- Подайте редстоун-сигнал, чтобы включить -
+tile.railcraft.track.reinforced.boost.tips=150% скорости обычного пути\n Взрывоустойчив\n§o§c- Подайте редстоун-сигнал, чтобы включить -
 tile.railcraft.track.reinforced.junction.name=Укреплённый крестовой путь
-tile.railcraft.track.reinforced.junction.tips=125% скорости обычного пути\n Взрывоустойчив
+tile.railcraft.track.reinforced.junction.tips=150% скорости обычного пути\n Взрывоустойчив
 tile.railcraft.track.reinforced.switch.name=Укреплённый стрелочный путь
-tile.railcraft.track.reinforced.switch.tips=125% скорости обычного пути\n Взрывоустойчив\n§o§c- Требуется стрелочный электромотор/рычаг для переключения -
+tile.railcraft.track.reinforced.switch.tips=150% скорости обычного пути\n Взрывоустойчив\n§o§c- Требуется стрелочный электромотор/рычаг для переключения -
 tile.railcraft.track.reinforced.wye.name=Укреплённый треугольно-стрелочный путь
-tile.railcraft.track.reinforced.wye.tips=125% скорости обычного пути\n Взрывоустойчив\n§o§c- Требуется стрелочный электромотор/рычаг для переключения -
+tile.railcraft.track.reinforced.wye.tips=150% скорости обычного пути\n Взрывоустойчив\n§o§c- Требуется стрелочный электромотор/рычаг для переключения -
 tile.railcraft.track.routing.name=Маршрутный путь
 tile.railcraft.track.routing.tips=Задаёт место назначения проходящего локомотива\n по загруженному билету\n§o§9- Ударьте монтировкой, чтобы изменить билет -
 tile.railcraft.track.slow.boost.name=Деревянный ускоряющий путь
@@ -1564,7 +1564,7 @@ tile.railcraft.track.flex.hs.electric.name=Высокоскоростной эл
 tile.railcraft.track.flex.hs.electric.tips=§Опасно: Высокое напряжение/скорость\n §rОчень быстро\n §rЗапитано электричеством\n Используют электровозы\n Требует ускорителей/переходы для достижения скорости\n Нельзя поворачивать на скоростном пути
 
 tile.railcraft.track.flex.reinforced.name=Укреплённый путь
-tile.railcraft.track.flex.reinforced.tips=125% скорости нормального пути\n Устойчивость ко взрывам
+tile.railcraft.track.flex.reinforced.tips=150% скорости нормального пути\n Устойчивость ко взрывам
 
 tile.railcraft.track.flex.strap.iron.name=Обшитый железом деревянный путь
 tile.railcraft.track.flex.strap.iron.tips=30% скорости железного пути

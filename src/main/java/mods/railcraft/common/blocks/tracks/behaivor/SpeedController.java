@@ -83,14 +83,10 @@ public enum SpeedController {
         }
     },
     REINFORCED {
-        public static final float MAX_SPEED = 0.499f;
-        public static final float CORNER_SPEED = 0.4f;
+        public static final float MAX_SPEED = 0.6f;
 
         @Override
         public float getMaxSpeed(World world, @Nullable EntityMinecart cart, BlockPos pos) {
-            BlockRailBase.EnumRailDirection dir = TrackTools.getTrackDirection(world, pos, cart);
-            if (TrackShapeHelper.isTurn(dir) || TrackShapeHelper.isAscending(dir))
-                return CORNER_SPEED;
             return MAX_SPEED;
         }
     },

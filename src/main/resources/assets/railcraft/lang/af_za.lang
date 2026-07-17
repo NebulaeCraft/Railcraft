@@ -1091,13 +1091,13 @@ tile.railcraft.track.oneway.tips=Carts kan net slaag \ N in die rigting van die 
 tile.railcraft.track.priming.name=priming Track
 tile.railcraft.track.priming.tips=ontbrand TNT Carts \ N verstelbare Fuse \ n§o§9- treffer met koevoet om lont te verander - \ n§o§c- Pas op Redstone in staat te stel -
 tile.railcraft.track.reinforced.boost.name=Gewapende Booster Track
-tile.railcraft.track.reinforced.boost.tips=125% van die spoed van die normale spoor \ N Explosion bestand \ n§o§c- Pas op Redstone in staat te stel -
+tile.railcraft.track.reinforced.boost.tips=150% van die spoed van die normale spoor \ N Explosion bestand \ n§o§c- Pas op Redstone in staat te stel -
 tile.railcraft.track.reinforced.junction.name=Gewapende Junction Track
-tile.railcraft.track.reinforced.junction.tips=125% van die spoed van die normale spoor \ N Explosion bestand
+tile.railcraft.track.reinforced.junction.tips=150% van die spoed van die normale spoor \ N Explosion bestand
 tile.railcraft.track.reinforced.switch.name=Gewapende Track Skakel
-tile.railcraft.track.reinforced.switch.tips=125% van die spoed van die normale spoor \ N Explosion bestand \ n§o§c- Vereis Motor Switch / Lever te skakel -
+tile.railcraft.track.reinforced.switch.tips=150% van die spoed van die normale spoor \ N Explosion bestand \ n§o§c- Vereis Motor Switch / Lever te skakel -
 tile.railcraft.track.reinforced.wye.name=Gewapende Wye Track
-tile.railcraft.track.reinforced.wye.tips=125% van die spoed van die normale spoor \ N Explosion bestand \ n§o§c- Vereis Motor Switch / Lever te skakel -
+tile.railcraft.track.reinforced.wye.tips=150% van die spoed van die normale spoor \ N Explosion bestand \ n§o§c- Vereis Motor Switch / Lever te skakel -
 tile.railcraft.track.routing.name=Routing Track
 tile.railcraft.track.routing.tips=Stelle aan verbygaande Lokomotief se kaartjie \ n§o§9- treffer met koevoet kaartjie te verander -
 tile.railcraft.track.slow.boost.name=Wooden Booster Track
@@ -1175,7 +1175,7 @@ tile.railcraft.track.flex.hs.electric.name=High Speed ​​Electric Track
 tile.railcraft.track.flex.hs.electric.tips=§9Danger: High Voltage / Spoed \ N §rVery Fast \ N §rPowered deur Elektrisiteit \ N Gebruik met elektriese lokomotief \ N Vereis Boosters / Oorgange na spoed \ N bereik Kan nie maak hoeke by High Speed
 
 tile.railcraft.track.flex.reinforced.name=Gewapende Track
-tile.railcraft.track.flex.reinforced.tips=125% van die spoed van die normale spoor \ N Explosion bestand
+tile.railcraft.track.flex.reinforced.tips=150% van die spoed van die normale spoor \ N Explosion bestand
 
 tile.railcraft.track.flex.strap.iron.name=band Iron Track
 tile.railcraft.track.flex.strap.iron.tips=30% van die spoed van Yster Track

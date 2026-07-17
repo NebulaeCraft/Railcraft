@@ -1470,13 +1470,13 @@ tile.railcraft.track.oneway.tips=只允许矿车通向箭头标定方向\n§o§9
 tile.railcraft.track.priming.name=引爆轨道
 tile.railcraft.track.priming.tips=引爆TNT矿车,/n可调导线长度\n§o§9- 通过撬棍敲击来设定导线长度 -\n§o§c- 使用红石信号激活 -
 tile.railcraft.track.reinforced.boost.name=强化推进轨道
-tile.railcraft.track.reinforced.boost.tips=速度为普通轨道的125%\n防爆\n§o§c- 通入红石信号激活 -
+tile.railcraft.track.reinforced.boost.tips=速度为普通轨道的150%\n防爆\n§o§c- 通入红石信号激活 -
 tile.railcraft.track.reinforced.junction.name=强化交接轨道
-tile.railcraft.track.reinforced.junction.tips=速度为普通轨道的125%\n防爆
+tile.railcraft.track.reinforced.junction.tips=速度为普通轨道的150%\n防爆
 tile.railcraft.track.reinforced.switch.name=强化转辙轨道
-tile.railcraft.track.reinforced.switch.tips=速度为普通轨道的125%\n防爆\n§o§c- 需要转辙马达/开关来进行转辙 -
+tile.railcraft.track.reinforced.switch.tips=速度为普通轨道的150%\n防爆\n§o§c- 需要转辙马达/开关来进行转辙 -
 tile.railcraft.track.reinforced.wye.name=强化Y型轨道
-tile.railcraft.track.reinforced.wye.tips=速度为普通轨道的125%\n防爆\n§o§c- 需要转辙马达/开关来进行转辙 -
+tile.railcraft.track.reinforced.wye.tips=速度为普通轨道的150%\n防爆\n§o§c- 需要转辙马达/开关来进行转辙 -
 tile.railcraft.track.routing.name=路由轨道
 tile.railcraft.track.routing.tips=设置经过机车的车票
 tile.railcraft.track.slow.boost.name=木质推进轨道
@@ -1570,7 +1570,7 @@ tile.railcraft.track.flex.hs.electric.name=高速电力轨道
 tile.railcraft.track.flex.hs.electric.tips=§9危险：高压电，高速\n§r真的很快\n§r电力驱动\n配套电力机车使用\n需要推进轨道或过渡轨道以达到高速\n高速时不可转向
 
 tile.railcraft.track.flex.reinforced.name=强化轨道
-tile.railcraft.track.flex.reinforced.tips=速度为普通轨道的125%\n防爆
+tile.railcraft.track.flex.reinforced.tips=速度为普通轨道的150%\n防爆
 
 tile.railcraft.track.flex.strap.iron.name=镀铁轨道
 tile.railcraft.track.flex.strap.iron.tips=速度为一般铁轨道的30%

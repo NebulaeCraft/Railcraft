@@ -1418,13 +1418,13 @@ tile.railcraft.track.oneway.tips=只允許礦車依箭頭方向通過\n§o§9- �
 tile.railcraft.track.priming.name=引爆鐵軌
 tile.railcraft.track.priming.tips=點燃 TNT 礦車\n可調節點燃秒數\n§o§9- 以鐵橇點擊改變燃燒秒數 -\n§o§c- 以紅石充能啟動 -
 tile.railcraft.track.reinforced.boost.name=強化加速軌
-tile.railcraft.track.reinforced.boost.tips=標準鐵軌速度的125%\n 抵抗爆炸\n§o§c- 以紅石充能啟動 -
+tile.railcraft.track.reinforced.boost.tips=標準鐵軌速度的150%\n 抵抗爆炸\n§o§c- 以紅石充能啟動 -
 tile.railcraft.track.reinforced.junction.name=強化十字軌
-tile.railcraft.track.reinforced.junction.tips=標準鐵軌速度的125%\n 抵抗爆炸
+tile.railcraft.track.reinforced.junction.tips=標準鐵軌速度的150%\n 抵抗爆炸
 tile.railcraft.track.reinforced.switch.name=強化轉轍軌
-tile.railcraft.track.reinforced.switch.tips=標準鐵軌速度的125%\n 抵抗爆炸\n§o§c- 以轉轍器控制方向 -
+tile.railcraft.track.reinforced.switch.tips=標準鐵軌速度的150%\n 抵抗爆炸\n§o§c- 以轉轍器控制方向 -
 tile.railcraft.track.reinforced.wye.name=強化Ｙ型軌
-tile.railcraft.track.reinforced.wye.tips=標準鐵軌速度的125%\n 抵抗爆炸\n§o§c- 以轉轍器控制方向 -
+tile.railcraft.track.reinforced.wye.tips=標準鐵軌速度的150%\n 抵抗爆炸\n§o§c- 以轉轍器控制方向 -
 tile.railcraft.track.routing.name=路由鐵軌
 tile.railcraft.track.routing.tips=設定經過火車頭的車票\n§o§9- 以鐵橇點擊設定車票 -
 tile.railcraft.track.slow.boost.name=木製加速軌
@@ -1518,7 +1518,7 @@ tile.railcraft.track.flex.hs.electric.name=高速導電鐵軌
 tile.railcraft.track.flex.hs.electric.tips=§9危險: 高電壓/速度\n §r非常快速\n§r搭載著電流\n與電力機車搭配使用\n 需動力/過渡套件才能達到如此急速\n 在高速狀態下不能轉彎
 
 tile.railcraft.track.flex.reinforced.name=強化鐵軌
-tile.railcraft.track.flex.reinforced.tips=標準軌道的125%速度\n 抵抗爆炸
+tile.railcraft.track.flex.reinforced.tips=標準軌道的150%速度\n 抵抗爆炸
 
 tile.railcraft.track.flex.strap.iron.name=鍍鐵鐵軌
 tile.railcraft.track.flex.strap.iron.tips=鐵製軌道的30%速度

@@ -1547,7 +1547,7 @@ tile.railcraft.track.flex.hs.electric.name=High Speed Electric Track
 tile.railcraft.track.flex.hs.electric.tips=§9Danger: High Voltage/Speed\n §rVery Fast\n §rPowered by Electricity\n Use with Electric Locomotive\n Requires Boosters/Transitions to reach speed\n Cannot make corners at High Speed
 
 tile.railcraft.track.flex.reinforced.name=Reinforced Track
-tile.railcraft.track.flex.reinforced.tips=125% of the speed of normal track\n Explosion resistant
+tile.railcraft.track.flex.reinforced.tips=150% of the speed of normal track\n Explosion resistant
 
 tile.railcraft.track.flex.strap.iron.name=Strap Iron Track
 tile.railcraft.track.flex.strap.iron.tips=30% of the speed of Iron Track
