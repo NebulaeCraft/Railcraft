@@ -219,6 +219,16 @@ build/distributions/railcraft-12.1.1.jar
 
 尚未在真实 CleanroomMC 客户端与专用服务端组合中进行长时间跑图集成测试。因此不能证明不存在来自其他模组、核心修改或显卡驱动的独立问题，但本次确认的结构坐标越界、损坏 NBT、网络枚举、递归栈溢出、池化对象和客户端类加载路径均已处理。
 
+## GUI 高危标识
+
+根据后续要求，所有仍可作为物品获得的多方块组件会在容器、背包和创造模式物品槽中显示警告角标。角标使用用户提供的 `警告.png`，绘制在 16×16 物品槽的右下 8×8 区域，因此只覆盖 GUI 物品图标，不修改世界中的方块贴图或模型。
+
+组件的本地化名称末尾统一追加红色加粗的 `§c§l(高危!)`。后缀由物品显示逻辑追加，避免构建时只读 `lang` 子模块覆盖主资源目录中的同名语言文件。旧的简体中文“危险！可能导致崩服”静态后缀已移除，避免重复显示。
+
+铁制和钢制储罐量计是旧存档迁移用的无物品替换方块，注册时没有对应 `ItemBlock`；它们的名称仍在高危清单中，但正常 GUI 不会出现可叠加角标的物品。
+
+GUI 标识改动完成后再次使用 JDK 8 执行完整 `test build`，共 37 项测试通过，重混淆发布 JAR 构建成功；JAR 内的警告 PNG 与用户提供的源图片 SHA-256 完全一致。
+
 ## 本次涉及的主要项目文件
 
 - `src/main/java/mods/railcraft/common/blocks/logic/StructureLogic.java`
@@ -229,9 +239,14 @@ build/distributions/railcraft-12.1.1.jar
 - `src/main/java/mods/railcraft/common/blocks/structures/TileSteamTurbine.java`
 - `src/main/java/mods/railcraft/common/blocks/structures/TileCokeOven.java`
 - `src/main/java/mods/railcraft/common/blocks/structures/TileBlastFurnace.java`
+- `src/main/java/mods/railcraft/common/blocks/ItemBlockRailcraft.java`
+- `src/main/java/mods/railcraft/common/blocks/RailcraftBlocks.java`
 - `src/main/java/mods/railcraft/common/core/CommonProxy.java`
 - `src/main/java/mods/railcraft/client/core/ClientProxy.java`
+- `src/main/java/mods/railcraft/client/gui/HighRiskItemOverlay.java`
 - `src/main/java/mods/railcraft/common/plugins/forge/NBTPlugin.java`
 - `src/main/java/mods/railcraft/common/plugins/forge/PlayerPlugin.java`
 - `src/main/java/mods/railcraft/common/util/network/RailcraftInputStream.java`
+- `src/main/resources/assets/railcraft/lang/zh_cn.lang`
+- `src/main/resources/assets/railcraft/textures/gui/multiblock_high_risk.png`
 - `docs/multiblock-crash-hardening.md`

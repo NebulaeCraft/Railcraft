@@ -10,6 +10,7 @@
 package mods.railcraft.client.core;
 
 import mods.railcraft.client.gui.GuiBookRoutingTable;
+import mods.railcraft.client.gui.HighRiskItemOverlay;
 import mods.railcraft.client.particles.ParticlePumpkin;
 import mods.railcraft.client.particles.ParticleSpark;
 import mods.railcraft.client.render.carts.*;
@@ -117,6 +118,7 @@ public class ClientProxy extends CommonProxy implements ISelectiveResourceReload
         MinecraftForge.EVENT_BUS.register(JSONModelRenderer.INSTANCE);
         MinecraftForge.EVENT_BUS.register(FluidModelRenderer.INSTANCE);
         MinecraftForge.EVENT_BUS.register(GoggleAuraWorldRenderer.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(HighRiskItemOverlay.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new Object() {
             @SubscribeEvent
             public void textureStitch(TextureStitchEvent.Pre event) {

@@ -71,7 +71,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -439,6 +441,31 @@ public enum RailcraftBlocks implements IRailcraftBlockContainer {
     ;
 
     public static final RailcraftBlocks[] VALUES = values();
+
+    private static final Set<RailcraftBlocks> HIGH_RISK_MULTIBLOCKS = EnumSet.of(
+            COKE_OVEN,
+            COKE_OVEN_RED,
+            BLAST_FURNACE,
+            ROCK_CRUSHER,
+            STEAM_OVEN,
+            TANK_IRON_GAUGE,
+            TANK_IRON_VALVE,
+            TANK_IRON_WALL,
+            TANK_STEEL_GAUGE,
+            TANK_STEEL_VALVE,
+            TANK_STEEL_WALL,
+            TANK_WATER,
+            FLUX_TRANSFORMER,
+            BOILER_FIREBOX_FLUID,
+            BOILER_FIREBOX_SOLID,
+            BOILER_TANK_PRESSURE_HIGH,
+            BOILER_TANK_PRESSURE_LOW,
+            STEAM_TURBINE
+    );
+
+    public static boolean isHighRiskMultiblock(Block block) {
+        return HIGH_RISK_MULTIBLOCKS.stream().anyMatch(definition -> definition.isEqual(block));
+    }
 
     public static <B extends Block & IRailcraftBlock> B byTag(String tag) {
         return (B) Arrays.stream(VALUES)

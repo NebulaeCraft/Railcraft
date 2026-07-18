@@ -16,6 +16,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -69,6 +70,14 @@ public class ItemBlockRailcraft<B extends Block & IRailcraftBlock> extends ItemB
     @Override
     public String getTranslationKey(ItemStack stack) {
         return getTranslationKey();
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        String displayName = super.getItemStackDisplayName(stack);
+        if (RailcraftBlocks.isHighRiskMultiblock(block))
+            return displayName + " " + TextFormatting.RED + TextFormatting.BOLD + "(高危!)";
+        return displayName;
     }
 
     @Override
