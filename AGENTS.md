@@ -5,4 +5,6 @@
 
 ## Before Coding
 - 执行新任务时，先在 ./docs 中寻找有无相似任务的历史记录。
-- api-railcraft / lang 为子模块仓库，不要动。
+
+## Coding Instructions
+- 不要动 api-railcraft / lang 目录下的东西，它们属于其他仓库。
