@@ -1,0 +1,6 @@
+{
+  "parent": "railcraft:block/official_3d/rail_flat",
+  "textures": {
+    "rail": "blocks/rail_normal"
+  }
+}

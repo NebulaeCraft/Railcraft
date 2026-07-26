@@ -18,6 +18,7 @@ import mods.railcraft.client.render.models.programmatic.locomotives.ModelLocomot
 import mods.railcraft.client.render.models.resource.*;
 import mods.railcraft.client.render.tesr.*;
 import mods.railcraft.client.render.world.GoggleAuraWorldRenderer;
+import mods.railcraft.client.render.world.TrackKitVisibilityManager;
 import mods.railcraft.client.util.effects.ClientEffects;
 import mods.railcraft.client.util.sounds.RCSoundHandler;
 import mods.railcraft.common.blocks.IRailcraftBlock;
@@ -118,6 +119,7 @@ public class ClientProxy extends CommonProxy implements ISelectiveResourceReload
         MinecraftForge.EVENT_BUS.register(JSONModelRenderer.INSTANCE);
         MinecraftForge.EVENT_BUS.register(FluidModelRenderer.INSTANCE);
         MinecraftForge.EVENT_BUS.register(GoggleAuraWorldRenderer.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(TrackKitVisibilityManager.INSTANCE);
         MinecraftForge.EVENT_BUS.register(HighRiskItemOverlay.INSTANCE);
         MinecraftForge.EVENT_BUS.register(new Object() {
             @SubscribeEvent

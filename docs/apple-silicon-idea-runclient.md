@@ -65,13 +65,13 @@ JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home \
 本次最终为 IDEA 创建了普通 Application 运行配置，因此 `runClient` 与 `runServer` 使用相同类型的图标：
 
 - 主类为 IDEA 可以直接索引的 `mods.railcraft.dev.RunClient` 或 `RunServer`；它们只负责通过反射调用 ForgeGradle 2.3 生成的 `GradleStart`/`GradleStartServer`。
-- classpath 仍使用 `railcraft.main` 模块提供依赖，但排除 IDEA 自己的主模块输出，改用 Gradle 处理后合并生成的 `build/ideaRuns/main`。该目录同时包含 class 与 resource，因为 Forge 1.12 会把发现 `@Mod` 类的目录本身当作 Mod 资源包；若分别加入 `build/classes/java/main` 和 `build/resources/main`，Railcraft 虽能加载，纹理、模型、语言等资源却不会归属于它。
+- classpath 仍使用 IDEA 实际注册的 `*.main` 模块提供依赖，但排除 IDEA 自己的主模块输出，改用 Gradle 处理后合并生成的 `build/ideaRuns/main`。该目录同时包含 `api`/`main` source set 的 class 与 main resource，因为 Forge 1.12 会把发现 `@Mod` 类的目录本身当作 Mod 资源包；若分别加入 `build/classes/java/main` 和 `build/resources/main`，Railcraft 虽能加载，纹理、模型、语言等资源却不会归属于它。由于 IDEA/Gradle 导入器可能将该模块命名为 `railcraft.main` 或 `com.headlamp-games.railcraft.main`，生成器会从 `.idea/modules.xml` 读取当前模块名，不再将其写死；合并输出也不再依赖 IDEA 是否自动把 `api` 模块加入 main 的运行 classpath。
 - 启动前执行 Gradle 的 `prepareRunClient` 或 `prepareRunServer`，先编译源码、展开版本资源、合并 IDEA 开发运行输出，并为客户端生成 Apple Silicon Narrator 补丁和复制 ARM 原生库。
 - JVM 参数显式包含 `-Djava.library.path=.../build/natives` 和 `-Xbootclasspath/p:.../apple-silicon-narrator.jar`。
 - Gradle JVM 固定为 Java 8。
 - IDEA 的“构建和运行使用”设为 IntelliJ IDEA，而不是把整个 Application 启动委托给 Gradle。
 
-此前 Application 配置失败并不是因为 Apple Silicon 修复必须从 Gradle 配置启动，而是启动方式和 classpath 选择错误。Gradle `runClient` 任务本身的 classpath 末尾包含 `build/distributions/railcraft-12.1.1.jar`；若再叠加 IDEA 主模块输出，就会同时发现发布 JAR 和源码输出，触发重复 Mod。最终配置不使用发布 JAR，并明确排除 IDEA 的 `build/classes/production/railcraft.main`，因此 classpath 中只有一套 Gradle 主输出。
+此前 Application 配置失败并不是因为 Apple Silicon 修复必须从 Gradle 配置启动，而是启动方式和 classpath 选择错误。Gradle `runClient` 任务本身的 classpath 末尾包含 `build/distributions/railcraft-12.1.1.jar`；若再叠加 IDEA 主模块输出，就会同时发现发布 JAR 和源码输出，触发重复 Mod。最终配置不使用发布 JAR，并明确排除 IDEA 当前主模块对应的 `build/classes/production/<module-name>` 输出，因此 classpath 中只有一套 Gradle 合并输出。
 
 直接使用 `GradleStart` 作为主类时，IDEA 不会索引 ForgeGradle 缓存中的动态启动类，因而给配置图标加红叉。两个开发桥接类解决静态校验问题，同时从所有发布 JAR 中排除，不会进入 Mod 成品。IDEA 的 `Make` 还会把源码中的 `@VERSION@` 和资源中的 `${version}` 原样写入输出；改用 Gradle 合并后的开发运行输出后，两处都会正确展开为 `12.1.1`，Forge 也能从同一目录取得 Railcraft 的全部资源。
 
@@ -176,7 +176,7 @@ JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home \
 
 `runClient` 会自动执行 `prepareRunClient`，生成 Narrator 补丁并复制 ARM 原生库，不需要手工运行准备任务。
 
-IDEA 的 Application 配置同样把 `prepareRunClient` 设为启动前任务，所以两种入口的 Apple Silicon 准备步骤一致；该任务通过 `prepareIdeaRunOutput` 依赖 Gradle 的 `classes`，负责更新带版本替换且合并了资源的主模块输出。
+IDEA 的 Application 配置同样把 `prepareRunClient` 设为启动前任务，所以两种入口的 Apple Silicon 准备步骤一致；该任务通过 `prepareIdeaRunOutput` 依赖 Gradle 的 `classes` 和 `apiClasses`，负责更新带版本替换且合并了 API 类与资源的主模块输出。
 
 ## 验证结果
 
@@ -199,7 +199,7 @@ BUILD SUCCESSFUL
 - 没有生成新的客户端崩溃报告。
 - 客户端完成 Forge 的初始化、后初始化和资源加载阶段，并正常退出。
 
-后续又从 IDEA 实际启动最终 Application 配置：进程 classpath 包含合并的 `build/ideaRuns/main`，不包含 `build/classes/production/railcraft.main`、分离的 Gradle class/resource 目录或 `build/distributions` 中的发布 JAR；日志只识别一次 `mods.railcraft.common.core.Railcraft`，版本显示为 `12.1.1`，Forge 成功加载 7 个 Mod，且未出现 `DuplicateModsFoundException`、ARM native、Narrator 或 Railcraft 资源管理器异常。
+后续又从 IDEA 实际启动最终 Application 配置：进程 classpath 包含合并的 `build/ideaRuns/main`，不包含 IDEA 主模块的 `build/classes/production/...`、分离的 Gradle class/resource 目录或 `build/distributions` 中的发布 JAR；日志只识别一次 `mods.railcraft.common.core.Railcraft`，版本显示为 `12.1.1`，Forge 成功加载 7 个 Mod，且未出现 `DuplicateModsFoundException`、ARM native、Narrator 或 Railcraft 资源管理器异常。
 
 一次实际 IDEA 启动暴露了额外问题：开启 delegated build 时，IDEA 会把 Application 启动转换成临时的 `:GradleStart.main()`。该任务的 classpath 仅包含 API 输出，没有主模块输出，最终 Forge 只加载 6 个 Mod，Railcraft 不在列表中。关闭委托后若只追加 Gradle 主输出，IDEA 原生输出又会造成重复发现；若把 Gradle 的 class/resource 两个目录分别追加，Forge 能发现 Mod 却会把仅含 class 的目录用作资源包，日志出现 `railcraft is missing a resource manager`。最终方案同时关闭委托、排除 IDEA 主输出并加入 Gradle 合并后的开发运行输出，兼顾单次加载、正确版本元数据与完整资源加载。
 

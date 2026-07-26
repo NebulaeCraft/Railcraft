@@ -13,9 +13,11 @@ package mods.railcraft.client.render.models.resource;
 import mods.railcraft.api.tracks.TrackKit;
 import mods.railcraft.api.tracks.TrackRegistry;
 import mods.railcraft.api.tracks.TrackType;
+import mods.railcraft.client.render.world.TrackKitVisibilityManager;
 import mods.railcraft.common.blocks.tracks.TrackShapeHelper;
 import mods.railcraft.common.blocks.tracks.behaivor.TrackTypes;
 import mods.railcraft.common.blocks.tracks.outfitted.BlockTrackOutfitted;
+import mods.railcraft.common.blocks.tracks.outfitted.TrackKits;
 import mods.railcraft.common.util.misc.Optionals;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.state.IBlockState;
@@ -171,7 +173,9 @@ public class OutfittedTrackModel implements IModel {
 
     public class CompositeModel implements IBakedModel {
         private final Map<ModelResourceLocation, IBakedModel> trackTypeModels;
+        private final Map<ModelResourceLocation, IBakedModel> mergedSleeperTrackTypeModels;
         private final Map<ModelResourceLocation, IBakedModel> trackKitModels;
+        private final Map<ModelResourceLocation, IBakedModel> elevatedTrackKitModels;
         private final Map<ModelResourceLocation, IBakedModel> unifiedModels;
         private final IBakedModel baseModel;
 
@@ -180,7 +184,11 @@ public class OutfittedTrackModel implements IModel {
                 Map<ModelResourceLocation, IBakedModel> trackKitModels,
                 Map<ModelResourceLocation, IBakedModel> unifiedModels) {
             this.trackTypeModels = trackTypeModels;
+            mergedSleeperTrackTypeModels = new HashMap<>();
+            trackTypeModels.forEach((location, model) -> mergedSleeperTrackTypeModels.put(location, new MergedSleeperModel(model)));
             this.trackKitModels = trackKitModels;
+            elevatedTrackKitModels = new HashMap<>();
+            trackKitModels.forEach((location, model) -> elevatedTrackKitModels.put(location, new ElevatedModel(model)));
             this.unifiedModels = unifiedModels;
             baseModel = trackTypeModels.get(getTrackTypeModelLocation(TrackTypes.IRON.getTrackType(), BlockRailBase.EnumRailDirection.NORTH_SOUTH));
         }
@@ -209,10 +217,18 @@ public class OutfittedTrackModel implements IModel {
             List<BakedQuad> quads = new ArrayList<>();
             switch (trackKit.getRenderer()) {
                 case COMPOSITE:
-                    IBakedModel trackTypeModel = getTrackTypeModel(trackType, shape);
-                    IBakedModel trackKitModel = getTrackKitModel(trackKit, shape, kitState);
+                    boolean hiddenKit = isNormallyHidden(trackType, trackKit);
+                    boolean showHiddenKit = hiddenKit && TrackKitVisibilityManager.isTrackAuraActive();
+                    IBakedModel trackTypeModel = showHiddenKit
+                            ? getMergedSleeperTrackTypeModel(trackType, shape)
+                            : getTrackTypeModel(trackType, shape);
                     if (trackTypeModel != null) quads.addAll(trackTypeModel.getQuads(state, side, rand));
-                    if (trackKitModel != null) quads.addAll(trackKitModel.getQuads(null, side, rand));
+                    if (!hiddenKit || showHiddenKit) {
+                        IBakedModel trackKitModel = showHiddenKit
+                                ? getElevatedTrackKitModel(trackKit, shape, kitState)
+                                : getTrackKitModel(trackKit, shape, kitState);
+                        if (trackKitModel != null) quads.addAll(trackKitModel.getQuads(null, side, rand));
+                    }
                     break;
                 case UNIFIED:
                     IBakedModel unifiedModel = getUnifiedModel(trackType, trackKit, shape, kitState);
@@ -226,8 +242,16 @@ public class OutfittedTrackModel implements IModel {
             return trackTypeModels.get(getTrackTypeModelLocation(trackType, shape));
         }
 
+        private @Nullable IBakedModel getMergedSleeperTrackTypeModel(TrackType trackType, BlockRailBase.EnumRailDirection shape) {
+            return mergedSleeperTrackTypeModels.get(getTrackTypeModelLocation(trackType, shape));
+        }
+
         private @Nullable IBakedModel getTrackKitModel(TrackKit trackKit, BlockRailBase.EnumRailDirection shape, int state) {
             return trackKitModels.get(getTrackKitModelLocation(trackKit, shape, state));
+        }
+
+        private @Nullable IBakedModel getElevatedTrackKitModel(TrackKit trackKit, BlockRailBase.EnumRailDirection shape, int state) {
+            return elevatedTrackKitModels.get(getTrackKitModelLocation(trackKit, shape, state));
         }
 
         private @Nullable IBakedModel getUnifiedModel(TrackType trackType, TrackKit trackKit, BlockRailBase.EnumRailDirection shape, int state) {
@@ -264,6 +288,178 @@ public class OutfittedTrackModel implements IModel {
         public ItemOverrideList getOverrides() {
             return baseModel.getOverrides();
         }
+    }
+
+    private static class MergedSleeperModel implements IBakedModel {
+        // Match the full-width sleeper envelope and texture used by the custom turnout models.
+        private static final String SLEEPER_TEXTURE = "nebulaecraft:blocks/rail_bed";
+        private static final float LEFT_INNER_EDGE = 4.5F / 16.0F;
+        private static final float RIGHT_INNER_EDGE = 11.5F / 16.0F;
+        private static final float CENTER = 8.0F / 16.0F;
+        private static final float EPSILON = 0.0001F;
+        private final IBakedModel delegate;
+        private final List<BakedQuad> generalQuads;
+        private final Map<EnumFacing, List<BakedQuad>> faceQuads = new EnumMap<>(EnumFacing.class);
+
+        MergedSleeperModel(IBakedModel delegate) {
+            this.delegate = delegate;
+            generalQuads = mergeSleepers(delegate.getQuads(null, null, 0));
+            for (EnumFacing face : EnumFacing.VALUES)
+                faceQuads.put(face, mergeSleepers(delegate.getQuads(null, face, 0)));
+        }
+
+        private static List<BakedQuad> mergeSleepers(List<BakedQuad> quads) {
+            List<BakedQuad> merged = new ArrayList<>(quads.size());
+            for (BakedQuad quad : quads) {
+                if (!SLEEPER_TEXTURE.equals(quad.getSprite().getIconName())) {
+                    merged.add(quad);
+                    continue;
+                }
+
+                int[] vertexData = quad.getVertexData().clone();
+                VertexFormat format = quad.getFormat();
+                int vertexSize = format.getIntegerSize();
+                int positionOffset = findPositionOffset(format);
+                for (int vertex = 0; vertex < 4; vertex++) {
+                    int xIndex = vertex * vertexSize + positionOffset;
+                    int zIndex = xIndex + 2;
+                    vertexData[xIndex] = mergeInnerEdge(vertexData[xIndex]);
+                    vertexData[zIndex] = mergeInnerEdge(vertexData[zIndex]);
+                }
+                merged.add(new BakedQuad(vertexData, quad.getTintIndex(), quad.getFace(), quad.getSprite(),
+                        quad.shouldApplyDiffuseLighting(), format));
+            }
+            return Collections.unmodifiableList(merged);
+        }
+
+        private static int mergeInnerEdge(int coordinateBits) {
+            float coordinate = Float.intBitsToFloat(coordinateBits);
+            if (Math.abs(coordinate - LEFT_INNER_EDGE) < EPSILON
+                    || Math.abs(coordinate - RIGHT_INNER_EDGE) < EPSILON)
+                return Float.floatToRawIntBits(CENTER);
+            return coordinateBits;
+        }
+
+        @Override
+        public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+            return side == null ? generalQuads : faceQuads.get(side);
+        }
+
+        @Override
+        public boolean isAmbientOcclusion() {
+            return delegate.isAmbientOcclusion();
+        }
+
+        @Override
+        public boolean isGui3d() {
+            return delegate.isGui3d();
+        }
+
+        @Override
+        public boolean isBuiltInRenderer() {
+            return delegate.isBuiltInRenderer();
+        }
+
+        @Override
+        public TextureAtlasSprite getParticleTexture() {
+            return delegate.getParticleTexture();
+        }
+
+        @Override
+        @Deprecated
+        public ItemCameraTransforms getItemCameraTransforms() {
+            return delegate.getItemCameraTransforms();
+        }
+
+        @Override
+        public ItemOverrideList getOverrides() {
+            return delegate.getOverrides();
+        }
+    }
+
+    private static class ElevatedModel implements IBakedModel {
+        // Rest the common kit bottom (Y=-0.05) on the full sleeper top (Y=0.3).
+        private static final float ELEVATION = 0.35F / 16.0F;
+        private final IBakedModel delegate;
+        private final List<BakedQuad> generalQuads;
+        private final Map<EnumFacing, List<BakedQuad>> faceQuads = new EnumMap<>(EnumFacing.class);
+
+        ElevatedModel(IBakedModel delegate) {
+            this.delegate = delegate;
+            generalQuads = elevate(delegate.getQuads(null, null, 0));
+            for (EnumFacing face : EnumFacing.VALUES)
+                faceQuads.put(face, elevate(delegate.getQuads(null, face, 0)));
+        }
+
+        private static List<BakedQuad> elevate(List<BakedQuad> quads) {
+            List<BakedQuad> elevated = new ArrayList<>(quads.size());
+            for (BakedQuad quad : quads) {
+                int[] vertexData = quad.getVertexData().clone();
+                VertexFormat format = quad.getFormat();
+                int vertexSize = format.getIntegerSize();
+                int positionOffset = findPositionOffset(format);
+                for (int vertex = 0; vertex < 4; vertex++) {
+                    int yIndex = vertex * vertexSize + positionOffset + 1;
+                    float y = Float.intBitsToFloat(vertexData[yIndex]);
+                    vertexData[yIndex] = Float.floatToRawIntBits(y + ELEVATION);
+                }
+                elevated.add(new BakedQuad(vertexData, quad.getTintIndex(), quad.getFace(), quad.getSprite(),
+                        quad.shouldApplyDiffuseLighting(), format));
+            }
+            return Collections.unmodifiableList(elevated);
+        }
+
+        @Override
+        public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+            return side == null ? generalQuads : faceQuads.get(side);
+        }
+
+        @Override
+        public boolean isAmbientOcclusion() {
+            return delegate.isAmbientOcclusion();
+        }
+
+        @Override
+        public boolean isGui3d() {
+            return delegate.isGui3d();
+        }
+
+        @Override
+        public boolean isBuiltInRenderer() {
+            return delegate.isBuiltInRenderer();
+        }
+
+        @Override
+        public TextureAtlasSprite getParticleTexture() {
+            return delegate.getParticleTexture();
+        }
+
+        @Override
+        @Deprecated
+        public ItemCameraTransforms getItemCameraTransforms() {
+            return delegate.getItemCameraTransforms();
+        }
+
+        @Override
+        public ItemOverrideList getOverrides() {
+            return delegate.getOverrides();
+        }
+    }
+
+    private static int findPositionOffset(VertexFormat format) {
+        for (int element = 0; element < format.getElementCount(); element++) {
+            if (format.getElement(element).isPositionElement())
+                return format.getOffset(element) / Integer.BYTES;
+        }
+        throw new IllegalArgumentException("Vertex format has no position element");
+    }
+
+    private static boolean isNormallyHidden(TrackType trackType, TrackKit trackKit) {
+        return trackKit != TrackKits.BUFFER_STOP.getTrackKit()
+                && (trackType == TrackTypes.ELECTRIC.getTrackType()
+                || trackType == TrackTypes.HIGH_SPEED.getTrackType()
+                || trackType == TrackTypes.HIGH_SPEED_ELECTRIC.getTrackType()
+                || trackType == TrackTypes.REINFORCED.getTrackType());
     }
 
 }

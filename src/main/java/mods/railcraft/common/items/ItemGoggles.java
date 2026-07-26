@@ -143,7 +143,8 @@ public class ItemGoggles extends ItemRailcraftArmor {
         SHUNTING("gui.railcraft.goggles.aura.shunting"),
         SIGNALLING("gui.railcraft.goggles.aura.signalling"),
         SURVEYING("gui.railcraft.goggles.aura.surveying"),
-        WORLDSPIKE("gui.railcraft.goggles.aura.worldspike"),;
+        WORLDSPIKE("gui.railcraft.goggles.aura.worldspike"),
+        TRACK("gui.railcraft.bore.track"),;
         public static final GoggleAura[] VALUES = values();
         private final String locTag;
 

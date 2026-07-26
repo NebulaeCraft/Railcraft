@@ -310,11 +310,13 @@ task appleSiliconNarratorJar(dependsOn: compileAppleSiliconNarrator) {
     }
 }
 
-task prepareIdeaRunOutput(type: Sync, dependsOn: classes) {
+task prepareIdeaRunOutput(type: Sync, dependsOn: [classes, apiClasses]) {
     // Forge 1.12 treats the directory containing the @Mod class as that
     // mod's resource pack. Gradle keeps classes and processed resources in
     // separate directories, so merge them for IDEA Application launches.
-    from sourceSets.main.output
+    // Keep the custom api source set in the same output as well: newer IDEA
+    // imports no longer always add the api module to the main module runtime.
+    from sourceSets.api.output, sourceSets.main.output
     into "$buildDir/ideaRuns/main"
 }
 
@@ -347,6 +349,22 @@ task writeIdeaRunConfigurations {
         def runConfigurationsDir = file('.idea/runConfigurations')
         runConfigurationsDir.mkdirs()
 
+        // Gradle's IDEA importer may prefix source-set modules with the project
+        // group (for example, com.headlamp-games.railcraft.main). Read the
+        // module that IDEA actually registered instead of relying on a name
+        // that changes between importer versions.
+        def ideaModulesFile = file('.idea/modules.xml')
+        def ideaMainModuleName = null
+        if (ideaModulesFile.exists()) {
+            def registeredModuleNames = new XmlSlurper().parse(ideaModulesFile)
+                    .component.modules.module
+                    .collect { it.@filepath.text().tokenize('/').last().replaceFirst(/\.iml$/, '') }
+            ideaMainModuleName = registeredModuleNames.find { it.endsWith('.main') }
+        }
+        if (!ideaMainModuleName) {
+            ideaMainModuleName = "${project.group}.${project.name}.main"
+        }
+
         [runClient, runServer].each { task ->
             def taskName = task.name
             def mainClass = taskName == 'runClient' ? 'mods.railcraft.dev.RunClient' : 'mods.railcraft.dev.RunServer'
@@ -367,12 +385,17 @@ task writeIdeaRunConfigurations {
                             env(name: envVar.key, value: envVar.value)
                         }
                     }
-                    module(name: 'railcraft.main')
+                    module(name: ideaMainModuleName)
                     classpathModifications {
                         // IDEA compiles raw @VERSION@/${version} placeholders into its own
                         // module output. Forge also requires a mod's classes and resources
                         // to share one root, so use Gradle's merged, processed run output.
-                        entry(path: '$PROJECT_DIR$/build/classes/production/railcraft.main', exclude: 'true')
+                        entry(path: "\$PROJECT_DIR\$/build/classes/production/${ideaMainModuleName}", exclude: 'true')
+                        // Also exclude output left by older IDEA imports. It may
+                        // remain on disk after the module was renamed.
+                        if (ideaMainModuleName != 'railcraft.main') {
+                            entry(path: '$PROJECT_DIR$/build/classes/production/railcraft.main', exclude: 'true')
+                        }
                         entry(path: '$PROJECT_DIR$/build/ideaRuns/main')
                         // ForgeGradle generates these launchers outside IDEA's indexed model.
                         entry(path: "\$USER_HOME\$/.gradle/caches/minecraft/net/minecraftforge/forge/${project.version_minecraft}-${project.version_forge}/start")

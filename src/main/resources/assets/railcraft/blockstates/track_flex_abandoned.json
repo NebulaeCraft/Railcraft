@@ -173,27 +173,31 @@
       },
       "south_east": {
         "textures": {
-          "rail": "railcraft:blocks/tracks/flex/abandoned_turned"
+          "rail": "railcraft:blocks/tracks/flex/abandoned_turned",
+          "rail_curved": "railcraft:blocks/tracks/flex/abandoned_turned"
         },
-        "submodel": "rail_curved"
+        "submodel": "rccosmetic:track_curved"
       },
       "south_west": {
         "textures": {
-          "rail": "railcraft:blocks/tracks/flex/abandoned_turned"
+          "rail": "railcraft:blocks/tracks/flex/abandoned_turned",
+          "rail_curved": "railcraft:blocks/tracks/flex/abandoned_turned"
         },
-        "submodel": "rail_curved", "y": 90
+        "submodel": "rccosmetic:track_curved", "y": 90
       },
       "north_west": {
         "textures": {
-          "rail": "railcraft:blocks/tracks/flex/abandoned_turned"
+          "rail": "railcraft:blocks/tracks/flex/abandoned_turned",
+          "rail_curved": "railcraft:blocks/tracks/flex/abandoned_turned"
         },
-        "submodel": "rail_curved", "y": 180
+        "submodel": "rccosmetic:track_curved", "y": 180
       },
       "north_east": {
         "textures": {
-          "rail": "railcraft:blocks/tracks/flex/abandoned_turned"
+          "rail": "railcraft:blocks/tracks/flex/abandoned_turned",
+          "rail_curved": "railcraft:blocks/tracks/flex/abandoned_turned"
         },
-        "submodel": "rail_curved", "y": 270
+        "submodel": "rccosmetic:track_curved", "y": 270
       }
     }
   }
