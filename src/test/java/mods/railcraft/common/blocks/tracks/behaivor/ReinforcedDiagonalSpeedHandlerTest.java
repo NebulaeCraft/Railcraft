@@ -15,7 +15,7 @@ class ReinforcedDiagonalSpeedHandlerTest {
     @Test
     void longDiagonalBlockTransitionDoesNotRaiseVectorMagnitude() {
         Vec2D prepared = ReinforcedDiagonalSpeedHandler.prepareMotion(
-                new Vec2D(0.6, 0.6), TARGET_SPEED, 1.0);
+                new Vec2D(0.6, 0.6), TARGET_SPEED, 1.0, false);
 
         assertEquals(TARGET_SPEED, prepared.magnitude(), DELTA);
         assertEquals(TARGET_SPEED / Math.sqrt(2.0), prepared.getX(), DELTA);
@@ -25,7 +25,7 @@ class ReinforcedDiagonalSpeedHandlerTest {
     @Test
     void diagonalTravelDirectionIsPreserved() {
         Vec2D prepared = ReinforcedDiagonalSpeedHandler.prepareMotion(
-                new Vec2D(-0.3, 0.3), TARGET_SPEED, 1.0);
+                new Vec2D(-0.3, 0.3), TARGET_SPEED, 1.0, true);
 
         assertEquals(TARGET_SPEED, prepared.magnitude(), DELTA);
         assertEquals(-TARGET_SPEED / Math.sqrt(2.0), prepared.getX(), DELTA);
@@ -35,7 +35,7 @@ class ReinforcedDiagonalSpeedHandlerTest {
     @Test
     void vanillaRiderSlowdownIsPreCompensated() {
         Vec2D prepared = ReinforcedDiagonalSpeedHandler.prepareMotion(
-                new Vec2D(0.2, 0.2), TARGET_SPEED, 0.75);
+                new Vec2D(0.2, 0.2), TARGET_SPEED, 0.75, true);
 
         assertEquals(TARGET_SPEED, prepared.magnitude() * 0.75, DELTA);
     }
@@ -43,9 +43,31 @@ class ReinforcedDiagonalSpeedHandlerTest {
     @Test
     void stoppedCartIsNotStartedWithoutATravelDirection() {
         Vec2D prepared = ReinforcedDiagonalSpeedHandler.prepareMotion(
-                new Vec2D(), TARGET_SPEED, 1.0);
+                new Vec2D(), TARGET_SPEED, 1.0, true);
 
         assertEquals(0.0, prepared.magnitude(), DELTA);
+    }
+
+    @Test
+    void unpoweredCartKeepsItsPostDragSpeedBelowTheLimit() {
+        Vec2D postDragMotion = new Vec2D(0.3, 0.4);
+
+        Vec2D prepared = ReinforcedDiagonalSpeedHandler.prepareMotion(
+                postDragMotion, TARGET_SPEED, 1.0, false);
+
+        assertEquals(0.3, prepared.getX(), DELTA);
+        assertEquals(0.4, prepared.getY(), DELTA);
+        assertEquals(0.5, prepared.magnitude(), DELTA);
+    }
+
+    @Test
+    void poweredTrainRestoresTargetSpeedAfterLinkDrag() {
+        Vec2D prepared = ReinforcedDiagonalSpeedHandler.prepareMotion(
+                new Vec2D(0.3, 0.4), TARGET_SPEED, 1.0, true);
+
+        assertEquals(TARGET_SPEED, prepared.magnitude(), DELTA);
+        assertEquals(0.36, prepared.getX(), DELTA);
+        assertEquals(0.48, prepared.getY(), DELTA);
     }
 
     @Test

@@ -13,6 +13,8 @@ import com.google.common.collect.MapMaker;
 import mods.railcraft.common.blocks.tracks.TrackShapeHelper;
 import mods.railcraft.common.blocks.tracks.TrackTools;
 import mods.railcraft.common.carts.EntityCartBasic;
+import mods.railcraft.common.carts.EntityLocomotive;
+import mods.railcraft.common.carts.Train;
 import mods.railcraft.common.util.misc.Vec2D;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.item.EntityMinecart;
@@ -33,7 +35,9 @@ import java.util.Set;
  * reinforced-track target instead of applying that target to both axes.
  *
  * <p>A Minecraft corner rail contains a 45-degree diagonal path. This also
- * covers long diagonal lines assembled from alternating corner rails.</p>
+ * covers long diagonal lines assembled from alternating corner rails. Only a
+ * train with a running locomotive has its speed maintained; unpowered carts
+ * are capped but retain normal drag.</p>
  */
 public final class ReinforcedDiagonalSpeedHandler {
     public static final ReinforcedDiagonalSpeedHandler INSTANCE = new ReinforcedDiagonalSpeedHandler();
@@ -77,18 +81,31 @@ public final class ReinforcedDiagonalSpeedHandler {
             if (cart.isDead)
                 return;
 
+            boolean maintainSpeed = hasRunningLocomotive(cart);
             double movementScale = cart.isBeingRidden() && !(cart instanceof EntityCartBasic)
                     ? VANILLA_RIDER_MOVEMENT_SCALE : 1.0;
             Vec2D preparedMotion = prepareMotion(
                     new Vec2D(cart.motionX, cart.motionZ),
                     SpeedController.REINFORCED_MAX_SPEED,
-                    movementScale);
+                    movementScale,
+                    maintainSpeed);
             cart.motionX = preparedMotion.getX();
             cart.motionZ = preparedMotion.getY();
 
-            overriddenSpeedCaps.put(cart, cart.getCurrentCartSpeedCapOnRail());
-            cart.setCurrentCartSpeedCapOnRail(SpeedController.REINFORCED_MAX_SPEED);
+            if (maintainSpeed) {
+                overriddenSpeedCaps.put(cart, cart.getCurrentCartSpeedCapOnRail());
+                cart.setCurrentCartSpeedCapOnRail(SpeedController.REINFORCED_MAX_SPEED);
+            }
         });
+    }
+
+    /**
+     * Checks the whole linked train so the correction is independent of
+     * whether the locomotive is pulling from the front or pushing from behind.
+     */
+    private static boolean hasRunningLocomotive(EntityMinecart cart) {
+        return Train.streamCarts(cart).anyMatch(trainCart ->
+                trainCart instanceof EntityLocomotive && ((EntityLocomotive) trainCart).isRunning());
     }
 
     static boolean isDiagonal(BlockRailBase.EnumRailDirection direction) {
@@ -97,14 +114,19 @@ public final class ReinforcedDiagonalSpeedHandler {
 
     /**
      * Produces a vector whose magnitude becomes {@code targetSpeed} after the
-     * rider movement multiplier is applied by vanilla minecart movement.
+     * rider movement multiplier is applied by vanilla minecart movement. An
+     * unpowered cart is only reduced when it exceeds the target; lower speeds
+     * are left untouched so normal drag can bring the cart to a stop.
      */
-    static Vec2D prepareMotion(Vec2D motion, double targetSpeed, double movementScale) {
+    static Vec2D prepareMotion(Vec2D motion, double targetSpeed, double movementScale, boolean maintainSpeed) {
         double magnitude = motion.magnitude();
         if (magnitude < MIN_MOTION)
             return motion;
 
         double preparedMagnitude = targetSpeed / movementScale;
+        if (!maintainSpeed && magnitude <= preparedMagnitude)
+            return motion;
+
         double scale = preparedMagnitude / magnitude;
         return new Vec2D(motion.getX() * scale, motion.getY() * scale);
     }
