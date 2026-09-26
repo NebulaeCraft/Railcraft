@@ -60,7 +60,7 @@ public final class FluidRecipeInterpreter {
 //    }
 
     public static List<ItemStack> getAllContainersFilledWith(@Nullable FluidStack fluid) {
-        if (fluid == null)
+        if (fluid == null || CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null)
             return Collections.emptyList();
         Collection<ItemStack> ingredients = ingredientRegistry.getAllIngredients(ItemStack.class);
         List<ItemStack> ret = new ArrayList<>();

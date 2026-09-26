@@ -90,14 +90,18 @@ public final class FluidTools {
     }
 
     public static @Nullable IFluidHandler getFluidHandler(@Nullable EnumFacing side, ICapabilityProvider object) {
-        return object.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side);
+        return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY == null
+                ? null : object.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side);
     }
 
     public static boolean hasFluidHandler(@Nullable EnumFacing side, ICapabilityProvider object) {
-        return object.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side);
+        return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY != null
+                && object.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side);
     }
 
     public static boolean interactWithFluidHandler(EntityPlayer player, EnumHand hand, IFluidHandler fluidHandler) {
+        if (CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null)
+            return false;
         if (Game.isHost(player.world))
             return FluidUtil.interactWithFluidHandler(player, hand, fluidHandler);
         return FluidItemHelper.isContainer(player.getHeldItem(hand));
@@ -221,6 +225,8 @@ public final class FluidTools {
      * Will handle moving an item through all stages from input to output for either filling or draining.
      */
     public static ProcessState processContainer(IInventory inv, TankManager tanks, ProcessType type, ProcessState state) {
+        if (CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null)
+            return ProcessState.RESET;
         ItemStack container = prepareProcessing(inv);
         if (container.isEmpty()) {
             return ProcessState.RESET;
@@ -272,6 +278,8 @@ public final class FluidTools {
 
     @Deprecated
     public static boolean fillContainers(IFluidHandler source, IInventory inv, int inputSlot, int outputSlot, @Nullable Fluid fluidToFill) {
+        if (CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null)
+            return false;
         ItemStack input = inv.getStackInSlot(inputSlot);
         //need an empty container
         if (InvTools.isEmpty(input))
@@ -298,6 +306,8 @@ public final class FluidTools {
 
     @Deprecated
     public static boolean drainContainers(IFluidHandler dest, IInventory inv, int inputSlot, int outputSlot) {
+        if (CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null)
+            return false;
         ItemStack input = inv.getStackInSlot(inputSlot);
         //need a valid container
         if (InvTools.isEmpty(input))

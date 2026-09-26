@@ -81,7 +81,8 @@ public enum StackFilters implements Predicate<ItemStack> {
     EMPTY_BUCKET {
         @Override
         protected boolean testType(ItemStack stack) {
-            if (stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null))
+            if (CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY != null
+                    && stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null))
                 return true;
             if (InvTools.isItem(stack, Items.BUCKET))
                 return true;
@@ -94,7 +95,7 @@ public enum StackFilters implements Predicate<ItemStack> {
     FLUID_CONTAINER {
         @Override
         protected boolean testType(ItemStack stack) {
-            return stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+            return FluidItemHelper.isContainer(stack);
         }
     },
     FLUID_CONTAINER_FILLED {

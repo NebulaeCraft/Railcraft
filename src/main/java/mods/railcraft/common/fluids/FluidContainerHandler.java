@@ -20,6 +20,7 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,6 +34,9 @@ public final class FluidContainerHandler {
     private List<ItemStack> candidates = new ArrayList<>();
 
     public void init() {
+        if (CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null) {
+            return;
+        }
         initialized = true;
         candidates.clear();
         for (Item item : ForgeRegistries.ITEMS) {
@@ -47,6 +51,9 @@ public final class FluidContainerHandler {
     }
 
     public List<ItemStack> findCanDrain(FluidStack fluidStack) {
+        if (fluidStack == null || CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null) {
+            return Collections.emptyList();
+        }
         if (!initialized) {
             init();
         }

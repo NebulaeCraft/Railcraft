@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
 import org.apache.logging.log4j.util.Strings;
@@ -37,7 +38,8 @@ public class Ingredients {
         if (obj instanceof IIngredientSource)
             ingredient = ((IIngredientSource) obj).getIngredient();
         else if (obj instanceof FluidStack)
-            ingredient = new FluidIngredient((FluidStack) obj);
+            ingredient = CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null
+                    ? Ingredient.EMPTY : new FluidIngredient((FluidStack) obj);
         else if (obj instanceof ItemStack && InvTools.isEmpty((ItemStack) obj))
             ingredient = Ingredient.EMPTY;
         else

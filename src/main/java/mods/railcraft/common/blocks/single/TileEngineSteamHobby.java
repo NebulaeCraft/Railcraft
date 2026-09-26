@@ -16,6 +16,7 @@ import mods.railcraft.common.blocks.logic.BoilerLogic.BoilerData;
 import mods.railcraft.common.blocks.logic.ExploderLogic;
 import mods.railcraft.common.blocks.logic.Logic;
 import mods.railcraft.common.fluids.FluidTools;
+import mods.railcraft.common.fluids.FluidItemHelper;
 import mods.railcraft.common.fluids.Fluids;
 import mods.railcraft.common.gui.EnumGui;
 import mods.railcraft.common.gui.GuiHandler;
@@ -38,6 +39,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
@@ -101,7 +103,9 @@ public class TileEngineSteamHobby extends TileEngineSteam implements ISidedInven
 
     @Override
     public boolean blockActivated(EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        return FluidUtil.interactWithFluidHandler(player, hand, getTankManager()) || super.blockActivated(player, hand, side, hitX, hitY, hitZ);
+        return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY != null
+                && FluidUtil.interactWithFluidHandler(player, hand, getTankManager())
+                || super.blockActivated(player, hand, side, hitX, hitY, hitZ);
     }
 
     @Override
@@ -260,7 +264,7 @@ public class TileEngineSteamHobby extends TileEngineSteam implements ISidedInven
             case SLOT_FUEL:
                 return FuelPlugin.getBurnTime(stack) > 0;
             case SLOT_LIQUID_INPUT:
-                return Fluids.WATER.is(FluidUtil.getFluidContained(stack));
+                return Fluids.WATER.is(FluidItemHelper.getFluidStackInContainer(stack));
         }
         return false;
     }

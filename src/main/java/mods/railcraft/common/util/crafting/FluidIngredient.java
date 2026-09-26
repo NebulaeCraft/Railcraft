@@ -44,7 +44,7 @@ public final class FluidIngredient extends RailcraftIngredient {
 
     @Override
     public boolean apply(@Nullable ItemStack stack) {
-        if (InvTools.isEmpty(stack)) {
+        if (InvTools.isEmpty(stack) || CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null) {
             return false;
         }
         ItemStack checking = InvTools.copyOne(stack);
@@ -57,6 +57,9 @@ public final class FluidIngredient extends RailcraftIngredient {
 
     @Override
     public ItemStack getRemaining(ItemStack original) {
+        if (CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null) {
+            return super.getRemaining(original);
+        }
         ItemStack ret = InvTools.copyOne(original);
         IFluidHandlerItem handler = ret.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
         if (handler == null) {

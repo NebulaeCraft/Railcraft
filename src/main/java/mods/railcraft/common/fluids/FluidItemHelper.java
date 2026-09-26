@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import org.jetbrains.annotations.Nullable;
@@ -30,11 +31,11 @@ import java.util.function.Predicate;
 public final class FluidItemHelper {
 
     public static boolean isContainer(ItemStack stack) {
-        return FluidUtil.getFluidHandler(stack) != null;
+        return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY != null && FluidUtil.getFluidHandler(stack) != null;
     }
 
     public static boolean testContainerProperties(boolean all, ItemStack stack, Predicate<IFluidTankProperties> test) {
-        if (InvTools.isEmpty(stack)) return false;
+        if (InvTools.isEmpty(stack) || CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null) return false;
         IFluidHandler fluidHandler = FluidUtil.getFluidHandler(stack);
         return FluidTools.testProperties(all, fluidHandler, test);
     }
@@ -68,7 +69,7 @@ public final class FluidItemHelper {
     }
 
     public static boolean isRoomInContainer(ItemStack stack, @Nullable Fluid fluid) {
-        if (fluid == null) return false;
+        if (fluid == null || CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null) return false;
         stack = stack.copy();
         stack.setCount(1);
         IFluidHandler fluidHandler = FluidUtil.getFluidHandler(stack);
@@ -99,13 +100,13 @@ public final class FluidItemHelper {
     }
 
     public static @Nullable FluidStack getFluidStackInContainer(ItemStack stack) {
-        return FluidUtil.getFluidContained(stack);
+        return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY == null ? null : FluidUtil.getFluidContained(stack);
     }
 
     // Use fluidstack version
     @Deprecated // Use fluidstack version
     public static @Nullable Fluid getFluidInContainer(ItemStack stack) {
-        return Optional.ofNullable(FluidUtil.getFluidContained(stack)).map(FluidStack::getFluid).orElse(null);
+        return Optional.ofNullable(getFluidStackInContainer(stack)).map(FluidStack::getFluid).orElse(null);
     }
 
     private FluidItemHelper() {
