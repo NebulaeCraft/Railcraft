@@ -1,7 +1,11 @@
 package mods.railcraft.common.blocks.tracks.behaivor;
 
 import mods.railcraft.common.util.misc.Vec2D;
+import mods.railcraft.common.carts.EntityLocomotive.LocoSpeed;
 import net.minecraft.block.BlockRailBase;
+import net.minecraft.entity.item.EntityMinecartEmpty;
+import net.minecraft.init.Bootstrap;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,6 +15,73 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ReinforcedDiagonalSpeedHandlerTest {
     private static final double DELTA = 1.0E-9;
     private static final double TARGET_SPEED = 0.6;
+
+    @BeforeAll
+    static void setUp() {
+        Bootstrap.register();
+    }
+
+    @Test
+    void runningLocomotiveUsesItsSelectedGearForMotionAndMovementCap() {
+        double[] expectedSpeeds = {0.1, 0.2, 0.3, SpeedController.REINFORCED_MAX_SPEED};
+        for (LocoSpeed gear : LocoSpeed.VALUES) {
+            SpeedTestLocomotive loco = new SpeedTestLocomotive(gear, true);
+            loco.motionX = 0.05;
+            loco.motionZ = -0.05;
+
+            ReinforcedDiagonalSpeedHandler.INSTANCE.adjustSpeed(loco);
+
+            assertEquals(expectedSpeeds[gear.ordinal()], Math.hypot(loco.motionX, loco.motionZ), DELTA);
+            assertEquals(expectedSpeeds[gear.ordinal()], loco.getCurrentCartSpeedCapOnRail(), 1.0E-7);
+        }
+    }
+
+    @Test
+    void loweringTheGearOnADiagonalImmediatelyLowersTheTarget() {
+        SpeedTestLocomotive loco = new SpeedTestLocomotive(LocoSpeed.MAX, true);
+        loco.motionX = 0.4;
+        loco.motionZ = 0.4;
+        ReinforcedDiagonalSpeedHandler.INSTANCE.adjustSpeed(loco);
+
+        loco.setSpeed(LocoSpeed.SLOWEST);
+        ReinforcedDiagonalSpeedHandler.INSTANCE.adjustSpeed(loco);
+
+        assertEquals(0.1, Math.hypot(loco.motionX, loco.motionZ), DELTA);
+        assertEquals(0.1, loco.getCurrentCartSpeedCapOnRail(), 1.0E-7);
+    }
+
+    @Test
+    void standaloneMinecartRetainsDragAndIsOnlyCappedAboveTheTrackLimit() {
+        EntityMinecartEmpty cart = new EntityMinecartEmpty(null);
+        cart.motionX = 0.2;
+        cart.motionZ = 0.2;
+        for (int tick = 0; tick < 20; tick++) {
+            cart.motionX *= 0.96;
+            cart.motionZ *= 0.96;
+            ReinforcedDiagonalSpeedHandler.INSTANCE.adjustSpeed(cart);
+        }
+        assertEquals(Math.hypot(0.2, 0.2) * Math.pow(0.96, 20),
+                Math.hypot(cart.motionX, cart.motionZ), DELTA);
+
+        cart.motionX = 0.6;
+        cart.motionZ = 0.6;
+        ReinforcedDiagonalSpeedHandler.INSTANCE.adjustSpeed(cart);
+        assertEquals(SpeedController.REINFORCED_MAX_SPEED, Math.hypot(cart.motionX, cart.motionZ), DELTA);
+    }
+
+    @Test
+    void idleLocomotiveKeepsItsGearLimitWithoutBeingAccelerated() {
+        SpeedTestLocomotive loco = new SpeedTestLocomotive(LocoSpeed.SLOWEST, false);
+        loco.motionX = 0.4;
+        loco.motionZ = 0.4;
+        ReinforcedDiagonalSpeedHandler.INSTANCE.adjustSpeed(loco);
+        assertEquals(0.1, Math.hypot(loco.motionX, loco.motionZ), DELTA);
+
+        loco.motionX *= 0.9;
+        loco.motionZ *= 0.9;
+        ReinforcedDiagonalSpeedHandler.INSTANCE.adjustSpeed(loco);
+        assertEquals(0.09, Math.hypot(loco.motionX, loco.motionZ), DELTA);
+    }
 
     @Test
     void longDiagonalBlockTransitionDoesNotRaiseVectorMagnitude() {

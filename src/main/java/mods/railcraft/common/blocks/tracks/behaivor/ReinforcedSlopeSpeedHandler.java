@@ -12,6 +12,7 @@ package mods.railcraft.common.blocks.tracks.behaivor;
 import com.google.common.collect.MapMaker;
 import mods.railcraft.common.blocks.tracks.TrackTools;
 import mods.railcraft.common.carts.EntityCartBasic;
+import mods.railcraft.common.carts.Train;
 import mods.railcraft.common.util.misc.Vec2D;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.item.EntityMinecart;
@@ -31,8 +32,9 @@ import java.util.Map;
  * <p>The correction runs after the normal minecart update and at the lowest
  * world-tick priority, so locomotive force, drag, linkage physics, and the
  * vanilla elevation adjustment cannot accumulate into a different uphill or
- * downhill speed. The stored motion also pre-compensates the slope adjustment
- * that vanilla applies before movement on the next tick.</p>
+ * downhill speed. Locomotive gear limits still apply. The stored motion also
+ * pre-compensates the slope adjustment that vanilla applies before movement
+ * on the next tick.</p>
  */
 public final class ReinforcedSlopeSpeedHandler {
     public static final ReinforcedSlopeSpeedHandler INSTANCE = new ReinforcedSlopeSpeedHandler();
@@ -72,24 +74,28 @@ public final class ReinforcedSlopeSpeedHandler {
         if (carts == null || carts.isEmpty())
             return;
 
-        carts.forEach((cart, direction) -> {
-            if (cart.isDead)
-                return;
+        carts.forEach(this::adjustSpeed);
+    }
 
-            double movementScale = cart.isBeingRidden() && !(cart instanceof EntityCartBasic)
-                    ? VANILLA_RIDER_MOVEMENT_SCALE : 1.0;
-            Vec2D preparedMotion = prepareMotion(
-                    new Vec2D(cart.motionX, cart.motionZ),
-                    direction,
-                    SpeedController.REINFORCED_MAX_SPEED,
-                    cart.getSlopeAdjustment(),
-                    movementScale);
-            cart.motionX = preparedMotion.getX();
-            cart.motionZ = preparedMotion.getY();
+    void adjustSpeed(EntityMinecart cart, BlockRailBase.EnumRailDirection direction) {
+        if (cart.isDead)
+            return;
 
-            overriddenSpeedCaps.put(cart, cart.getCurrentCartSpeedCapOnRail());
-            cart.setCurrentCartSpeedCapOnRail(SpeedController.REINFORCED_MAX_SPEED);
-        });
+        double targetSpeed = Math.min(SpeedController.REINFORCED_MAX_SPEED,
+                Math.min(cart.getMaxCartSpeedOnRail(), Train.getLocomotiveSpeedLimit(cart)));
+        double movementScale = cart.isBeingRidden() && !(cart instanceof EntityCartBasic)
+                ? VANILLA_RIDER_MOVEMENT_SCALE : 1.0;
+        Vec2D preparedMotion = prepareMotion(
+                new Vec2D(cart.motionX, cart.motionZ),
+                direction,
+                targetSpeed,
+                cart.getSlopeAdjustment(),
+                movementScale);
+        cart.motionX = preparedMotion.getX();
+        cart.motionZ = preparedMotion.getY();
+
+        overriddenSpeedCaps.put(cart, cart.getCurrentCartSpeedCapOnRail());
+        cart.setCurrentCartSpeedCapOnRail((float) targetSpeed);
     }
 
     /**

@@ -1,4 +1,3 @@
-import groovy.xml.MarkupBuilder
 import net.minecraftforge.gradle.tasks.SignJar
 
 buildscript {
@@ -310,21 +309,37 @@ task appleSiliconNarratorJar(dependsOn: compileAppleSiliconNarrator) {
     }
 }
 
-task prepareIdeaRunOutput(type: Sync, dependsOn: [classes, apiClasses]) {
-    // Forge 1.12 treats the directory containing the @Mod class as that
-    // mod's resource pack. Gradle keeps classes and processed resources in
-    // separate directories, so merge them for IDEA Application launches.
-    // Keep the custom api source set in the same output as well: newer IDEA
-    // imports no longer always add the api module to the main module runtime.
-    from sourceSets.api.output, sourceSets.main.output
-    into "$buildDir/ideaRuns/main"
+runClient.dependsOn copyMacosArmNatives, appleSiliconNarratorJar
+genIntellijRuns.dependsOn copyLog4jConfig, copyMacosArmNatives, appleSiliconNarratorJar
+
+// ForgeGradle 2.3's Application configurations assume IDEA's old module names.
+// Use standard Gradle run configurations so ForgeGradle owns the classpath,
+// compilation, resources and platform preparation for both launch methods.
+gradle.projectsEvaluated {
+    genIntellijRuns.actions.clear()
+    genIntellijRuns.doLast {
+        def runConfigurationsDir = file('.idea/runConfigurations')
+        runConfigurationsDir.mkdirs()
+        ['runClient', 'runServer'].each { taskName ->
+            new File(runConfigurationsDir, "${taskName}.xml").withWriter('UTF-8') { writer ->
+                new groovy.xml.MarkupBuilder(writer).component(name: 'ProjectRunConfigurationManager') {
+                    configuration(default: 'false', name: taskName, type: 'GradleRunConfiguration', factoryName: 'Gradle') {
+                        ExternalSystemSettings {
+                            option(name: 'externalProjectPath', value: '$PROJECT_DIR$')
+                            option(name: 'externalSystemIdString', value: 'GRADLE')
+                            option(name: 'taskNames') {
+                                list {
+                                    option(value: taskName)
+                                }
+                            }
+                        }
+                        method(v: '2')
+                    }
+                }
+            }
+        }
+    }
 }
-
-task prepareRunClient(dependsOn: [prepareIdeaRunOutput, copyLog4jConfig, copyMacosArmNatives, appleSiliconNarratorJar])
-task prepareRunServer(dependsOn: [prepareIdeaRunOutput, copyLog4jConfig])
-
-runClient.dependsOn prepareRunClient
-runServer.dependsOn prepareRunServer
 
 if (isMacosArm) {
     // ForgeGradle 2.3 uses a retired HTTP asset endpoint and retries all 1305
@@ -342,91 +357,6 @@ tasks.withType(JavaExec) {
     environment extraEnvs
     outputs.upToDateWhen { false }
     workingDir actualRunDir
-}
-
-task writeIdeaRunConfigurations {
-    doLast {
-        def runConfigurationsDir = file('.idea/runConfigurations')
-        runConfigurationsDir.mkdirs()
-
-        // Gradle's IDEA importer may prefix source-set modules with the project
-        // group (for example, com.headlamp-games.railcraft.main). Read the
-        // module that IDEA actually registered instead of relying on a name
-        // that changes between importer versions.
-        def ideaModulesFile = file('.idea/modules.xml')
-        def ideaMainModuleName = null
-        if (ideaModulesFile.exists()) {
-            def registeredModuleNames = new XmlSlurper().parse(ideaModulesFile)
-                    .component.modules.module
-                    .collect { it.@filepath.text().tokenize('/').last().replaceFirst(/\.iml$/, '') }
-            ideaMainModuleName = registeredModuleNames.find { it.endsWith('.main') }
-        }
-        if (!ideaMainModuleName) {
-            ideaMainModuleName = "${project.group}.${project.name}.main"
-        }
-
-        [runClient, runServer].each { task ->
-            def taskName = task.name
-            def mainClass = taskName == 'runClient' ? 'mods.railcraft.dev.RunClient' : 'mods.railcraft.dev.RunServer'
-            def props = combinedVmArgs.join(' ') // task.jvmArgs.join(' ') has too much trash
-            def args = task.args.join(' ')
-
-            def writer = new FileWriter(new File(runConfigurationsDir, "${taskName}.xml"))
-            def xml = new MarkupBuilder(writer)
-
-            xml.component(name: "ProjectRunConfigurationManager") {
-                configuration(default: 'false', name: taskName, type: "Application", factoryName: "Application", singleton: "true") {
-                    option(name: 'MAIN_CLASS_NAME', value: mainClass)
-                    option(name: 'VM_PARAMETERS', value: props)
-                    option(name: 'PROGRAM_PARAMETERS', value: args)
-                    option(name: 'WORKING_DIRECTORY', value: task.workingDir)
-                    envs() {
-                        extraEnvs.entrySet().each { envVar ->
-                            env(name: envVar.key, value: envVar.value)
-                        }
-                    }
-                    module(name: ideaMainModuleName)
-                    classpathModifications {
-                        // IDEA compiles raw @VERSION@/${version} placeholders into its own
-                        // module output. Forge also requires a mod's classes and resources
-                        // to share one root, so use Gradle's merged, processed run output.
-                        entry(path: "\$PROJECT_DIR\$/build/classes/production/${ideaMainModuleName}", exclude: 'true')
-                        // Also exclude output left by older IDEA imports. It may
-                        // remain on disk after the module was renamed.
-                        if (ideaMainModuleName != 'railcraft.main') {
-                            entry(path: '$PROJECT_DIR$/build/classes/production/railcraft.main', exclude: 'true')
-                        }
-                        entry(path: '$PROJECT_DIR$/build/ideaRuns/main')
-                        // ForgeGradle generates these launchers outside IDEA's indexed model.
-                        entry(path: "\$USER_HOME\$/.gradle/caches/minecraft/net/minecraftforge/forge/${project.version_minecraft}-${project.version_forge}/start")
-                    }
-                    method(v: '2') {
-                        option(name: 'Gradle.BeforeRunTask', enabled: 'true', tasks: taskName == 'runClient' ? 'prepareRunClient' : 'prepareRunServer', externalProjectPath: '$PROJECT_DIR$')
-                    }
-                }
-            }
-        }
-
-        // ForgeGradle 2.3 also writes legacy "Minecraft Client/Server"
-        // configurations into workspace.xml. The project-level runClient and
-        // runServer configurations above replace them, so remove the duplicates.
-        def workspaceFile = file('.idea/workspace.xml')
-        if (workspaceFile.exists()) {
-            def workspaceXml = workspaceFile.getText('UTF-8')
-            def cleanedWorkspaceXml = workspaceXml
-                    .replaceAll(/(?s)\s*<configuration\b(?=[^>]*\bname="Minecraft (?:Client|Server)")[^>]*>.*?<\/configuration>/, '')
-                    .replaceAll(/(?m)^\s*<item\s+itemvalue="[^"]*\.Minecraft (?:Client|Server)"\s*\/>\s*\r?\n?/, '')
-
-            if (cleanedWorkspaceXml != workspaceXml) {
-                workspaceFile.setText(cleanedWorkspaceXml, 'UTF-8')
-            }
-        }
-    }
-}
-
-tasks.getByName('genIntellijRuns') {
-    dependsOn copyLog4jConfig
-    finalizedBy writeIdeaRunConfigurations
 }
 
 compileJava {
@@ -454,8 +384,6 @@ tasks.withType(Jar) {
     }
 
     exclude '**/Thumbs.db'
-    // IDEA-only bridges for ForgeGradle's generated launchers.
-    exclude 'mods/railcraft/dev/**'
     into('mods/railcraft/api') {
         from project.dirApi + "/LICENSE.md"
     }

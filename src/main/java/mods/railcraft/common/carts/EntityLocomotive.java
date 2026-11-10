@@ -42,6 +42,7 @@ import mods.railcraft.common.util.misc.Game;
 import mods.railcraft.common.util.misc.ISecureObject;
 import mods.railcraft.common.util.misc.MathTools;
 import mods.railcraft.common.util.misc.MiscTools;
+import mods.railcraft.common.util.misc.Vec2D;
 import mods.railcraft.common.util.network.IGuiReturnHandler;
 import mods.railcraft.common.util.network.PacketBuilder;
 import mods.railcraft.common.util.network.RailcraftInputStream;
@@ -451,22 +452,9 @@ public abstract class EntityLocomotive extends CartBase implements IDirectionalC
             motionZ += Math.sin(yaw) * force;
         }
 
-        if (speed != LocoSpeed.MAX) {
-            float limit = 0.4f;
-            switch (speed) {
-                case SLOWEST:
-                    limit = 0.1f;
-                    break;
-                case SLOWER:
-                    limit = 0.2f;
-                    break;
-                case NORMAL:
-                    limit = 0.3f;
-                    break;
-            }
-            motionX = Math.copySign(Math.min(Math.abs(motionX), limit), motionX);
-            motionZ = Math.copySign(Math.min(Math.abs(motionZ), limit), motionZ);
-        }
+        Vec2D limitedMotion = speed.limitMotion(new Vec2D(motionX, motionZ));
+        motionX = limitedMotion.getX();
+        motionZ = limitedMotion.getY();
     }
 
     private int getFuelUse() {
@@ -847,6 +835,24 @@ public abstract class EntityLocomotive extends CartBase implements IDirectionalC
 
         public int getLevel() {
             return level;
+        }
+
+        /**
+         * Horizontal speed limit in blocks per tick. MAX leaves the limit to
+         * the track and cart rather than specifying a fourth fixed speed.
+         */
+        public double getSpeedLimit() {
+            return this == MAX ? Double.POSITIVE_INFINITY : level / 10.0;
+        }
+
+        public Vec2D limitMotion(Vec2D motion) {
+            double magnitude = motion.magnitude();
+            double limit = getSpeedLimit();
+            if (magnitude <= limit)
+                return motion;
+
+            double scale = limit / magnitude;
+            return new Vec2D(motion.getX() * scale, motion.getY() * scale);
         }
 
         @Override

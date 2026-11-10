@@ -36,8 +36,8 @@ import java.util.Set;
  *
  * <p>A Minecraft corner rail contains a 45-degree diagonal path. This also
  * covers long diagonal lines assembled from alternating corner rails. Only a
- * train with a running locomotive has its speed maintained; unpowered carts
- * are capped but retain normal drag.</p>
+ * train with a running locomotive has its speed maintained, subject to the
+ * locomotives' gear limits; unpowered carts are capped but retain normal drag.</p>
  */
 public final class ReinforcedDiagonalSpeedHandler {
     public static final ReinforcedDiagonalSpeedHandler INSTANCE = new ReinforcedDiagonalSpeedHandler();
@@ -77,26 +77,30 @@ public final class ReinforcedDiagonalSpeedHandler {
         if (carts == null || carts.isEmpty())
             return;
 
-        carts.forEach(cart -> {
-            if (cart.isDead)
-                return;
+        carts.forEach(this::adjustSpeed);
+    }
 
-            boolean maintainSpeed = hasRunningLocomotive(cart);
-            double movementScale = cart.isBeingRidden() && !(cart instanceof EntityCartBasic)
-                    ? VANILLA_RIDER_MOVEMENT_SCALE : 1.0;
-            Vec2D preparedMotion = prepareMotion(
-                    new Vec2D(cart.motionX, cart.motionZ),
-                    SpeedController.REINFORCED_MAX_SPEED,
-                    movementScale,
-                    maintainSpeed);
-            cart.motionX = preparedMotion.getX();
-            cart.motionZ = preparedMotion.getY();
+    void adjustSpeed(EntityMinecart cart) {
+        if (cart.isDead)
+            return;
 
-            if (maintainSpeed) {
-                overriddenSpeedCaps.put(cart, cart.getCurrentCartSpeedCapOnRail());
-                cart.setCurrentCartSpeedCapOnRail(SpeedController.REINFORCED_MAX_SPEED);
-            }
-        });
+        boolean maintainSpeed = hasRunningLocomotive(cart);
+        double targetSpeed = Math.min(SpeedController.REINFORCED_MAX_SPEED,
+                Math.min(cart.getMaxCartSpeedOnRail(), Train.getLocomotiveSpeedLimit(cart)));
+        double movementScale = cart.isBeingRidden() && !(cart instanceof EntityCartBasic)
+                ? VANILLA_RIDER_MOVEMENT_SCALE : 1.0;
+        Vec2D preparedMotion = prepareMotion(
+                new Vec2D(cart.motionX, cart.motionZ),
+                targetSpeed,
+                movementScale,
+                maintainSpeed);
+        cart.motionX = preparedMotion.getX();
+        cart.motionZ = preparedMotion.getY();
+
+        if (maintainSpeed) {
+            overriddenSpeedCaps.put(cart, cart.getCurrentCartSpeedCapOnRail());
+            cart.setCurrentCartSpeedCapOnRail((float) targetSpeed);
+        }
     }
 
     /**

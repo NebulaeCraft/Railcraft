@@ -1,7 +1,10 @@
 package mods.railcraft.common.blocks.tracks.behaivor;
 
 import mods.railcraft.common.util.misc.Vec2D;
+import mods.railcraft.common.carts.EntityLocomotive.LocoSpeed;
 import net.minecraft.block.BlockRailBase;
+import net.minecraft.init.Bootstrap;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,6 +13,29 @@ class ReinforcedSlopeSpeedHandlerTest {
     private static final double DELTA = 1.0E-9;
     private static final double TARGET_SPEED = 0.6;
     private static final double SLOPE_ADJUSTMENT = 0.0078125;
+
+    @BeforeAll
+    static void setUp() {
+        Bootstrap.register();
+    }
+
+    @Test
+    void slopeCorrectionRespectsEveryGearUphillAndDownhill() {
+        double[] expectedSpeeds = {0.1, 0.2, 0.3, SpeedController.REINFORCED_MAX_SPEED};
+        for (LocoSpeed gear : LocoSpeed.VALUES) {
+            for (int direction : new int[]{-1, 1}) {
+                SpeedTestLocomotive loco = new SpeedTestLocomotive(gear, true);
+                loco.motionX = direction * 0.4;
+
+                ReinforcedSlopeSpeedHandler.INSTANCE.adjustSpeed(
+                        loco, BlockRailBase.EnumRailDirection.ASCENDING_EAST);
+
+                double nextMovement = loco.motionX - loco.getSlopeAdjustment();
+                assertEquals(direction * expectedSpeeds[gear.ordinal()], nextMovement, DELTA);
+                assertEquals(expectedSpeeds[gear.ordinal()], loco.getCurrentCartSpeedCapOnRail(), 1.0E-7);
+            }
+        }
+    }
 
     @Test
     void eastSlopeHasTheSameSpeedUphillAndDownhill() {

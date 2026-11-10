@@ -357,6 +357,17 @@ public final class Train implements Iterable<EntityMinecart> {
         setMaxSpeed(calculateMaxSpeed());
     }
 
+    /**
+     * Includes every locomotive because its gear limit also applies while
+     * idling. A train without locomotives has no additional gear limit.
+     */
+    public static double getLocomotiveSpeedLimit(EntityMinecart cart) {
+        return streamCarts(cart)
+                .flatMap(Streams.toType(EntityLocomotive.class))
+                .mapToDouble(loco -> loco.getSpeed().getSpeedLimit())
+                .min().orElse(Double.POSITIVE_INFINITY);
+    }
+
     private float calculateMaxSpeed() {
         double locoBoost = Math.max(0.0, getNumRunningLocomotives() - 1.0) * 0.075;
         return (float) (double) stream()
